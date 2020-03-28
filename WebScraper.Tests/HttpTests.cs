@@ -25,18 +25,16 @@ namespace WebScraper.Tests
             var document = await htmlLoader.Load();
 
             var discountPrice = document.QuerySelectorAll("div._1u3j_pk1db").FirstOrDefault().TextContent;
-            var price = document.QuerySelectorAll("div._1vKgTDo6wh").FirstOrDefault().TextContent;
+            discountPrice = discountPrice.Replace("₽", "").Trim();
 
-            //TODO: Добавить извлечение цены из <span data-tid="c3eaad93">98 999</span>
+            var price = document.QuerySelectorAll("div._1vKgTDo6wh").FirstOrDefault().TextContent;
+            price = price.Replace("₽", "").Trim();
 
             if (discountPrice != null && price == null)
             {
                 price = discountPrice;
                 discountPrice = null;
             }
-
-            Console.WriteLine($"Цена: {price}");
-            Console.WriteLine($"Цена со скидкой: {discountPrice}");
         }
 
         [Test]
