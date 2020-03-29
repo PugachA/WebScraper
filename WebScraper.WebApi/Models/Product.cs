@@ -1,34 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using WebScraper.WebApi.Models.Interfaces;
 
 namespace WebScraper.WebApi.Models
 {
     public class Product : IProduct
     {
-        public string Url { get; }
+        public Uri Url { get; }
+        public Site Site { get; set; }
+        public List<string> Scheduler { get; set; }
 
-        public IProductProperties ProductProperties { get; set; }
-
-        public Product(string url, IProductProperties productProperties)
+        public Product(Uri url, Site site, List<string> scheduler)
         {
             Url = url;
-            ProductProperties = productProperties;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is Product product &&
-                   Url == product.Url;
-        }
-
-        public override string ToString()
-        {
-            return Url;
-        }
-
-        public override int GetHashCode()
-        {
-            return -1915121810 + EqualityComparer<string>.Default.GetHashCode(Url);
+            Site = site;
+            Scheduler = scheduler;
         }
     }
 }

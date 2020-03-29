@@ -1,10 +1,12 @@
-﻿namespace WebScraper.WebApi.Models.Interfaces
+﻿using System;
+using System.Collections.Generic;
+
+namespace WebScraper.WebApi.Models.Interfaces
 {
     public interface IProduct
     {
-        string Url { get; }
-        IProductProperties ProductProperties { get; set; }
-
-        int GetHashCode();
+        List<string> Scheduler { get; set; }
+        Site Site { get; set; }
+        Uri Url { get; }
     }
 }

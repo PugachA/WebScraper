@@ -4,7 +4,15 @@ using System.Text;
 
 namespace WebScraper.WebApi.Models
 {
-    class Site
+    public class Site
     {
+        public string Name { get; set; }
+        public SiteSettings Settings { get; set; }
+
+        public Site(string name, SiteSettings settings)
+        {
+            Name = name;
+            Settings = settings;
+        }
     }
 }

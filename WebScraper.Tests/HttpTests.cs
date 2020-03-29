@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebScraper.WebApi.Models;
+using WebScraper.WebApi.Models.Factories;
 
 namespace WebScraper.Tests
 {
@@ -21,20 +22,19 @@ namespace WebScraper.Tests
         [Test]
         public async Task BeruTest()
         {
-            HtmlLoader htmlLoader = new HtmlLoader(new Uri(@"https://beru.ru/product/finish-opolaskivatel-dlia-posudomoechnoi-mashiny-0-4-l/100235939298?show-uid=15827428683748816103006024"));
+            var site = new Site("Beru", null);
+            var product = new Product(
+                new Uri(@"https://beru.ru/product/finish-opolaskivatel-dlia-posudomoechnoi-mashiny-0-4-l/100235939298?show-uid=15827428683748816103006024"),
+                site,
+                null);
+
+            var htmlLoader = new HtmlLoader(product.Url);
             var document = await htmlLoader.Load();
 
-            var discountPrice = document.QuerySelectorAll("div._1u3j_pk1db").FirstOrDefault().TextContent;
-            discountPrice = discountPrice.Replace("₽", "").Trim();
+            var parserFactory = new PriceParserFactory();
+            var priceParser = parserFactory.Get(product.Site);
 
-            var price = document.QuerySelectorAll("div._1vKgTDo6wh").FirstOrDefault().TextContent;
-            price = price.Replace("₽", "").Trim();
-
-            if (discountPrice != null && price == null)
-            {
-                price = discountPrice;
-                discountPrice = null;
-            }
+            var priceInfo = priceParser.Parse(document);
         }
 
         [Test]
