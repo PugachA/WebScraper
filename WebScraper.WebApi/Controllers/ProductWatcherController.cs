@@ -23,10 +23,16 @@ namespace WebScraper.WebApi.Controllers
         {
             try
             {
-                _productWatcherContext.SiteSettings.Add(new SiteSettings { AutoGenerateSchedule = true });
+                var siteSettings = new SiteSettings { AutoGenerateSchedule = false };
+                _productWatcherContext.SiteSettings.Add(siteSettings);
+
+                var site = new SiteDto("Test", siteSettings);
+                _productWatcherContext.Sites.Add(site);
+
+                _productWatcherContext.Products.Add(new ProductDto { Site = site, Url = "sdf", Scheduler = new List<string> { "sdf", "sdfsdf" } });
                 _productWatcherContext.SaveChanges();
 
-                var settings = _productWatcherContext.SiteSettings.First();
+                var settings = _productWatcherContext.Products.First();
 
                 if (productId < 0)
                 {
