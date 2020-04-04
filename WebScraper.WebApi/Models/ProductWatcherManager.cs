@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using WebScraper.WebApi.DTO;
 using WebScraper.WebApi.Models.Factories;
 
@@ -9,7 +10,7 @@ namespace WebScraper.WebApi.Models
     /// </summary>
     public class ProductWatcherManager
     {
-        public async Task<PriceInfoDto> ExtractPriceInfo(int productId)
+        public async Task<PriceInfo> ExtractPriceInfo(int productId)
         {
             //var site = new Site("Beru", null);
             //var product = new Product(
@@ -19,7 +20,7 @@ namespace WebScraper.WebApi.Models
 
             var product = await GetProductAsync(productId);
 
-            var htmlLoader = new HtmlLoader(product.Url);
+            var htmlLoader = new HtmlLoader(new Uri(product.Url));
             var document = await htmlLoader.Load();
 
             var parserFactory = new PriceParserFactory();

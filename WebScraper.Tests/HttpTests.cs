@@ -25,11 +25,11 @@ namespace WebScraper.Tests
         {
             var site = new SiteDto("Beru", null);
             var product = new ProductDto(
-                new Uri(@"https://beru.ru/product/finish-opolaskivatel-dlia-posudomoechnoi-mashiny-0-4-l/100235939298?show-uid=15827428683748816103006024"),
+                @"https://beru.ru/product/finish-opolaskivatel-dlia-posudomoechnoi-mashiny-0-4-l/100235939298?show-uid=15827428683748816103006024",
                 site,
                 null);
 
-            var htmlLoader = new HtmlLoader(product.Url);
+            var htmlLoader = new HtmlLoader(new Uri(product.Url));
             var document = await htmlLoader.Load();
 
             var parserFactory = new PriceParserFactory();

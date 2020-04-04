@@ -9,7 +9,7 @@ namespace WebScraper.WebApi.Models
 {
     public class BeruPriceParser : IPriceParser
     {
-        public PriceInfoDto Parse(IHtmlDocument htmlDocument)
+        public PriceInfo Parse(IHtmlDocument htmlDocument)
         {
             var discountPrice = htmlDocument.QuerySelectorAll("div._1u3j_pk1db").FirstOrDefault().TextContent;
             discountPrice = discountPrice.Replace("₽", "").Trim();
@@ -31,7 +31,7 @@ namespace WebScraper.WebApi.Models
 
             int? discountPriceValue = discountPrice == null ? null : (int?)discountPriceTemp * 100;
 
-            return new PriceInfoDto(priceValue * 100, discountPriceValue);
+            return new PriceInfo(priceValue * 100, discountPriceValue);
         }
     }
 }

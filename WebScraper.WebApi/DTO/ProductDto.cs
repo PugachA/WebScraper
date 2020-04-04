@@ -1,20 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using WebScraper.WebApi.DTO.Interfaces;
 
 namespace WebScraper.WebApi.DTO
 {
     public class ProductDto : IProduct
     {
-        public Uri Url { get; }
+        [Key]
+        public int Id { get; set; }
+        public string Url { get; set; }
         public SiteDto Site { get; set; }
+
+        [NotMapped]
         public List<string> Scheduler { get; set; }
 
-        public ProductDto(Uri url, SiteDto site, List<string> scheduler)
+        public List<PriceDto> Prices { get; set; }
+
+        public ProductDto(string url, SiteDto site, List<string> scheduler)
         {
             Url = url;
             Site = site;
             Scheduler = scheduler;
         }
+
+        public ProductDto() { }
     }
 }

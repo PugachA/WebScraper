@@ -5,6 +5,6 @@ namespace WebScraper.WebApi.Models
 {
     public interface IPriceParser
     {
-        PriceInfoDto Parse(IHtmlDocument htmlDocument);
+        PriceInfo Parse(IHtmlDocument htmlDocument);
     }
 }

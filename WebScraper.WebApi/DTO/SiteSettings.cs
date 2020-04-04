@@ -1,9 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebScraper.WebApi.DTO
 {
     public class SiteSettings
     {
+        [Key]
+        public int Id { get; set; }
         public string BaseUrl { get; set; } 
         public bool AutoGenerateSchedule { get; set; }
         public TimeSpan MinCheckInterval { get; set; } = TimeSpan.FromMinutes(30);

@@ -1,12 +1,12 @@
 ﻿namespace WebScraper.WebApi.DTO
 {
-    public class PriceInfoDto
+    public class PriceInfo
     {
         public int Price { get; set; }
         public int? DicountPrice { get; set; }
         public double? DiscountPercentage { get; set; }
 
-        public PriceInfoDto(int price, int? dicountPrice)
+        public PriceInfo(int price, int? dicountPrice)
         {
             this.Price = price;
             this.DicountPrice = dicountPrice;

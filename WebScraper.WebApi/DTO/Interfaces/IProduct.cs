@@ -7,6 +7,6 @@ namespace WebScraper.WebApi.DTO.Interfaces
     {
         List<string> Scheduler { get; set; }
         SiteDto Site { get; set; }
-        Uri Url { get; }
+        string Url { get; }
     }
 }

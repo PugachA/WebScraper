@@ -12,15 +12,22 @@ namespace WebScraper.WebApi.Controllers
     [ApiController]
     public class ProductWatcherController : ControllerBase
     {
-        public ProductWatcherController()
+        private readonly ProductWatcherContext _productWatcherContext;
+        public ProductWatcherController(ProductWatcherContext productWatcherContext)
         {
+            _productWatcherContext = productWatcherContext;
         }
 
         [HttpGet("priceinfo")]
-        public async Task<ActionResult<PriceInfoDto>> GetPriceInfo(int productId)
+        public async Task<ActionResult<PriceInfo>> GetPriceInfo(int productId)
         {
             try
             {
+                _productWatcherContext.SiteSettings.Add(new SiteSettings { AutoGenerateSchedule = true });
+                _productWatcherContext.SaveChanges();
+
+                var settings = _productWatcherContext.SiteSettings.First();
+
                 if (productId < 0)
                 {
                     //_logger.LogInformation($"Запрос не прошел валидацию. {nameof(paymentId)}={paymentId} должен быть неотрицательным числом");
