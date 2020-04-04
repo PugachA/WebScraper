@@ -9,7 +9,7 @@ namespace WebScraper.WebApi.Models
     /// </summary>
     public class ProductWatcherManager
     {
-        public async Task<PriceInfo> ExtractPriceInfo(int productId)
+        public async Task<PriceInfoDto> ExtractPriceInfo(int productId)
         {
             //var site = new Site("Beru", null);
             //var product = new Product(
@@ -30,7 +30,7 @@ namespace WebScraper.WebApi.Models
             return priceInfo;
         }
 
-        private async Task<Product> GetProductAsync(int productId)
+        private async Task<ProductDto> GetProductAsync(int productId)
         {
             return null;
         }

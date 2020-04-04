@@ -4,13 +4,13 @@ using WebScraper.WebApi.DTO.Interfaces;
 
 namespace WebScraper.WebApi.DTO
 {
-    public class Product : IProduct
+    public class ProductDto : IProduct
     {
         public Uri Url { get; }
-        public Site Site { get; set; }
+        public SiteDto Site { get; set; }
         public List<string> Scheduler { get; set; }
 
-        public Product(Uri url, Site site, List<string> scheduler)
+        public ProductDto(Uri url, SiteDto site, List<string> scheduler)
         {
             Url = url;
             Site = site;

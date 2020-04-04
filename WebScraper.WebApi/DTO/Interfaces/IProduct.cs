@@ -6,7 +6,7 @@ namespace WebScraper.WebApi.DTO.Interfaces
     public interface IProduct
     {
         List<string> Scheduler { get; set; }
-        Site Site { get; set; }
+        SiteDto Site { get; set; }
         Uri Url { get; }
     }
 }

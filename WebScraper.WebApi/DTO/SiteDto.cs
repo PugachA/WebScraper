@@ -1,11 +1,11 @@
 ﻿namespace WebScraper.WebApi.DTO
 {
-    public class Site
+    public class SiteDto
     {
         public string Name { get; set; }
         public SiteSettings Settings { get; set; }
 
-        public Site(string name, SiteSettings settings)
+        public SiteDto(string name, SiteSettings settings)
         {
             Name = name;
             Settings = settings;

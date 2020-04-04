@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using WebScraper.WebApi.Cron;
+using WebScraper.WebApi.DTO;
 using WebScraper.WebApi.Models;
 
 namespace WebScraper.Tests
@@ -16,7 +17,7 @@ namespace WebScraper.Tests
         [Test]
         public void SampleTest1()
         {
-            List<Product> products = new List<Product>();
+            List<ProductDto> products = new List<ProductDto>();
             //{
             //    new Product("test1"),
             //    new Product("test2"),

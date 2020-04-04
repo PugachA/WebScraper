@@ -14,6 +14,6 @@ namespace WebScraper.WebApi.Models.Factories
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        T Get(Site site);
+        T Get(SiteDto site);
     }
 }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebScraper.WebApi.DTO;
 using WebScraper.WebApi.Models;
 using WebScraper.WebApi.Models.Factories;
 
@@ -22,8 +23,8 @@ namespace WebScraper.Tests
         [Test]
         public async Task BeruTest()
         {
-            var site = new Site("Beru", null);
-            var product = new Product(
+            var site = new SiteDto("Beru", null);
+            var product = new ProductDto(
                 new Uri(@"https://beru.ru/product/finish-opolaskivatel-dlia-posudomoechnoi-mashiny-0-4-l/100235939298?show-uid=15827428683748816103006024"),
                 site,
                 null);

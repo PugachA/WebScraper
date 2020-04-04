@@ -5,7 +5,7 @@ namespace WebScraper.WebApi.Models.Factories
 {
     public class PriceParserFactory : IFactory<IPriceParser>
     {
-        public IPriceParser Get(Site site) =>
+        public IPriceParser Get(SiteDto site) =>
             site.Name switch
             {
                 "Beru" => new BeruPriceParser(),

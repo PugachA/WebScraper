@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebScraper.WebApi.DTO;
 using WebScraper.WebApi.Models;
 
 namespace WebScraper.WebApi.Controllers
@@ -16,7 +17,7 @@ namespace WebScraper.WebApi.Controllers
         }
 
         [HttpGet("priceinfo")]
-        public async Task<ActionResult<PriceInfo>> GetPriceInfo(int productId)
+        public async Task<ActionResult<PriceInfoDto>> GetPriceInfo(int productId)
         {
             try
             {
@@ -57,7 +58,7 @@ namespace WebScraper.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Product>> Post(Product product)
+        public async Task<ActionResult<ProductDto>> Post(ProductDto product)
         {
             try
             {
