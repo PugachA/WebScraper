@@ -18,8 +18,7 @@ namespace WebScraper.WebApi.Models
 
         public ProductWatcherContext(DbContextOptions<ProductWatcherContext> options) : base(options)
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
+            Database.Migrate();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

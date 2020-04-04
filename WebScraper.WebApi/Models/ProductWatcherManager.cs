@@ -10,6 +10,13 @@ namespace WebScraper.WebApi.Models
     /// </summary>
     public class ProductWatcherManager
     {
+        private readonly ProductWatcherContext _productWatcherContext;
+
+        public ProductWatcherManager(ProductWatcherContext productWatcherContext)
+        {
+            _productWatcherContext = productWatcherContext;
+        }
+
         public async Task<PriceInfo> ExtractPriceInfo(int productId)
         {
             //var site = new Site("Beru", null);
