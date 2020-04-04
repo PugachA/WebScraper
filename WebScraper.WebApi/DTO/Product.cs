@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using WebScraper.WebApi.Models.Interfaces;
+using WebScraper.WebApi.DTO.Interfaces;
 
-namespace WebScraper.WebApi.Models
+namespace WebScraper.WebApi.DTO
 {
     public class Product : IProduct
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WebScraper.WebApi.Models.Interfaces
+namespace WebScraper.WebApi.DTO.Interfaces
 {
     public interface IProductProperties
     {

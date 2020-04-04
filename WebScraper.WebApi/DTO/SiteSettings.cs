@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebScraper.WebApi.Models
+namespace WebScraper.WebApi.DTO
 {
     public class SiteSettings
     {

@@ -3,8 +3,6 @@ using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
 using RestSharp;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace WebScraper.WebApi.Models

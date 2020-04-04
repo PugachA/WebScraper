@@ -1,4 +1,6 @@
 ﻿
+using WebScraper.WebApi.DTO;
+
 namespace WebScraper.WebApi.Models.Factories
 {
     /// <summary>

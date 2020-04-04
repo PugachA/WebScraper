@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WebScraper.WebApi.Models.Interfaces
+namespace WebScraper.WebApi.DTO.Interfaces
 {
     public interface IProduct
     {

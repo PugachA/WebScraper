@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WebScraper.WebApi.Models
+﻿namespace WebScraper.WebApi.DTO
 {
     public class Site
     {
