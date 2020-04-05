@@ -19,6 +19,9 @@ namespace WebScraper.WebApi.Cron
 
         public Dictionary<ProductDto, List<string>> GenerateSchedule(IEnumerable<ProductDto> products)
         {
+            if (!products.Any())
+                throw new ArgumentException($"{nameof(products)} не может быть пустым")
+                    ;
             if (products.Count() > _maxProductCount)
                 throw new ArgumentOutOfRangeException($"Количество товаров {products.Count()} превысило максимально допустимое количество {_maxProductCount}");
 
