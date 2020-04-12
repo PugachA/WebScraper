@@ -50,7 +50,7 @@ namespace WebScraper.WebApi.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost("priceinfo")]
         public async Task<ActionResult> PostPriceInfo(int productId)
         {
             try
@@ -70,7 +70,7 @@ namespace WebScraper.WebApi.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("product")]
         public async Task<ActionResult<ProductDto>> Post(ProductDto product)
         {
             try
