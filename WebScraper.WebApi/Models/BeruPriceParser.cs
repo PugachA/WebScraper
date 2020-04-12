@@ -11,11 +11,8 @@ namespace WebScraper.WebApi.Models
     {
         public PriceInfo Parse(IHtmlDocument htmlDocument)
         {
-            var discountPrice = htmlDocument.QuerySelectorAll("div._1u3j_pk1db").FirstOrDefault().TextContent;
-            discountPrice = discountPrice.Replace("₽", "").Trim();
-
-            var price = htmlDocument.QuerySelectorAll("div._1vKgTDo6wh").FirstOrDefault().TextContent;
-            price = price.Replace("₽", "").Trim();
+            var discountPrice = htmlDocument.QuerySelectorAll("div._1u3j_pk1db").FirstOrDefault()?.TextContent;
+            var price = htmlDocument.QuerySelectorAll("div._1vKgTDo6wh").FirstOrDefault()?.TextContent;
 
             if (discountPrice != null && price == null)
             {
@@ -23,11 +20,14 @@ namespace WebScraper.WebApi.Models
                 discountPrice = null;
             }
 
+            discountPrice = discountPrice?.Replace("₽", "").Trim();
+            price = price?.Replace("₽", "").Trim();
+
             if (!int.TryParse(price, out int priceValue))
-                throw new InvalidCastException();
+                throw new InvalidCastException($"Не удалось привести {nameof(price)}={price} к int");
 
             if (!int.TryParse(discountPrice, out int discountPriceTemp) && discountPrice != null)
-                throw new InvalidCastException();
+                throw new InvalidCastException($"Не удалось привести {nameof(discountPrice)}={discountPrice} к int");
 
             int? discountPriceValue = discountPrice == null ? null : (int?)discountPriceTemp * 100;
 

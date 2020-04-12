@@ -14,6 +14,8 @@ namespace WebScraper.WebApi
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -23,8 +25,6 @@ namespace WebScraper.WebApi
 
             Configuration = builder.Build();
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -36,6 +36,8 @@ namespace WebScraper.WebApi
                     options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")),
                     ServiceLifetime.Transient,
                     ServiceLifetime.Transient);
+
+            services.AddTransient<ProductWatcherManager>();
 
             services.AddSwaggerGen(options =>
             {

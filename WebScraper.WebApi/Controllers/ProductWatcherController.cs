@@ -13,27 +13,19 @@ namespace WebScraper.WebApi.Controllers
     public class ProductWatcherController : ControllerBase
     {
         private readonly ProductWatcherContext _productWatcherContext;
-        public ProductWatcherController(ProductWatcherContext productWatcherContext)
+        private readonly ProductWatcherManager _productWatcherManager;
+
+        public ProductWatcherController(ProductWatcherContext productWatcherContext, ProductWatcherManager productWatcherManager)
         {
-            _productWatcherContext = productWatcherContext;
+            _productWatcherContext = productWatcherContext ?? throw new ArgumentNullException($"Параметр {nameof(productWatcherContext)} не может быть null");
+            _productWatcherManager = productWatcherManager ?? throw new ArgumentNullException($"Параметр {nameof(productWatcherManager)} не может быть null");
         }
 
-        [HttpGet("priceinfo")]
-        public async Task<ActionResult<PriceInfo>> GetPriceInfo(int productId)
+        [HttpGet("price")]
+        public async Task<ActionResult<PriceDto>> GetPrice(int productId)
         {
             try
             {
-                var siteSettings = new SiteSettings { AutoGenerateSchedule = false };
-                _productWatcherContext.SiteSettings.Add(siteSettings);
-
-                var site = new SiteDto("Test", siteSettings);
-                _productWatcherContext.Sites.Add(site);
-
-                _productWatcherContext.Products.Add(new ProductDto { Site = site, Url = "sdf", Scheduler = new List<string> { "sdf", "sdfsdf" } });
-                _productWatcherContext.SaveChanges();
-
-                var settings = _productWatcherContext.Products.First();
-
                 if (productId < 0)
                 {
                     //_logger.LogInformation($"Запрос не прошел валидацию. {nameof(paymentId)}={paymentId} должен быть неотрицательным числом");
@@ -49,9 +41,8 @@ namespace WebScraper.WebApi.Controllers
             }
         }
 
-
-        [HttpPost("priceinfo")]
-        public async Task<ActionResult> PostPriceInfo(int productId)
+        [HttpPost("price")]
+        public async Task<ActionResult> PostPrice(int productId)
         {
             try
             {
@@ -61,7 +52,9 @@ namespace WebScraper.WebApi.Controllers
                     return BadRequest($"Запрос не прошел валидацию. {nameof(productId)}={productId} должен быть неотрицательным числом");
                 }
 
-                return Ok(null);
+                await _productWatcherManager.ExtractPriceDto(productId);
+
+                return Ok();
             }
             catch (Exception ex)
             {

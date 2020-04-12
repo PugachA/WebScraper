@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading.Tasks;
 using WebScraper.WebApi.DTO;
 using WebScraper.WebApi.Models.Factories;
@@ -17,15 +18,41 @@ namespace WebScraper.WebApi.Models
             _productWatcherContext = productWatcherContext;
         }
 
-        public async Task<PriceInfo> ExtractPriceInfo(int productId)
+        public async Task ExtractPriceDto(int productId)
         {
-            //var site = new Site("Beru", null);
-            //var product = new Product(
-            //    new Uri(@"https://beru.ru/product/finish-opolaskivatel-dlia-posudomoechnoi-mashiny-0-4-l/100235939298?show-uid=15827428683748816103006024"),
-            //    site,
-            //    null);
+            var priceInfo = await ExtractPriceInfo(productId);
 
+            if (priceInfo == null)
+                throw new NullReferenceException($"Не удалось извлечь {nameof(PriceInfo)} для {nameof(productId)}={productId}");
+
+            var priceDto = ConvertToPriceDto(priceInfo);
+
+            _productWatcherContext.Prices.Add(priceDto);
+            _productWatcherContext.SaveChanges();
+        }
+
+        private PriceDto ConvertToPriceDto(PriceInfo priceInfo)
+        {
+            if (priceInfo == null)
+                throw new ArgumentNullException($"Параметр {nameof(priceInfo)} не может быть null");
+
+            var priceDto = new PriceDto
+            {
+                Price = priceInfo.Price,
+                DicountPrice = priceInfo.DicountPrice,
+                DiscountPercentage = priceInfo.DiscountPercentage,
+                Date = DateTime.Now
+            };
+
+            return priceDto;
+        }
+
+        private async Task<PriceInfo> ExtractPriceInfo(int productId)
+        {
             var product = await GetProductAsync(productId);
+
+            if (product == null)
+                throw new NullReferenceException($"Не удалось найти продукт по {nameof(productId)}={productId}");
 
             var htmlLoader = new HtmlLoader(new Uri(product.Url));
             var document = await htmlLoader.Load();
@@ -40,7 +67,12 @@ namespace WebScraper.WebApi.Models
 
         private async Task<ProductDto> GetProductAsync(int productId)
         {
-            return null;
+            var productDto = await _productWatcherContext.Products
+                .Include(p => p.Site)
+                .Include(p => p.Site.Settings)
+                .SingleOrDefaultAsync(p => p.Id == productId);
+
+            return productDto;
         }
     }
 }
