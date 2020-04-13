@@ -23,15 +23,15 @@ namespace WebScraper.WebApi.Models
             discountPrice = discountPrice?.Replace("₽", "").Trim();
             price = price?.Replace("₽", "").Trim();
 
-            if (!int.TryParse(price, out int priceValue))
+            if (!Decimal.TryParse(price, out decimal priceValue))
                 throw new InvalidCastException($"Не удалось привести {nameof(price)}={price} к int");
 
-            if (!int.TryParse(discountPrice, out int discountPriceTemp) && discountPrice != null)
+            if (!Decimal.TryParse(discountPrice, out decimal discountPriceTemp) && discountPrice != null)
                 throw new InvalidCastException($"Не удалось привести {nameof(discountPrice)}={discountPrice} к int");
 
-            int? discountPriceValue = discountPrice == null ? null : (int?)discountPriceTemp * 100;
+            decimal? discountPriceValue = discountPrice == null ? null : (decimal?)discountPriceTemp;
 
-            return new PriceInfo(priceValue * 100, discountPriceValue);
+            return new PriceInfo(priceValue, discountPriceValue);
         }
     }
 }
