@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace WebScraper.WebApi.DTO
 {
@@ -14,6 +16,7 @@ namespace WebScraper.WebApi.DTO
 
         public SiteSettings Settings { get; set; }
 
+        [JsonIgnore]
         public List<ProductDto> Products { get; set; }
 
         public SiteDto(string name, SiteSettings settings)

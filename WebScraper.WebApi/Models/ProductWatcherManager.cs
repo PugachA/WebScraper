@@ -66,7 +66,7 @@ namespace WebScraper.WebApi.Models
             return priceInfo;
         }
 
-        private async Task<ProductDto> GetProductAsync(int productId)
+        public async Task<ProductDto> GetProductAsync(int productId)
         {
             var productDto = await _productWatcherContext.Products
                 .Include(p => p.Site)

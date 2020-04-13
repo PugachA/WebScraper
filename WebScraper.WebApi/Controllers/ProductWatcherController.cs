@@ -32,7 +32,12 @@ namespace WebScraper.WebApi.Controllers
                     return BadRequest($"Запрос не прошел валидацию. {nameof(productId)}={productId} должен быть неотрицательным числом");
                 }
 
-                return Ok(null);
+                var productDto = await _productWatcherManager.GetProductAsync(productId);
+
+                //if (productDto == null)
+                //_logger.LogError($"Не удалось найти цену для товара {nameof(productId)}={productId}");
+
+                return Ok(productDto);
             }
             catch (Exception ex)
             {
