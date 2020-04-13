@@ -12,12 +12,10 @@ namespace WebScraper.WebApi.Controllers
     [ApiController]
     public class ProductWatcherController : ControllerBase
     {
-        private readonly ProductWatcherContext _productWatcherContext;
         private readonly ProductWatcherManager _productWatcherManager;
 
-        public ProductWatcherController(ProductWatcherContext productWatcherContext, ProductWatcherManager productWatcherManager)
+        public ProductWatcherController(ProductWatcherManager productWatcherManager)
         {
-            _productWatcherContext = productWatcherContext ?? throw new ArgumentNullException($"Параметр {nameof(productWatcherContext)} не может быть null");
             _productWatcherManager = productWatcherManager ?? throw new ArgumentNullException($"Параметр {nameof(productWatcherManager)} не может быть null");
         }
 
