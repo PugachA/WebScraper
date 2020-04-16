@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using WebScraper.WebApi.DTO;
 using WebScraper.WebApi.Models.Factories;
@@ -66,7 +67,7 @@ namespace WebScraper.WebApi.Models
             return priceInfo;
         }
 
-        public async Task<ProductDto> GetProductAsync(int productId)
+        private async Task<ProductDto> GetProductAsync(int productId)
         {
             var productDto = await _productWatcherContext.Products
                 .Include(p => p.Site)
@@ -74,6 +75,16 @@ namespace WebScraper.WebApi.Models
                 .SingleOrDefaultAsync(p => p.Id == productId);
 
             return productDto;
+        }
+
+        public async Task<PriceDto> GetLastPriceDto(int productId)
+        {
+            var priceDto = await _productWatcherContext.Prices
+                .Where(p => p.ProductId == productId)
+                .OrderBy(p => p.Date)
+                .LastOrDefaultAsync();
+
+            return priceDto;
         }
     }
 }
