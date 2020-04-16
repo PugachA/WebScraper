@@ -9,6 +9,7 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.IO;
 using System;
+using NLog.Extensions.Logging;
 
 namespace WebScraper.WebApi
 {
@@ -24,6 +25,8 @@ namespace WebScraper.WebApi
                 .AddConfiguration(configuration);
 
             Configuration = builder.Build();
+
+            NLog.LogManager.Configuration = new NLogLoggingConfiguration(Configuration.GetSection("NLog"));
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
