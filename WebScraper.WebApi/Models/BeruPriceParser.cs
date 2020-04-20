@@ -14,6 +14,9 @@ namespace WebScraper.WebApi.Models
             var discountPrice = htmlDocument.QuerySelectorAll("div._1u3j_pk1db").FirstOrDefault()?.TextContent;
             var price = htmlDocument.QuerySelectorAll("div._1vKgTDo6wh").FirstOrDefault()?.TextContent;
 
+            if (discountPrice == null && price == null)
+                return null;
+
             if (discountPrice != null && price == null)
             {
                 price = discountPrice;

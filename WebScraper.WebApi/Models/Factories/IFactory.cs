@@ -12,7 +12,7 @@ namespace WebScraper.WebApi.Models.Factories
         /// <summary>
         /// Получение значения по ключу
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="site"></param>
         /// <returns></returns>
         T Get(SiteDto site);
     }

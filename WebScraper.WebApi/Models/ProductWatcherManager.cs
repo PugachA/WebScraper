@@ -19,17 +19,22 @@ namespace WebScraper.WebApi.Models
             _productWatcherContext = productWatcherContext;
         }
 
-        public async Task ExtractPriceDto(int productId)
+        public async Task<PriceDto> ExtractPriceDto(ProductDto product)
         {
-            var priceInfo = await ExtractPriceInfo(productId);
+            if (product == null)
+                throw new ArgumentNullException($"Параметр {nameof(product)} не может быть null");
+
+            var priceInfo = await ExtractPriceInfo(product);
 
             if (priceInfo == null)
-                throw new NullReferenceException($"Не удалось извлечь {nameof(PriceInfo)} для {nameof(productId)}={productId}");
+                throw new NullReferenceException($"Не удалось извлечь {nameof(PriceInfo)} для {nameof(product)}={product}");
 
-            var priceDto = ConvertToPriceDto(priceInfo, productId);
+            var priceDto = ConvertToPriceDto(priceInfo, product.Id);
 
             _productWatcherContext.Prices.Add(priceDto);
             _productWatcherContext.SaveChanges();
+
+            return priceDto;
         }
 
         private PriceDto ConvertToPriceDto(PriceInfo priceInfo, int productId)
@@ -49,13 +54,8 @@ namespace WebScraper.WebApi.Models
             return priceDto;
         }
 
-        private async Task<PriceInfo> ExtractPriceInfo(int productId)
+        private async Task<PriceInfo> ExtractPriceInfo(ProductDto product)
         {
-            var product = await GetProductAsync(productId);
-
-            if (product == null)
-                throw new NullReferenceException($"Не удалось найти продукт по {nameof(productId)}={productId}");
-
             var htmlLoader = new HtmlLoader(new Uri(product.Url));
             var document = await htmlLoader.Load();
 
@@ -67,7 +67,7 @@ namespace WebScraper.WebApi.Models
             return priceInfo;
         }
 
-        private async Task<ProductDto> GetProductAsync(int productId)
+        public async Task<ProductDto> GetProductAsync(int productId)
         {
             var productDto = await _productWatcherContext.Products
                 .Include(p => p.Site)
