@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,10 +14,12 @@ namespace WebScraper.WebApi.Models
     public class ProductWatcherManager
     {
         private readonly ProductWatcherContext _productWatcherContext;
+        private readonly ILogger _logger;
 
-        public ProductWatcherManager(ProductWatcherContext productWatcherContext)
+        public ProductWatcherManager(ProductWatcherContext productWatcherContext, ILogger logger)
         {
             _productWatcherContext = productWatcherContext;
+            _logger = logger;
         }
 
         public async Task<PriceDto> ExtractPriceDto(ProductDto product)
@@ -59,7 +62,7 @@ namespace WebScraper.WebApi.Models
             var htmlLoader = new HtmlLoader(new Uri(product.Url));
             var document = await htmlLoader.Load();
 
-            var parserFactory = new PriceParserFactory();
+            var parserFactory = new PriceParserFactory(_logger);
             var priceParser = parserFactory.Get(product.Site);
 
             var priceInfo = priceParser.Parse(document);

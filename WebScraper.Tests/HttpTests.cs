@@ -25,14 +25,14 @@ namespace WebScraper.Tests
         {
             var site = new SiteDto("Beru", null);
             var product = new ProductDto(
-                @"https://beru.ru/product/finish-opolaskivatel-dlia-posudomoechnoi-mashiny-0-4-l/100235939298?show-uid=15827428683748816103006024",
+                @"https://beru.ru/product/frima-zamenitel-sukhogo-molochnogo-produkta-500-g/100714261945?offerid=yuVX7VkKijDxDwzZnPR6yw&track=cart",
                 site,
                 null);
 
             var htmlLoader = new HtmlLoader(new Uri(product.Url));
             var document = await htmlLoader.Load();
 
-            var parserFactory = new PriceParserFactory();
+            var parserFactory = new PriceParserFactory(null);
             var priceParser = parserFactory.Get(product.Site);
 
             var priceInfo = priceParser.Parse(document);
