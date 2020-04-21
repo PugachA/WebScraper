@@ -31,7 +31,12 @@
     <None Update="InitialDataFill.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="WebScraper.WebApi.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="http://json.schemastore.org/ansible-stable-2.9" /></VisualStudio></ProjectExtensions>
 
 
 </Project>

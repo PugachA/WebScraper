@@ -29,6 +29,5 @@ namespace WebScraper.WebApi
                     logging.SetMinimumLevel(LogLevel.Trace);
                 })
                 .UseNLog();
-        
     }
 }

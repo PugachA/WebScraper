@@ -45,6 +45,8 @@ namespace WebScraper.WebApi
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Web Scraper", Version = "v1" });
+
+                // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 options.IncludeXmlComments(xmlPath);
@@ -63,9 +65,7 @@ namespace WebScraper.WebApi
 
             app.UseSwaggerUI(c =>
             {
-                c.RoutePrefix = "api/swagger";
-                string swaggerJsonBasePath = string.IsNullOrWhiteSpace(c.RoutePrefix) ? "." : "..";
-                c.SwaggerEndpoint($"/swagger/v1/swagger.json", "Web Scraper API");
+                c.SwaggerEndpoint($"./v1/swagger.json", "Web Scraper API");
             });
 
             app.UseHttpsRedirection();
