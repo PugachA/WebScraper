@@ -27,7 +27,10 @@ namespace WebScraper.WebApi.Models
                 var info = htmlDocument.QuerySelectorAll("div._1w2bHIINJu").FirstOrDefault()?.TextContent;
 
                 if (info != null)
+                {
                     _logger.LogInformation($"Возможно товар разобрали или он удален. Info: {info}");
+                    return new PriceInfo { AdditionalInformation = info };
+                }
 
                 return null;
             }

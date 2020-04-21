@@ -16,7 +16,7 @@ namespace WebScraper.WebApi.Models
         private readonly ProductWatcherContext _productWatcherContext;
         private readonly ILogger _logger;
 
-        public ProductWatcherManager(ProductWatcherContext productWatcherContext, ILogger logger)
+        public ProductWatcherManager(ProductWatcherContext productWatcherContext, ILogger<ProductWatcherManager> logger)
         {
             _productWatcherContext = productWatcherContext;
             _logger = logger;
@@ -50,6 +50,7 @@ namespace WebScraper.WebApi.Models
                 Price = priceInfo.Price,
                 DicountPrice = priceInfo.DicountPrice,
                 DiscountPercentage = priceInfo.DiscountPercentage,
+                AdditionalInformation = priceInfo.AdditionalInformation,
                 Date = DateTime.Now,
                 ProductId = productId
             };

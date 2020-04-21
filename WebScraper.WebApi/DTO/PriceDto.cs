@@ -12,9 +12,17 @@ namespace WebScraper.WebApi.DTO
     {
         [Key]
         public int Id { get; set; }
-        public decimal Price { get; set; }
+
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal? Price { get; set; }
+
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal? DicountPrice { get; set; }
         public double? DiscountPercentage { get; set; }
+        
+        [MaxLength(100)]
+        public string AdditionalInformation { get; set; }
+
         public DateTime Date { get; set; }
 
         [JsonIgnore]
