@@ -41,8 +41,8 @@ namespace WebScraper.WebApi.Models
                 discountPrice = null;
             }
 
-            discountPrice = discountPrice?.Replace("₽", "").Trim();
-            price = price?.Replace("₽", "").Trim();
+            discountPrice = discountPrice?.Replace("₽", "").Replace(" ", "");
+            price = price?.Replace("₽", "").Replace(" ", "");
 
             if (!Decimal.TryParse(price, out decimal priceValue))
                 throw new InvalidCastException($"Не удалось привести {nameof(price)}={price} к int");
