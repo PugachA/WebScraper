@@ -37,7 +37,10 @@ namespace WebScraper.WebApi.Controllers
                 var priceDto = await _productWatcherManager.GetLastPriceDto(productId);
 
                 if (priceDto == null)
+                {
                     _logger.LogError($"Не удалось найти цену для товара {nameof(productId)}={productId}");
+                    return NoContent();
+                }
 
                 return Ok(priceDto);
             }
@@ -67,7 +70,7 @@ namespace WebScraper.WebApi.Controllers
                 if (productDto == null)
                 {
                     _logger.LogError($"Не удалось найти продукт по id={productId}");
-                    return BadRequest($"Не удалось найти продукт по id={productId}");
+                    return NoContent();
                 }
 
                 await _productWatcherManager.ExtractPriceDto(productDto);
