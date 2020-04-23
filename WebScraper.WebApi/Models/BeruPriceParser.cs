@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WebScraper.WebApi.DTO;
 
@@ -41,8 +42,15 @@ namespace WebScraper.WebApi.Models
                 discountPrice = null;
             }
 
-            discountPrice = discountPrice?.Replace("₽", "").Replace(" ", "");
-            price = price?.Replace("₽", "").Replace(" ", "");
+            discountPrice = discountPrice?.Replace(" ", "");
+            price = price?.Replace(" ", "");
+
+            Regex regex = new Regex(@"\d+");
+            if (discountPrice != null)
+                discountPrice = regex.Match(discountPrice).Value;
+
+            if (price != null)
+                price = regex.Match(price).Value;
 
             if (!Decimal.TryParse(price, out decimal priceValue))
                 throw new InvalidCastException($"Не удалось привести {nameof(price)}={price} к int");
