@@ -20,8 +20,17 @@ namespace WebScraper.WebApi.Models
 
         public PriceInfo Parse(IHtmlDocument htmlDocument)
         {
-            var discountPrice = htmlDocument.QuerySelectorAll("div._1u3j_pk1db").FirstOrDefault()?.TextContent;
-            var price = htmlDocument.QuerySelectorAll("div._1vKgTDo6wh").FirstOrDefault()?.TextContent;
+            //TODO Сделать обработку капчи
+
+            var discountPriceElement = htmlDocument.QuerySelectorAll("div._1u3j_pk1db").FirstOrDefault();
+            _logger.LogInformation($"Обработываемая часть документа по скидке {discountPriceElement?.OuterHtml}");
+
+            var discountPrice = discountPriceElement?.TextContent;
+
+            var priceElement = htmlDocument.QuerySelectorAll("div._1vKgTDo6wh").FirstOrDefault();
+            _logger.LogInformation($"Обработываемая часть документа по цене {priceElement?.OuterHtml}");
+
+            var price = priceElement?.TextContent;
 
             if (discountPrice == null && price == null)
             {
