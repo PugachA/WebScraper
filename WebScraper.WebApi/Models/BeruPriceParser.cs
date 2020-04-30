@@ -20,7 +20,11 @@ namespace WebScraper.WebApi.Models
 
         public PriceInfo Parse(IHtmlDocument htmlDocument)
         {
-            //TODO Сделать обработку капчи
+            if(htmlDocument.Title == "Ой!")
+            {
+                _logger.LogError($"Попали на капчу {htmlDocument.Source.Text}");
+                throw new ArgumentException($"Попали на капчу { htmlDocument.Source.Text }");
+            }
 
             var discountPriceElement = htmlDocument.QuerySelectorAll("div._1u3j_pk1db").FirstOrDefault();
             _logger.LogInformation($"Обработываемая часть документа по скидке {discountPriceElement?.OuterHtml}");
@@ -42,7 +46,7 @@ namespace WebScraper.WebApi.Models
                     return new PriceInfo { AdditionalInformation = info };
                 }
 
-                return null;
+                throw new FormatException($"Неизвестная ошибка { htmlDocument.Source.Text }");
             }
 
             if (discountPrice != null && price == null)
