@@ -20,8 +20,21 @@ namespace WebScraper.WebApi.Models
 
         public PriceInfo Parse(IHtmlDocument htmlDocument)
         {
-            var discountPrice = htmlDocument.QuerySelectorAll("div._1u3j_pk1db").FirstOrDefault()?.TextContent;
-            var price = htmlDocument.QuerySelectorAll("div._1vKgTDo6wh").FirstOrDefault()?.TextContent;
+            if(htmlDocument.Title == "Ой!")
+            {
+                _logger.LogError($"Попали на капчу {htmlDocument.Source.Text}");
+                throw new ArgumentException($"Попали на капчу { htmlDocument.Source.Text }");
+            }
+
+            var discountPriceElement = htmlDocument.QuerySelectorAll("div._1u3j_pk1db").FirstOrDefault();
+            _logger.LogInformation($"Обработываемая часть документа по скидке {discountPriceElement?.OuterHtml}");
+
+            var discountPrice = discountPriceElement?.TextContent;
+
+            var priceElement = htmlDocument.QuerySelectorAll("div._1vKgTDo6wh").FirstOrDefault();
+            _logger.LogInformation($"Обработываемая часть документа по цене {priceElement?.OuterHtml}");
+
+            var price = priceElement?.TextContent;
 
             if (discountPrice == null && price == null)
             {
@@ -33,7 +46,7 @@ namespace WebScraper.WebApi.Models
                     return new PriceInfo { AdditionalInformation = info };
                 }
 
-                return null;
+                throw new FormatException($"Неизвестная ошибка { htmlDocument.Source.Text }");
             }
 
             if (discountPrice != null && price == null)
