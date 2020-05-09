@@ -1,11 +1,7 @@
-﻿using AngleSharp;
-using AngleSharp.Html.Parser;
+﻿using Microsoft.Extensions.Logging;
+using Moq;
 using NUnit.Framework;
-using RestSharp;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WebScraper.WebApi.DTO;
 using WebScraper.WebApi.Models;
@@ -15,9 +11,12 @@ namespace WebScraper.Tests
 {
     public class HttpTests
     {
+        private Mock<ILogger>  mockLogger; 
+
         [SetUp]
         public void Setup()
         {
+            mockLogger = new Mock<ILogger>();
         }
 
         [Test]
@@ -29,10 +28,10 @@ namespace WebScraper.Tests
                 site,
                 null);
 
-            var htmlLoader = new HtmlLoader(new Uri(product.Url));
-            var document = await htmlLoader.Load();
+            var htmlLoader = new HtmlLoader(mockLogger.Object);
+            var document = await htmlLoader.Load(product.Url);
 
-            var parserFactory = new PriceParserFactory(null);
+            var parserFactory = new PriceParserFactory(mockLogger.Object);
             var priceParser = parserFactory.Get(product.Site);
 
             var priceInfo = priceParser.Parse(document);
@@ -41,18 +40,30 @@ namespace WebScraper.Tests
         [Test]
         public async Task RegardTest()
         {
-            var client = new RestClient("https://www.regard.ru/catalog/tovar299743.htm");
-            client.Timeout = -1;
-            var request = new RestRequest(Method.GET);
-            IRestResponse response = client.Execute(request);
+            var site = new SiteDto("Ozon", null);
+            var product = new ProductDto(
+                @"https://www.regard.ru/catalog/tovar299743.htm",
+                site,
+                null);
 
-            string source = response.Content;
-            var config = Configuration.Default;
-            var context = BrowsingContext.New(config);
-            var parser = context.GetService<IHtmlParser>();
-            var document = parser.ParseDocument(source);
+            var htmlLoader = new HtmlLoader(mockLogger.Object);
+            var document = await htmlLoader.Load(product.Url);
 
             var price = document.QuerySelectorAll("span").SingleOrDefault(i => i.ClassName != null && i.ClassName == "price lot");
         }
+
+        [Test]
+        public async Task OzonTest()
+        {
+            var site = new SiteDto("Ozon", null);
+            var product = new ProductDto(
+                @"https://www.ozon.ru/context/detail/id/147947696/",
+                site,
+                null);
+
+            var htmlLoader = new HtmlLoader(mockLogger.Object);
+            var document = await htmlLoader.Load(product.Url);
+        }
+        
     }
 }
