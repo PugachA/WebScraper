@@ -31,7 +31,7 @@ namespace WebScraper.Tests
             var htmlLoader = new HtmlLoader(mockLogger.Object);
             var document = await htmlLoader.Load(product.Url);
 
-            var parserFactory = new PriceParserFactory(null);
+            var parserFactory = new PriceParserFactory(mockLogger.Object);
             var priceParser = parserFactory.Get(product.Site);
 
             var priceInfo = priceParser.Parse(document);
