@@ -27,7 +27,7 @@ namespace WebScraper.Tests
 
             var siteSettings = new SiteSettings
             {
-                CheckInterval = TimeSpan.FromMinutes(30)
+                CheckInterval = TimeSpan.FromMinutes(35)
             };
 
             var beruCronScheduler = new BeruCronScheduler(siteSettings);

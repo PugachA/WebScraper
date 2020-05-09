@@ -60,8 +60,8 @@ namespace WebScraper.WebApi.Models
 
         private async Task<PriceInfo> ExtractPriceInfo(ProductDto product)
         {
-            var htmlLoader = new HtmlLoader(new Uri(product.Url));
-            var document = await htmlLoader.Load();
+            var htmlLoader = new HtmlLoader(_logger);
+            var document = await htmlLoader.Load(product.Url);
 
             var parserFactory = new PriceParserFactory(_logger);
             var priceParser = parserFactory.Get(product.Site);
