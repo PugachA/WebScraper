@@ -61,9 +61,9 @@ namespace WebScraper.WebApi.Cron
                 foreach (var time in productTime.Value)
                 {
                     if (productCronTime.ContainsKey(productTime.Key))
-                        productCronTime[productTime.Key].Add($"{time.Second} {time.Minute} {time.Hour} ? * * *");
+                        productCronTime[productTime.Key].Add($"{time.Second} {time.Minute} {time.Hour} ? * *");
                     else
-                        productCronTime.Add(productTime.Key, new List<string> { $"{time.Second} {time.Minute} {time.Hour} ? * * *" });
+                        productCronTime.Add(productTime.Key, new List<string> { $"{time.Second} {time.Minute} {time.Hour} ? * *" });
                 }
 
             return productCronTime;
