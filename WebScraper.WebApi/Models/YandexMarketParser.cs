@@ -71,7 +71,18 @@ namespace WebScraper.WebApi.Models
 
             decimal? discountPriceValue = discountPrice == null ? null : (decimal?)discountPriceTemp;
 
-            return new PriceInfo(priceValue, discountPriceValue);
+            return new PriceInfo(priceValue, discountPriceValue, ExtractAdditionalInformation(htmlDocument));
+        }
+
+        protected string ExtractAdditionalInformation(IHtmlDocument htmlDocument)
+        {
+            var storeElement = htmlDocument.QuerySelectorAll("div.vuLxS6jSOb").FirstOrDefault();
+
+            var NumberOfReviewsElement = htmlDocument.QuerySelectorAll("div._28yWHnAj2C").FirstOrDefault();
+
+            var DeliveryElement = htmlDocument.QuerySelectorAll("div._2EUCNlZ2-F _1U_zoSzQbx").FirstOrDefault();
+
+            return "";
         }
     }
 }
