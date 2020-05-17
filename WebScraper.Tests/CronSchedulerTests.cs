@@ -22,7 +22,6 @@ namespace WebScraper.Tests
             {
                 new ProductDto(),
                 new ProductDto(),
-                new ProductDto()
             };
 
             var siteSettings = new SiteSettings
