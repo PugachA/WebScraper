@@ -3,12 +3,12 @@ GO
 
 BEGIN TRANSACTION 
 BEGIN TRY
-    INSERT INTO dbo.[SiteSettings] (BaseUrl, AutoGenerateSchedule, MinCheckInterval, CheckInterval)
-    VALUES ('https://beru.ru/', 1, '00:35:00', '00:35:00')
+    INSERT INTO dbo.[SiteSettings] (AutoGenerateSchedule, MinCheckInterval, CheckInterval)
+    VALUES (1, '00:35:00', '00:35:00')
     DECLARE @siteSettingsId INT = SCOPE_IDENTITY();
 
-    INSERT INTO dbo.[Sites] ([Name], [SettingsId])
-    VALUES ('Beru', @siteSettingsId)
+    INSERT INTO dbo.[Sites] ([Name], [BaseUrl], [SettingsId])
+    VALUES ('Beru', 'https://beru.ru/', @siteSettingsId)
     DECLARE @siteId INT = SCOPE_IDENTITY();
 
     INSERT INTO dbo.[Products] ([Url], [Scheduler], [SiteId])
