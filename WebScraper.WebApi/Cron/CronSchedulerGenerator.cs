@@ -6,13 +6,13 @@ using WebScraper.WebApi.Models;
 
 namespace WebScraper.WebApi.Cron
 {
-    public class BeruCronScheduler : ICronScheduler<ProductDto>
+    public class CronSchedulerGenerator : ICronScheduler<ProductDto>
     {
         private readonly SiteSettings _siteSettings;
         private readonly int _maxProductCount;
         private readonly TimeSpan _interval;
 
-        public BeruCronScheduler(SiteSettings siteSettings)
+        public CronSchedulerGenerator(SiteSettings siteSettings)
         {
             this._siteSettings = siteSettings;
 
@@ -32,7 +32,6 @@ namespace WebScraper.WebApi.Cron
             DateTime dateTime = DateTime.Today;
 
             int count = 0;
-            //TODO добавить проверку разницы между первым и последнем временем
             while (count < _maxProductCount)
             {
                 foreach (ProductDto product in products)
