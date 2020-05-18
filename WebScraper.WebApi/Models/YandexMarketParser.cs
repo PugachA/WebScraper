@@ -80,9 +80,9 @@ namespace WebScraper.WebApi.Models
 
             var NumberOfReviewsElement = htmlDocument.QuerySelectorAll("div._28yWHnAj2C").FirstOrDefault();
 
-            var DeliveryElement = htmlDocument.QuerySelectorAll("div._2EUCNlZ2-F _1U_zoSzQbx").FirstOrDefault();
+            var DeliveryElement = htmlDocument.QuerySelectorAll("div._1RYk12ARqf").FirstOrDefault();
 
-            return "";
+            return $"Магазин: {storeElement.TextContent}; Отзывы: {NumberOfReviewsElement.TextContent}; Доставка: {DeliveryElement.TextContent}";
         }
     }
 }

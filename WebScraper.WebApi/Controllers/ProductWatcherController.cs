@@ -90,6 +90,7 @@ namespace WebScraper.WebApi.Controllers
         {
             try
             {
+                
                 return Ok(null);
             }
             catch (Exception ex)
