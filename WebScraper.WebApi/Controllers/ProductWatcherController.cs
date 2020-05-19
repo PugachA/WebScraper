@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using WebScraper.WebApi.Cron;
 using WebScraper.WebApi.DTO;
+using WebScraper.WebApi.Helpers;
 using WebScraper.WebApi.Models;
 
 namespace WebScraper.WebApi.Controllers
@@ -17,11 +18,13 @@ namespace WebScraper.WebApi.Controllers
     {
         private readonly ProductWatcherManager _productWatcherManager;
         private readonly ILogger<ProductWatcherController> _logger;
+        private readonly HangfireSchedulerClient hangfireSchedulerClient;
 
-        public ProductWatcherController(ProductWatcherManager productWatcherManager, ILogger<ProductWatcherController> logger)
+        public ProductWatcherController(ProductWatcherManager productWatcherManager, ILogger<ProductWatcherController> logger, HangfireSchedulerClient hangfireSchedulerClient)
         {
             _productWatcherManager = productWatcherManager ?? throw new ArgumentNullException($"Параметр {nameof(productWatcherManager)} не может быть null");
             _logger = logger;
+            this.hangfireSchedulerClient = hangfireSchedulerClient;
         }
 
         [HttpGet("price")]
