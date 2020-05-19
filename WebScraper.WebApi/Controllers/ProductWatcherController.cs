@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using WebScraper.WebApi.Cron;
 using WebScraper.WebApi.DTO;
 using WebScraper.WebApi.Models;
 
@@ -85,13 +86,65 @@ namespace WebScraper.WebApi.Controllers
             }
         }
 
-        [HttpPut("product")]
-        public async Task<ActionResult<ProductDto>> Put(ProductDto product)
+        [HttpGet("product")]
+        public async Task<ActionResult<ProductDto>> GetProduct(int productId)
+        {
+            return Ok();
+        }
+
+        [HttpPost("product")]
+        public async Task<ActionResult<ProductDto>> CreateProduct(CreateProductDto createProductDto)
         {
             try
             {
-                
-                return Ok(null);
+                if (!ModelState.IsValid)
+                {
+                    _logger.LogError($"Валидация модели не успешна {ModelState}");
+                    return BadRequest(ModelState);
+                }
+
+                //Детектируем сайт
+                if (!Uri.TryCreate(createProductDto.ProductUrl, UriKind.Absolute, out Uri productUri))
+                {
+                    _logger.LogError($"Не удалось преобразовать {nameof(createProductDto.ProductUrl)}={createProductDto.ProductUrl} в {typeof(Uri)}");
+                    return BadRequest($"Не удалось преобразовать {nameof(createProductDto.ProductUrl)}={createProductDto.ProductUrl} в {typeof(Uri)}");
+                }
+
+                var siteDto = await _productWatcherManager.GetSiteByProductUrl(productUri);
+
+                if (siteDto == null)
+                {
+                    _logger.LogError($"Не удалось детектировать сайт по url={productUri.AbsoluteUri}");
+                    return NotFound($"Не удалось детектировать сайт по url={productUri.AbsoluteUri}");
+                }
+
+                ProductDto productDto = null;
+
+                if (siteDto.Settings.AutoGenerateSchedule)
+                {
+                    if (createProductDto.Scheduler != null)
+                    {
+                        _logger.LogError("");
+                        return BadRequest();
+                    }
+
+                    productDto = await _productWatcherManager.UpdateProductAutogenerateScheduler(createProductDto.ProductUrl, siteDto);
+                }
+                else
+                {
+                    if (createProductDto.Scheduler == null || !createProductDto.Scheduler.Any())
+                    {
+                        _logger.LogError("");
+                        return BadRequest();
+                    }
+
+                    productDto = await _productWatcherManager.CreateProduct(createProductDto.ProductUrl, siteDto, createProductDto.Scheduler, true);
+                }
+
+                return CreatedAtAction(
+                    nameof(GetProduct),
+                    new { id = productDto.Id },
+                    productDto);
             }
             catch (Exception ex)
             {
