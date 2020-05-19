@@ -10,6 +10,7 @@ using System.Reflection;
 using System.IO;
 using System;
 using NLog.Extensions.Logging;
+using WebScraper.WebApi.Helpers;
 
 namespace WebScraper.WebApi
 {
@@ -33,13 +34,14 @@ namespace WebScraper.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddTransient<IConfiguration>(provider => Configuration);
 
             services.AddDbContext<ProductWatcherContext>(
                     options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")),
                     ServiceLifetime.Transient,
                     ServiceLifetime.Transient);
 
+            services.AddTransient<IConfiguration>(provider => Configuration);
+            services.AddTransient<HangfireSchedulerClient>();
             services.AddTransient<ProductWatcherManager>();
 
             services.AddSwaggerGen(options =>
