@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebScraper.WebApi.DTO
+namespace WebScraper.WebApi.Models
 {
     public class PriceInfo
     {

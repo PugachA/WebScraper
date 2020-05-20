@@ -82,7 +82,10 @@ namespace WebScraper.WebApi.Models
 
             var DeliveryElement = htmlDocument.QuerySelectorAll("div._1RYk12ARqf").FirstOrDefault();
 
-            return $"Магазин: {storeElement.TextContent}; Отзывы: {NumberOfReviewsElement.TextContent}; Доставка: {DeliveryElement.TextContent}";
+            var additionalInformation = $"Магазин: {storeElement.TextContent}; Отзывы: {NumberOfReviewsElement.TextContent}; Доставка: {DeliveryElement.TextContent}";
+            _logger.LogInformation($"Найденная дополнительная информация {additionalInformation}");
+
+            return additionalInformation;
         }
     }
 }
