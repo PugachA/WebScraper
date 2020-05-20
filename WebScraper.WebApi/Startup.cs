@@ -24,6 +24,7 @@ namespace WebScraper.WebApi
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("appSettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appSettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"parserSettings.json", optional: false, reloadOnChange: true)
                 .AddConfiguration(configuration);
 
             Configuration = builder.Build();
