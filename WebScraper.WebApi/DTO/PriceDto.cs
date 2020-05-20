@@ -20,7 +20,7 @@ namespace WebScraper.WebApi.DTO
         public decimal? DicountPrice { get; set; }
         public double? DiscountPercentage { get; set; }
         
-        [MaxLength(100)]
+        [MaxLength(1024)]
         public string AdditionalInformation { get; set; }
 
         public DateTime Date { get; set; }
