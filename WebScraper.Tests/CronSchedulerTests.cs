@@ -29,7 +29,7 @@ namespace WebScraper.Tests
                 CheckInterval = TimeSpan.FromMinutes(35)
             };
 
-            var beruCronScheduler = new BeruCronScheduler(siteSettings);
+            var beruCronScheduler = new CronSchedulerGenerator(siteSettings);
 
             var dic = beruCronScheduler.GenerateSchedule(products);
 

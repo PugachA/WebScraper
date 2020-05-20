@@ -17,6 +17,7 @@ namespace WebScraper.WebApi.Models.Factories
             site.Name switch
             {
                 "Beru" => new BeruPriceParser(_logger),
+                "YandexMarket" => new YandexMarketParser(_logger),
                 _ => throw new ArgumentException($"Не удалось создать объект {nameof(IPriceParser)} для сайта {site.Name}"),
             };
     }

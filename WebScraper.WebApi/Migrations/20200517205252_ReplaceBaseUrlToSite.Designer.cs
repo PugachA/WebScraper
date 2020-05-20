@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebScraper.WebApi.Models;
 
 namespace WebScraper.WebApi.Migrations
 {
     [DbContext(typeof(ProductWatcherContext))]
-    partial class ProductWatcherContextModelSnapshot : ModelSnapshot
+    [Migration("20200517205252_ReplaceBaseUrlToSite")]
+    partial class ReplaceBaseUrlToSite
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,8 +29,8 @@ namespace WebScraper.WebApi.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AdditionalInformation")
-                        .HasColumnType("nvarchar(1024)")
-                        .HasMaxLength(1024);
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");

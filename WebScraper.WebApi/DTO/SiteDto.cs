@@ -14,6 +14,10 @@ namespace WebScraper.WebApi.DTO
         [MaxLength(50)]
         public string Name { get; set; }
 
+        [Required]
+        [MaxLength(100)]
+        public string BaseUrl { get; set; }
+
         public SiteSettings Settings { get; set; }
 
         [JsonIgnore]

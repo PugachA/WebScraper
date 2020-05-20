@@ -44,6 +44,8 @@ namespace WebScraper.WebApi.Models
                 response.EnsureSuccessStatusCode();
             }
 
+            _logger.LogInformation($"Успешно отправлен запрос {requestUri}");
+
             return await response.Content.ReadAsStringAsync();
         }
     }
