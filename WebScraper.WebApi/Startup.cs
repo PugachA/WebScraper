@@ -11,6 +11,7 @@ using System.IO;
 using System;
 using NLog.Extensions.Logging;
 using WebScraper.WebApi.Helpers;
+using WebScraper.WebApi.Models.Factories;
 
 namespace WebScraper.WebApi
 {
@@ -42,6 +43,7 @@ namespace WebScraper.WebApi
 
             services.AddTransient<IConfiguration>(provider => Configuration);
             services.AddTransient<HangfireSchedulerClient>();
+            services.AddTransient<PriceParserFactory>();
             services.AddTransient<ProductWatcherManager>();
 
             services.AddSwaggerGen(options =>

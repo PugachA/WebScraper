@@ -19,11 +19,16 @@ namespace WebScraper.WebApi.Models
         private readonly ProductWatcherContext _productWatcherContext;
         private readonly ILogger _logger;
         private readonly HangfireSchedulerClient _hangfireSchedulerClient;
+        private readonly PriceParserFactory _priceParserFactory;
 
-        public ProductWatcherManager(ProductWatcherContext productWatcherContext, HangfireSchedulerClient hangfireSchedulerClient, ILogger<ProductWatcherManager> logger)
+        public ProductWatcherManager(ProductWatcherContext productWatcherContext,
+                                     HangfireSchedulerClient hangfireSchedulerClient,
+                                     PriceParserFactory priceParserFactory,
+                                     ILogger<ProductWatcherManager> logger)
         {
             _productWatcherContext = productWatcherContext;
             _hangfireSchedulerClient = hangfireSchedulerClient;
+            _priceParserFactory = priceParserFactory;
             _logger = logger;
         }
 
@@ -68,8 +73,7 @@ namespace WebScraper.WebApi.Models
             var htmlLoader = new HtmlLoader(_logger);
             var document = await htmlLoader.Load(product.Url);
 
-            var parserFactory = new PriceParserFactory(_logger);
-            var priceParser = parserFactory.Get(product.Site);
+            var priceParser = _priceParserFactory.Get(product.Site);
 
             var priceInfo = priceParser.Parse(document);
 

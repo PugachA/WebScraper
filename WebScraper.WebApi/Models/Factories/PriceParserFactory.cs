@@ -6,9 +6,9 @@ namespace WebScraper.WebApi.Models.Factories
 {
     public class PriceParserFactory : IFactory<IPriceParser>
     {
-        private readonly ILogger _logger;
+        private readonly ILogger<PriceParserFactory> _logger;
 
-        public PriceParserFactory(ILogger logger)
+        public PriceParserFactory(ILogger<PriceParserFactory> logger)
         {
             _logger = logger;
         }
@@ -17,7 +17,7 @@ namespace WebScraper.WebApi.Models.Factories
             site.Name switch
             {
                 "Beru" => new BeruPriceParser(_logger),
-                "YandexMarket" => new YandexMarketParser(_logger),
+                //"YandexMarket" => new YandexMarketParser(_logger),
                 _ => throw new ArgumentException($"Не удалось создать объект {nameof(IPriceParser)} для сайта {site.Name}"),
             };
     }
