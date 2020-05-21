@@ -1,18 +1,23 @@
 ﻿using AngleSharp.Html.Dom;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using WebScraper.WebApi.DTO;
 
 namespace WebScraper.WebApi.Models
 {
-    public class YandexMarketParser : IPriceParser
+    public class PriceParser : IPriceParser
     {
         private readonly ILogger _logger;
+        private readonly ParserSettings _parserSettings;
 
-        public YandexMarketParser(ILogger logger)
+        public PriceParser(ParserSettings parserSettings, ILogger logger)
         {
+            _parserSettings = parserSettings;
             _logger = logger;
         }
 
@@ -24,19 +29,19 @@ namespace WebScraper.WebApi.Models
                 throw new ArgumentException($"Попали на капчу { htmlDocument.Source.Text }");
             }
 
-            var discountPriceElement = htmlDocument.QuerySelectorAll("div._1PaCzxbbzN").FirstOrDefault();
+            var discountPriceElement = htmlDocument.QuerySelectorAll(_parserSettings.DiscountHtmlPath).FirstOrDefault();
             _logger.LogInformation($"Обработываемая часть документа по скидке {discountPriceElement?.OuterHtml}");
 
             var discountPrice = discountPriceElement?.TextContent;
 
-            var priceElement = htmlDocument.QuerySelectorAll("div._2Gq3Ev3qUH").FirstOrDefault();
+            var priceElement = htmlDocument.QuerySelectorAll(_parserSettings.PriceHtmlPath).FirstOrDefault();
             _logger.LogInformation($"Обработываемая часть документа по цене {priceElement?.OuterHtml}");
 
             var price = priceElement?.TextContent;
 
             if (discountPrice == null && price == null)
             {
-                var info = htmlDocument.QuerySelectorAll("div.Ca_h1ZgLxJ").FirstOrDefault()?.TextContent;
+                var info = htmlDocument.QuerySelectorAll(_parserSettings.OutOfStockHtmlPath).FirstOrDefault()?.TextContent;
 
                 if (info != null)
                 {
@@ -44,7 +49,7 @@ namespace WebScraper.WebApi.Models
                     return new PriceInfo { AdditionalInformation = info };
                 }
 
-                throw new FormatException($"Неизвестная ошибка { htmlDocument.Source.Text }");
+                throw new FormatException($"Неизвестная ошибка {htmlDocument.Source.Text}");
             }
 
             if (discountPrice != null && price == null)
@@ -56,7 +61,7 @@ namespace WebScraper.WebApi.Models
             discountPrice = discountPrice?.Replace(" ", "");
             price = price?.Replace(" ", "");
 
-            Regex regex = new Regex(@"\d+");
+            Regex regex = new Regex(@"\d+[.,]?\d{1,2}");
             if (discountPrice != null)
                 discountPrice = regex.Match(discountPrice).Value;
 
@@ -76,16 +81,23 @@ namespace WebScraper.WebApi.Models
 
         protected string ExtractAdditionalInformation(IHtmlDocument htmlDocument)
         {
-            var storeElement = htmlDocument.QuerySelectorAll("div.vuLxS6jSOb").FirstOrDefault();
+            if (_parserSettings.AdditionalInformation == null)
+                return null;
 
-            var NumberOfReviewsElement = htmlDocument.QuerySelectorAll("div._28yWHnAj2C").FirstOrDefault();
+            var additionaInformation = new Dictionary<string, string>();
+            foreach(var keyValue in _parserSettings.AdditionalInformation)
+            {
+                var element = htmlDocument.QuerySelectorAll(keyValue.Value).FirstOrDefault();
 
-            var DeliveryElement = htmlDocument.QuerySelectorAll("div._1RYk12ARqf").FirstOrDefault();
+                if (element == null)
+                    _logger.LogWarning($"Не удалось извлечь информацию о {keyValue.Key} по пути {keyValue.Value}");
 
-            var additionalInformation = $"Магазин: {storeElement.TextContent}; Отзывы: {NumberOfReviewsElement.TextContent}; Доставка: {DeliveryElement.TextContent}";
-            _logger.LogInformation($"Найденная дополнительная информация {additionalInformation}");
+                additionaInformation.Add(keyValue.Key, element?.TextContent);
+            }
 
-            return additionalInformation;
+            _logger.LogInformation($"Найденная дополнительная информация {JsonSerializer.Serialize(additionaInformation)}");
+
+            return JsonSerializer.Serialize(additionaInformation);
         }
     }
 }
