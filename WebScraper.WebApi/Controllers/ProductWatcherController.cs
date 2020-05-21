@@ -92,7 +92,21 @@ namespace WebScraper.WebApi.Controllers
         [HttpGet("product")]
         public async Task<ActionResult<ProductDto>> GetProduct(int productId)
         {
-            return Ok();
+            if (productId < 0)
+            {
+                _logger.LogError($"Запрос не прошел валидацию. {nameof(productId)}={productId} должен быть неотрицательным числом");
+                return BadRequest($"Запрос не прошел валидацию. {nameof(productId)}={productId} должен быть неотрицательным числом");
+            }
+
+            var productDto = await _productWatcherManager.GetProductAsync(productId);
+
+            if(productDto == null)
+            {
+                _logger.LogError($"Не удалось найти продукт с {nameof(productId)}={productId}");
+                return NotFound($"Не удалось найти продукт с {nameof(productId)}={productId}");
+            }
+
+            return Ok(productDto);
         }
 
         [HttpPost("product")]
