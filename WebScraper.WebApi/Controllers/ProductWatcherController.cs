@@ -74,7 +74,13 @@ namespace WebScraper.WebApi.Controllers
                 if (productDto == null)
                 {
                     _logger.LogError($"Не удалось найти продукт по id={productId}");
-                    return NoContent();
+                    return NotFound();
+                }
+
+                if (productDto.IsDeleted)
+                {
+                    _logger.LogError("Нельзя запрашивать цену по удаленную продукту");
+                    return BadRequest("Нельзя запрашивать цену по удаленную продукту");
                 }
 
                 await _productWatcherManager.ExtractPriceDto(productDto);
@@ -92,21 +98,29 @@ namespace WebScraper.WebApi.Controllers
         [HttpGet("product")]
         public async Task<ActionResult<ProductDto>> GetProduct(int productId)
         {
-            if (productId < 0)
+            try
             {
-                _logger.LogError($"Запрос не прошел валидацию. {nameof(productId)}={productId} должен быть неотрицательным числом");
-                return BadRequest($"Запрос не прошел валидацию. {nameof(productId)}={productId} должен быть неотрицательным числом");
+                if (productId < 0)
+                {
+                    _logger.LogError($"Запрос не прошел валидацию. {nameof(productId)}={productId} должен быть неотрицательным числом");
+                    return BadRequest($"Запрос не прошел валидацию. {nameof(productId)}={productId} должен быть неотрицательным числом");
+                }
+
+                var productDto = await _productWatcherManager.GetProductAsync(productId);
+
+                if (productDto == null)
+                {
+                    _logger.LogError($"Не удалось найти продукт с {nameof(productId)}={productId}");
+                    return NotFound($"Не удалось найти продукт с {nameof(productId)}={productId}");
+                }
+
+                return Ok(productDto);
             }
-
-            var productDto = await _productWatcherManager.GetProductAsync(productId);
-
-            if(productDto == null)
+            catch (Exception ex)
             {
-                _logger.LogError($"Не удалось найти продукт с {nameof(productId)}={productId}");
-                return NotFound($"Не удалось найти продукт с {nameof(productId)}={productId}");
+                _logger.LogError(ex, "Внутренняя ошибка сервиса при обработке запроса");
+                return StatusCode(500, "Ошибка при обработке запроса");
             }
-
-            return Ok(productDto);
         }
 
         [HttpPost("product")]
@@ -170,5 +184,121 @@ namespace WebScraper.WebApi.Controllers
             }
         }
 
+        [HttpDelete("product")]
+        public async Task<ActionResult<ProductDto>> DeleteProduct(int productId)
+        {
+            try
+            {
+                if (productId < 0)
+                {
+                    _logger.LogError($"Запрос не прошел валидацию. {nameof(productId)}={productId} должен быть неотрицательным числом");
+                    return BadRequest($"Запрос не прошел валидацию. {nameof(productId)}={productId} должен быть неотрицательным числом");
+                }
+
+                var productDto = await _productWatcherManager.GetProductAsync(productId);
+
+                if (productDto == null)
+                {
+                    _logger.LogError($"Не удалось найти продукт с {nameof(productId)}={productId}");
+                    return NotFound($"Не удалось найти продукт с {nameof(productId)}={productId}");
+                }
+
+                if (productDto.IsDeleted)
+                {
+                    _logger.LogInformation($"Продукт с {nameof(productId)}={productId} уже был удален ранее");
+                    return Ok($"Продукт с {nameof(productId)}={productId} уже был удален ранее");
+                }
+
+                await _productWatcherManager.SmartDelete(productDto);
+                _logger.LogInformation($"Продукт с {nameof(productId)}={productId} помечен как удаленный");
+
+                return Ok(productDto);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Внутренняя ошибка сервиса при обработке запроса");
+                return StatusCode(500, "Ошибка при обработке запроса");
+            }
+        }
+
+        [HttpPut(nameof(UpdateProductScheduler))]
+        public async Task<ActionResult<ProductDto>> UpdateProductScheduler(ProductSchedulerDto productSchedulerDto)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    _logger.LogError($"Валидация модели не успешна {ModelState}");
+                    return BadRequest(ModelState);
+                }
+
+                var productDto = await _productWatcherManager.GetProductAsync(productSchedulerDto.ProductId);
+
+                if (productDto == null)
+                {
+                    _logger.LogError($"Не удалось найти продукт с {nameof(productSchedulerDto.ProductId)}={productSchedulerDto.ProductId}");
+                    return NotFound($"Не удалось найти продукт с {nameof(productSchedulerDto.ProductId)}={productSchedulerDto.ProductId}");
+                }
+
+                if (productDto.IsDeleted)
+                {
+                    _logger.LogError("Нельзя обновить расписание по удаленному продукту");
+                    return BadRequest("Нельзя обновить расписание по удаленному продукту");
+                }
+
+                if (productDto.Site.Settings.AutoGenerateSchedule)
+                {
+                    _logger.LogError("Нельзя обновить расписание по продукту с автоматическим расписанием");
+                    return BadRequest("Нельзя обновить расписание по продукту с автоматическим расписанием");
+                }
+
+                await _productWatcherManager.UpdateProductScheduler(productDto, productSchedulerDto.Scheduler);
+                _logger.LogInformation($"Продукту с {nameof(productDto.Id)}={productDto.Id} изменено расписание на {productSchedulerDto.Scheduler}");
+
+                return Ok(productDto);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Внутренняя ошибка сервиса при обработке запроса");
+                return StatusCode(500, "Ошибка при обработке запроса");
+            }
+        }
+
+        [HttpPut(nameof(UpdateSiteScheduler))]
+        public async Task<IActionResult> UpdateSiteScheduler(int siteId)
+        {
+            try
+            {
+                if (siteId < 0)
+                {
+                    _logger.LogError($"Запрос не прошел валидацию. {nameof(siteId)}={siteId} должен быть неотрицательным числом");
+                    return BadRequest($"Запрос не прошел валидацию. {nameof(siteId)}={siteId} должен быть неотрицательным числом");
+                }
+
+                var siteDto = await _productWatcherManager.GetSite(siteId);
+
+                if (siteDto == null)
+                {
+                    _logger.LogError($"Не удалось найти сайт с {nameof(siteId)}={siteId}");
+                    return NotFound($"Не удалось найти сайт с {nameof(siteId)}={siteId}");
+                }
+
+                if (!siteDto.Settings.AutoGenerateSchedule)
+                {
+                    _logger.LogError("Нельзя обновить расписание по сайту с не автоматическим расписанием");
+                    return BadRequest("Нельзя обновить расписание по сайту с не автоматическим расписанием");
+                }
+
+                await _productWatcherManager.UpdateSiteScheduler(siteDto);
+                _logger.LogInformation($"Расписание по сайту с {nameof(siteId)}={siteId} успешно обновлено");
+
+                return Ok($"Расписание по сайту с {nameof(siteId)}={siteId} успешно обновлено");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Внутренняя ошибка сервиса при обработке запроса");
+                return StatusCode(500, "Ошибка при обработке запроса");
+            }
+        }
     }
 }
