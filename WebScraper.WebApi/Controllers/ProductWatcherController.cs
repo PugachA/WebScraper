@@ -74,7 +74,13 @@ namespace WebScraper.WebApi.Controllers
                 if (productDto == null)
                 {
                     _logger.LogError($"Не удалось найти продукт по id={productId}");
-                    return NoContent();
+                    return NotFound();
+                }
+
+                if (productDto.IsDeleted)
+                {
+                    _logger.LogError("Нельзя запрашивать цену по удаленную продукту");
+                    return BadRequest("Нельзя запрашивать цену по удаленную продукту");
                 }
 
                 await _productWatcherManager.ExtractPriceDto(productDto);
