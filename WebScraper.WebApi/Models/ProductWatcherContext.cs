@@ -36,6 +36,11 @@ namespace WebScraper.WebApi.Models
             .HasConversion(
                 v => JsonSerializer.Serialize(v, null),
                 v => JsonSerializer.Deserialize<List<string>>(v, null));
+
+            modelBuilder.Entity<ProductDto>()
+            .HasIndex(p => new { p.Url, p.IsDeleted })
+            .HasFilter("[IsDeleted] = 0")
+            .IsUnique();
         }
     }
 }

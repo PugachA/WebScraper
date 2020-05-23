@@ -13,7 +13,7 @@ namespace WebScraper.WebApi.Models
         {
         }
 
-        public PriceInfo(decimal? price, decimal? dicountPrice, string additionalInformation = "")
+        public PriceInfo(decimal? price, decimal? dicountPrice, string additionalInformation = null)
         {
             this.Price = price;
             this.DicountPrice = dicountPrice;

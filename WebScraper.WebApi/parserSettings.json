@@ -1,0 +1,22 @@
+{
+  "Beru": {
+    "priceHtmlPath": "div._1vKgTDo6wh",
+    "discountHtmlPath": "div._1u3j_pk1db",
+    "outOfStockHtmlPath": "div._1w2bHIINJu"
+  },
+  "YandexMarket": {
+    "priceHtmlPath": "div._2Gq3Ev3qUH",
+    "discountHtmlPath": "div._1PaCzxbbzN",
+    "outOfStockHtmlPath": "div.Ca_h1ZgLxJ",
+    "additionalInformation": {
+      "Магазин": "div.vuLxS6jSOb",
+      "Количество отзывов": "div._28yWHnAj2C",
+      "Доставка": "div._1RYk12ARqf"
+    }
+  },
+  "AliExpress": {
+    "priceHtmlPath": "div.product-price-original",
+    "discountHtmlPath": "div.product-price-current",
+    "outOfStockHtmlPath": ""
+  }
+}

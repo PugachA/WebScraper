@@ -22,6 +22,9 @@ namespace WebScraper.WebApi.DTO
         [Required]
         public List<string> Scheduler { get; set; }
 
+        [Required]
+        public bool IsDeleted { get; set; }
+
         [JsonIgnore]
         public List<PriceDto> Prices { get; set; }
 

@@ -11,6 +11,7 @@ using System.IO;
 using System;
 using NLog.Extensions.Logging;
 using WebScraper.WebApi.Helpers;
+using WebScraper.WebApi.Models.Factories;
 
 namespace WebScraper.WebApi
 {
@@ -23,6 +24,7 @@ namespace WebScraper.WebApi
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("appSettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appSettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"parserSettings.json", optional: false, reloadOnChange: true)
                 .AddConfiguration(configuration);
 
             Configuration = builder.Build();
@@ -42,6 +44,7 @@ namespace WebScraper.WebApi
 
             services.AddTransient<IConfiguration>(provider => Configuration);
             services.AddTransient<HangfireSchedulerClient>();
+            services.AddTransient<PriceParserFactory>();
             services.AddTransient<ProductWatcherManager>();
 
             services.AddSwaggerGen(options =>

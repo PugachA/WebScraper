@@ -50,7 +50,7 @@ namespace WebScraper.WebApi.Helpers
                 response.EnsureSuccessStatusCode();
             }
 
-            _logger.LogInformation($"Успешно отправлен запрос {requestUrl}");
+            _logger.LogInformation($"Успешно отправлен запрос на создание или обновления расписания {requestUrl}");
         }
 
         public async Task DeleteProductScheduler(int productId)
