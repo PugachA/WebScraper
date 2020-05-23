@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using WebScraper.WebApi.Cron;
 using WebScraper.WebApi.DTO;
@@ -100,6 +101,13 @@ namespace WebScraper.WebApi.Models
             return priceDto;
         }
 
+        public async Task<SiteDto> GetSite(int siteId)
+        {
+            return await _productWatcherContext.Sites
+                .Include(s => s.Settings)
+                .SingleOrDefaultAsync(s => s.Id == siteId);
+        }
+
         public async Task<SiteDto> GetSiteByProductUrl(Uri productUrl)
         {
             var sitesDto = await _productWatcherContext.Sites
@@ -132,29 +140,53 @@ namespace WebScraper.WebApi.Models
         {
             var productDto = await this.CreateProduct(productUrl, siteDto, new List<string>(), false);
 
+            await UpdateSiteScheduler(siteDto);
+
+            return productDto;
+        }
+
+        public async Task UpdateSiteScheduler(SiteDto siteDto)
+        {
             var products = _productWatcherContext.Products
                 .Include(p => p.Site)
-                .Where(p => p.Site.Id == siteDto.Id);
+                .Where(p => p.Site.Id == siteDto.Id && !p.IsDeleted);
 
             var cronSchedulerGenerator = new CronSchedulerGenerator(siteDto.Settings);
             var productSchedulers = cronSchedulerGenerator.GenerateSchedule(products);
 
             foreach (var productScheduler in productSchedulers)
-            {
-                await _hangfireSchedulerClient.DeleteProductScheduler(productScheduler.Key.Id);
+                await UpdateProductScheduler(productScheduler.Key, productScheduler.Value);
 
-                await _hangfireSchedulerClient.CreateOrUpdateScheduler(
-                    new ProductSchedulerDto
-                    {
-                        ProductId = productScheduler.Key.Id,
-                        Scheduler = productScheduler.Value
-                    });
+            _logger.LogInformation($"Обновлено расписание для сайта {nameof(siteDto.Id)}={siteDto.Id}");
+        }
 
-                productScheduler.Key.Scheduler = productScheduler.Value;
-                await _productWatcherContext.SaveChangesAsync();
-            }
+        public async Task UpdateProductScheduler(ProductDto productDto, List<string> scheduler)
+        {
+            await _hangfireSchedulerClient.DeleteProductScheduler(productDto.Id);
 
-            return productDto;
+            await _hangfireSchedulerClient.CreateOrUpdateScheduler(
+                new ProductSchedulerDto
+                {
+                    ProductId = productDto.Id,
+                    Scheduler = scheduler
+                });
+
+            productDto.Scheduler = scheduler;
+            await _productWatcherContext.SaveChangesAsync();
+        }
+
+        public async Task SmartDelete(ProductDto productDto)
+        {
+            if (productDto == null)
+                throw new ArgumentNullException($"{nameof(productDto)} не может быть null");
+
+            await _hangfireSchedulerClient.DeleteProductScheduler(productDto.Id);
+
+            productDto.IsDeleted = true;
+            await _productWatcherContext.SaveChangesAsync();
+
+            if (productDto.Site.Settings.AutoGenerateSchedule)
+                await UpdateSiteScheduler(productDto.Site);
         }
     }
 }
