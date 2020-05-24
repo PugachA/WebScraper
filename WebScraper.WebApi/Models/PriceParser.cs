@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using WebScraper.WebApi.DTO;
@@ -98,9 +99,12 @@ namespace WebScraper.WebApi.Models
                 additionaInformation.Add(keyValue.Key, element?.TextContent);
             }
 
-            _logger.LogInformation($"Найденная дополнительная информация {JsonSerializer.Serialize(additionaInformation)}");
+            var options = new JsonSerializerOptions() { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
+            var additionalInformationString = JsonSerializer.Serialize(additionaInformation, options).Replace("\u00A0", " ");
 
-            return JsonSerializer.Serialize(additionaInformation);
+            _logger.LogInformation($"Найденная дополнительная информация {additionalInformationString}");
+
+            return additionalInformationString;
         }
 
         private string TransformPrice(string price)
