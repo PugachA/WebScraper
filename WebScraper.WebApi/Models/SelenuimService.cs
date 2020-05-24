@@ -34,6 +34,7 @@ namespace WebScraper.WebApi.Models
             for (int i = 0; i < webDriverCounts; i++)
             {
                 var chromeDriver = new ChromeDriver();
+                chromeDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(10);
                 webDriverQueue.Enqueue(chromeDriver);
 
                 logger.LogInformation($"Создан {nameof(ChromeDriver)}");
