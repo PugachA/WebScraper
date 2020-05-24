@@ -155,8 +155,8 @@ namespace WebScraper.WebApi.Controllers
                 {
                     if (createProductDto.Scheduler != null)
                     {
-                        _logger.LogError("");
-                        return BadRequest();
+                        _logger.LogError($"Нельзя задавать строгое расписание {nameof(siteDto.Settings.AutoGenerateSchedule)}={siteDto.Settings.AutoGenerateSchedule}");
+                        return BadRequest($"Нельзя задавать строгое расписание {nameof(siteDto.Settings.AutoGenerateSchedule)}={siteDto.Settings.AutoGenerateSchedule}");
                     }
 
                     productDto = await _productWatcherManager.UpdateProductAutogenerateScheduler(createProductDto.ProductUrl, siteDto);
@@ -165,8 +165,8 @@ namespace WebScraper.WebApi.Controllers
                 {
                     if (createProductDto.Scheduler == null || !createProductDto.Scheduler.Any())
                     {
-                        _logger.LogError("");
-                        return BadRequest();
+                        _logger.LogError("Нельзя создавать пустой расписание");
+                        return BadRequest("Нельзя создавать пустой расписание");
                     }
 
                     productDto = await _productWatcherManager.CreateProduct(createProductDto.ProductUrl, siteDto, createProductDto.Scheduler, true);
@@ -253,7 +253,7 @@ namespace WebScraper.WebApi.Controllers
                 }
 
                 await _productWatcherManager.UpdateProductScheduler(productDto, productSchedulerDto.Scheduler);
-                _logger.LogInformation($"Продукту с {nameof(productDto.Id)}={productDto.Id} изменено расписание на {productSchedulerDto.Scheduler}");
+                _logger.LogInformation($"Продукту с {nameof(productDto.Id)}={productDto.Id} изменено расписание на {JsonSerializer.Serialize(productSchedulerDto.Scheduler)}");
 
                 return Ok(productDto);
             }
