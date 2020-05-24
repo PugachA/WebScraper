@@ -96,11 +96,13 @@ namespace WebScraper.WebApi.Models
                 if (element == null)
                     _logger.LogWarning($"Не удалось извлечь информацию о {keyValue.Key} по пути {keyValue.Value}");
 
-                additionaInformation.Add(keyValue.Key, element?.TextContent);
+                var textContent = element?.TextContent ?? String.Empty;
+
+                additionaInformation.Add(keyValue.Key, Regex.Replace(textContent, @"\u00A0|\u2009", " "));
             }
 
             var options = new JsonSerializerOptions() { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
-            var additionalInformationString = JsonSerializer.Serialize(additionaInformation, options).Replace("\u00A0", " ");
+            var additionalInformationString = JsonSerializer.Serialize(additionaInformation, options);
 
             _logger.LogInformation($"Найденная дополнительная информация {additionalInformationString}");
 
@@ -109,7 +111,7 @@ namespace WebScraper.WebApi.Models
 
         private string TransformPrice(string price)
         {
-            price = Regex.Replace(price, @"\s|\u00A0", String.Empty);
+            price = Regex.Replace(price, @"\s|\u00A0|\u2009", String.Empty);
             price = price.Replace(",", ".");
             return price;
         }
