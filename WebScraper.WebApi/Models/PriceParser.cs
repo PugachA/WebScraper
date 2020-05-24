@@ -58,8 +58,8 @@ namespace WebScraper.WebApi.Models
                 discountPrice = null;
             }
 
-            discountPrice = discountPrice?.Replace(" ", "");
-            price = price?.Replace(" ", "");
+            discountPrice = discountPrice?.Replace(" ", String.Empty).Replace("\u00A0", String.Empty);
+            price = price?.Replace(" ", String.Empty).Replace("\u00A0", String.Empty);
 
             Regex regex = new Regex(@"\d+[.,]?\d{1,2}");
             if (discountPrice != null)
