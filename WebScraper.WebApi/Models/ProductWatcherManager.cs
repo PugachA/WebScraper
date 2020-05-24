@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using WebScraper.WebApi.Cron;
 using WebScraper.WebApi.DTO;
@@ -21,15 +23,18 @@ namespace WebScraper.WebApi.Models
         private readonly ILogger _logger;
         private readonly HangfireSchedulerClient _hangfireSchedulerClient;
         private readonly PriceParserFactory _priceParserFactory;
+        private readonly HtmlLoaderFactory _htmlLoaderFactory;
 
         public ProductWatcherManager(ProductWatcherContext productWatcherContext,
                                      HangfireSchedulerClient hangfireSchedulerClient,
                                      PriceParserFactory priceParserFactory,
+                                     HtmlLoaderFactory htmlLoaderFactory,
                                      ILogger<ProductWatcherManager> logger)
         {
             _productWatcherContext = productWatcherContext;
             _hangfireSchedulerClient = hangfireSchedulerClient;
             _priceParserFactory = priceParserFactory;
+            _htmlLoaderFactory = htmlLoaderFactory;
             _logger = logger;
         }
 
@@ -71,8 +76,10 @@ namespace WebScraper.WebApi.Models
 
         private async Task<PriceInfo> ExtractPriceInfo(ProductDto product)
         {
-            var htmlLoader = new HtmlLoader(_logger);
-            var document = await htmlLoader.Load(product.Url);
+            IHtmlLoader htmlLoader = _htmlLoaderFactory.Get(product.Site);
+
+            var cancelationSource = new CancellationTokenSource();
+            var document = await htmlLoader.Load(product.Url, cancelationSource.Token);
 
             var priceParser = _priceParserFactory.Get(product.Site);
 

@@ -4,16 +4,17 @@ using AngleSharp.Html.Parser;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace WebScraper.WebApi.Models
 {
-    public class HtmlLoader
+    public class HtmlLoader : IHtmlLoader
     {
         private readonly HttpClient _httpClient;
-        private readonly ILogger _logger;
+        private readonly ILogger<HtmlLoader> _logger;
 
-        public HtmlLoader(ILogger logger)
+        public HtmlLoader(ILogger<HtmlLoader> logger)
         {
             if (logger == null)
                 throw new ArgumentNullException($"Параметр {nameof(logger)} не может быть null");
@@ -22,7 +23,7 @@ namespace WebScraper.WebApi.Models
             _httpClient = new HttpClient();
         }
 
-        public async Task<IHtmlDocument> Load(string requestUri)
+        public async Task<IHtmlDocument> Load(string requestUri, CancellationToken token)
         {
             var source = await GetContent(requestUri);
 

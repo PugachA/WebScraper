@@ -2,8 +2,10 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using WebScraper.WebApi.DTO;
@@ -58,20 +60,22 @@ namespace WebScraper.WebApi.Models
                 discountPrice = null;
             }
 
-            discountPrice = discountPrice?.Replace(" ", "");
-            price = price?.Replace(" ", "");
+            if (discountPrice != null)
+                discountPrice = TransformPrice(discountPrice);
+            if (price != null)
+                price = TransformPrice(price);
 
-            Regex regex = new Regex(@"\d+[.,]?\d{1,2}");
+            Regex regex = new Regex(@"\d+\.?\d{1,2}");
             if (discountPrice != null)
                 discountPrice = regex.Match(discountPrice).Value;
 
             if (price != null)
                 price = regex.Match(price).Value;
 
-            if (!Decimal.TryParse(price, out decimal priceValue))
+            if (!Decimal.TryParse(price, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out decimal priceValue))
                 throw new InvalidCastException($"Не удалось привести {nameof(price)}={price} к int");
 
-            if (!Decimal.TryParse(discountPrice, out decimal discountPriceTemp) && discountPrice != null)
+            if (!Decimal.TryParse(discountPrice, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out decimal discountPriceTemp) && discountPrice != null)
                 throw new InvalidCastException($"Не удалось привести {nameof(discountPrice)}={discountPrice} к int");
 
             decimal? discountPriceValue = discountPrice == null ? null : (decimal?)discountPriceTemp;
@@ -85,7 +89,7 @@ namespace WebScraper.WebApi.Models
                 return null;
 
             var additionaInformation = new Dictionary<string, string>();
-            foreach(var keyValue in _parserSettings.AdditionalInformation)
+            foreach (var keyValue in _parserSettings.AdditionalInformation)
             {
                 var element = htmlDocument.QuerySelectorAll(keyValue.Value).FirstOrDefault();
 
@@ -95,9 +99,19 @@ namespace WebScraper.WebApi.Models
                 additionaInformation.Add(keyValue.Key, element?.TextContent);
             }
 
-            _logger.LogInformation($"Найденная дополнительная информация {JsonSerializer.Serialize(additionaInformation)}");
+            var options = new JsonSerializerOptions() { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
+            var additionalInformationString = JsonSerializer.Serialize(additionaInformation, options).Replace("\u00A0", " ");
 
-            return JsonSerializer.Serialize(additionaInformation);
+            _logger.LogInformation($"Найденная дополнительная информация {additionalInformationString}");
+
+            return additionalInformationString;
+        }
+
+        private string TransformPrice(string price)
+        {
+            price = Regex.Replace(price, @"\s|\u00A0", String.Empty);
+            price = price.Replace(",", ".");
+            return price;
         }
     }
 }

@@ -45,6 +45,11 @@ namespace WebScraper.WebApi
             services.AddTransient<IConfiguration>(provider => Configuration);
             services.AddTransient<HangfireSchedulerClient>();
             services.AddTransient<PriceParserFactory>();
+
+            services.AddTransient<HtmlLoader>();
+            services.AddSingleton<SelenuimService>();
+            services.AddTransient<HtmlLoaderFactory>();
+
             services.AddTransient<ProductWatcherManager>();
 
             services.AddSwaggerGen(options =>
@@ -59,7 +64,7 @@ namespace WebScraper.WebApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SelenuimService selenuimService)
         {
             if (env.IsDevelopment())
             {
