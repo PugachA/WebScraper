@@ -24,9 +24,19 @@ namespace WebScraper.WebApi.Models
         {
             this.logger = logger;
 
+            var loadTimeoutSeconds = configuration.GetSection("SeleniumLoadTimoutSeconds").Get<int>();
+            if (loadTimeoutSeconds == 0)
+            {
+                loadTimeoutSeconds = 30;
+                logger.LogInformation($"Секция SeleniumLoadTimoutSeconds не найдена, задаем значение по умолчанию {loadTimeoutSeconds}");
+            }
+
             var webDriverCounts = configuration.GetSection("SeleniumWebDriverCounts").Get<int>();
             if (webDriverCounts == 0)
+            {
                 webDriverCounts = Environment.ProcessorCount;
+                logger.LogInformation($"Секция SeleniumWebDriverCounts не найдена, задаем занчение равное количеству логических ядер={webDriverCounts}");
+            }
 
             semaphoreSlim = new SemaphoreSlim(webDriverCounts, webDriverCounts);
 
@@ -34,7 +44,7 @@ namespace WebScraper.WebApi.Models
             for (int i = 0; i < webDriverCounts; i++)
             {
                 var chromeDriver = new ChromeDriver();
-                chromeDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(10);
+                chromeDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(loadTimeoutSeconds);
                 webDriverQueue.Enqueue(chromeDriver);
 
                 logger.LogInformation($"Создан {nameof(ChromeDriver)}");
