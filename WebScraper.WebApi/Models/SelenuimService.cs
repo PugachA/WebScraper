@@ -6,11 +6,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using WebScraper.WebApi.DTO;
 
 namespace WebScraper.WebApi.Models
 {
@@ -19,10 +21,12 @@ namespace WebScraper.WebApi.Models
         private readonly Queue<IWebDriver> webDriverQueue;
         private readonly SemaphoreSlim semaphoreSlim;
         private readonly ILogger<SelenuimService> logger;
+        private readonly Microsoft.Extensions.Configuration.IConfiguration _configuration;
 
         public SelenuimService(Microsoft.Extensions.Configuration.IConfiguration configuration, ILogger<SelenuimService> logger)
         {
             this.logger = logger;
+            this._configuration = configuration;
 
             var loadTimeoutSeconds = configuration.GetSection("SeleniumLoadTimoutSeconds").Get<int>();
             if (loadTimeoutSeconds == 0)
@@ -44,7 +48,7 @@ namespace WebScraper.WebApi.Models
             for (int i = 0; i < webDriverCounts; i++)
             {
                 var chromeDriver = new ChromeDriver();
-                chromeDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(loadTimeoutSeconds);
+                chromeDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(loadTimeoutSeconds);
                 webDriverQueue.Enqueue(chromeDriver);
 
                 logger.LogInformation($"Создан {nameof(ChromeDriver)}");
@@ -53,15 +57,20 @@ namespace WebScraper.WebApi.Models
             logger.LogInformation($"Создано {webDriverCounts} {nameof(ChromeDriver)}");
         }
 
-        public async Task<IHtmlDocument> Load(string url, CancellationToken token)
+        public async Task<IHtmlDocument> Load(string url, SiteDto siteDto, CancellationToken token)
         {
             await semaphoreSlim.WaitAsync(token);
 
             IWebDriver webDriver = null;
             try
             {
+                var parserSettings = _configuration.GetSection(siteDto.Name).Get<ParserSettings>();
+
                 webDriver = webDriverQueue.Dequeue();
                 webDriver.Url = url;
+
+                //Чтобы дождаться прогрузки страницы
+                _ = webDriver.FindElement(By.ClassName(parserSettings.Name.Trim('.')));
 
                 var config = Configuration.Default;
                 var context = BrowsingContext.New(config);
@@ -74,8 +83,8 @@ namespace WebScraper.WebApi.Models
             }
             finally
             {
-                semaphoreSlim.Release();
                 webDriverQueue.Enqueue(webDriver);
+                semaphoreSlim.Release();
             }
         }
 
