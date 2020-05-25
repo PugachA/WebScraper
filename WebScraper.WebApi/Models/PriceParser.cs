@@ -80,6 +80,11 @@ namespace WebScraper.WebApi.Models
 
             decimal? discountPriceValue = discountPrice == null ? null : (decimal?)discountPriceTemp;
 
+            var nameElement = htmlDocument.QuerySelectorAll(_parserSettings.Name).FirstOrDefault();
+            _logger.LogInformation($"Обработываемая часть документа по скидке {nameElement?.OuterHtml}");
+
+            var name = nameElement?.TextContent;
+
             return new PriceInfo(priceValue, discountPriceValue, ExtractAdditionalInformation(htmlDocument));
         }
 

@@ -48,28 +48,10 @@ namespace WebScraper.WebApi.Models
             if (priceInfo == null)
                 throw new NullReferenceException($"Не удалось извлечь {nameof(PriceInfo)} для {nameof(product)}={product}");
 
-            var priceDto = ConvertToPriceDto(priceInfo, product.Id);
+            var priceDto = priceInfo.ConvertToPriceDto(product.Id);
 
             _productWatcherContext.Prices.Add(priceDto);
             _productWatcherContext.SaveChanges();
-
-            return priceDto;
-        }
-
-        private PriceDto ConvertToPriceDto(PriceInfo priceInfo, int productId)
-        {
-            if (priceInfo == null)
-                throw new ArgumentNullException($"Параметр {nameof(priceInfo)} не может быть null");
-
-            var priceDto = new PriceDto
-            {
-                Price = priceInfo.Price,
-                DicountPrice = priceInfo.DicountPrice,
-                DiscountPercentage = priceInfo.DiscountPercentage,
-                AdditionalInformation = priceInfo.AdditionalInformation,
-                Date = DateTime.Now,
-                ProductId = productId
-            };
 
             return priceDto;
         }

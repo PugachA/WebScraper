@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebScraper.WebApi.Models;
 
 namespace WebScraper.WebApi.Migrations
 {
     [DbContext(typeof(ProductWatcherContext))]
-    partial class ProductWatcherContextModelSnapshot : ModelSnapshot
+    [Migration("20200525214303_AddNameAttribute")]
+    partial class AddNameAttribute
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
