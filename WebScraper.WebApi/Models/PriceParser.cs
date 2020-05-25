@@ -85,7 +85,7 @@ namespace WebScraper.WebApi.Models
 
             var name = nameElement?.TextContent;
 
-            return new PriceInfo(priceValue, discountPriceValue, ExtractAdditionalInformation(htmlDocument));
+            return new PriceInfo(priceValue, discountPriceValue, name, ExtractAdditionalInformation(htmlDocument));
         }
 
         protected string ExtractAdditionalInformation(IHtmlDocument htmlDocument)

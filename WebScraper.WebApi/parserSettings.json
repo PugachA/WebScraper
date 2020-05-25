@@ -17,8 +17,7 @@
     "additionalInformation": {
       "Магазин": "div.vuLxS6jSOb",
       "Количество отзывов": "div._28yWHnAj2C",
-      "Доставка": "div._1RYk12ARqf",
-      "Название": "._3TfWusA7bt._26mXJDBxtH"
+      "Доставка": "div._1RYk12ARqf"
     }
   },
   "AliExpress": {
@@ -28,17 +27,13 @@
     "name": ".product-title-text",
     "additionalInformation": {
       "Магазин": "div.shop-name",
-      "Рейтинг": "div.overview-rating",
-      "Название": ".product-title-text"
+      "Рейтинг": "div.overview-rating"
     }
   },
   "Wildberries": {
     "priceHtmlPath": ".old-price",
     "discountHtmlPath": ".final-cost",
     "outOfStockHtmlPath": "",
-    "name": ".name",
-    "additionalInformation": {
-      "Название": ".name"
-    }
+    "name": ".name"
   }
 }
