@@ -79,7 +79,7 @@ namespace WebScraper.WebApi.Models
             IHtmlLoader htmlLoader = _htmlLoaderFactory.Get(product.Site);
 
             var cancelationSource = new CancellationTokenSource();
-            var document = await htmlLoader.Load(product.Url, cancelationSource.Token);
+            var document = await htmlLoader.Load(product.Url, product.Site, cancelationSource.Token);
 
             var priceParser = _priceParserFactory.Get(product.Site);
 
