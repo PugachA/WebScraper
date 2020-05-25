@@ -6,6 +6,7 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using WebScraper.WebApi.DTO;
 
 namespace WebScraper.WebApi.Models
 {
@@ -23,7 +24,7 @@ namespace WebScraper.WebApi.Models
             _httpClient = new HttpClient();
         }
 
-        public async Task<IHtmlDocument> Load(string requestUri, CancellationToken token)
+        public async Task<IHtmlDocument> Load(string requestUri, SiteDto siteDto, CancellationToken token)
         {
             var source = await GetContent(requestUri);
 
