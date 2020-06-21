@@ -59,11 +59,11 @@ namespace WebScraper.WebApi.Models
 
         public async Task<IHtmlDocument> Load(string url, SiteDto siteDto, CancellationToken token)
         {
-            await semaphoreSlim.WaitAsync(token);
-
             IWebDriver webDriver = null;
             try
             {
+                await semaphoreSlim.WaitAsync(token);
+
                 var parserSettings = _configuration.GetSection(siteDto.Name).Get<ParserSettings>();
 
                 webDriver = webDriverQueue.Dequeue();
@@ -83,6 +83,7 @@ namespace WebScraper.WebApi.Models
             }
             finally
             {
+                webDriver.Url = siteDto.BaseUrl;
                 webDriverQueue.Enqueue(webDriver);
                 semaphoreSlim.Release();
             }
