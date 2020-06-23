@@ -17,19 +17,27 @@ namespace WebScraper.ML.DatasetGenerator
 
             var configuration = builder.Build();
 
-            var serviceProvider = new ServiceCollection()
-                .AddLogging(configure => configure.AddConsole())
-                //.AddTransient<IConfiguration>(provider => configuration)
-                //.AddTransient<PriceParserFactory>()
-                //.AddTransient<HtmlLoader>()
-                //.AddSingleton<SelenuimService>()
-                //.AddTransient<HtmlLoaderFactory>()
-                .BuildServiceProvider();
+            var serviceProvider = RegisterServices().BuildServiceProvider();
 
             var logger = serviceProvider.GetService<ILogger<Program>>();
-            logger.LogInformation("Hello");
-            logger.LogError("dfdfdf");
 
+        }
+
+        static IServiceCollection RegisterServices()
+        {
+            var builder = new ConfigurationBuilder()
+                 .AddJsonFile("appSettings.json", optional: false, reloadOnChange: true)
+                 .AddJsonFile($"parserSettings.json", optional: false, reloadOnChange: true);
+
+            var configuration = builder.Build();
+
+            return new ServiceCollection()
+                .AddLogging(configure => configure.AddConsole())
+                .AddTransient<IConfiguration>(provider => configuration)
+                .AddTransient<PriceParserFactory>()
+                .AddTransient<HtmlLoader>()
+                .AddSingleton<SelenuimService>()
+                .AddTransient<HtmlLoaderFactory>();
         }
     }
 }
