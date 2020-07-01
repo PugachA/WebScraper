@@ -42,7 +42,7 @@ namespace WebScraper.ML.DatasetGenerator
                 typeof(IHtmlListItemElement)
             });
 
-            var datasetGeneratorSettings = serviceProvider.GetService<IConfiguration>().GetSection(productDto.Site.Name).Get<DatasetGeneratorSettings>();
+            var datasetGeneratorSettings = serviceProvider.GetService<IConfiguration>().GetSection(productDto.Site.Name).Get<DataSetGeneratorSettings>();
             var dic = new Dictionary<string, HtmlDataSet>();
             foreach (var element in htmlElements)
             {
@@ -60,18 +60,8 @@ namespace WebScraper.ML.DatasetGenerator
                 }
             }
 
-            CsvConfiguration csvConfiguration = new CsvConfiguration(CultureInfo.InvariantCulture);
-            csvConfiguration.Delimiter = ",";
-            csvConfiguration.ShouldQuote = (a, b) => true;
-            csvConfiguration.HasHeaderRecord = true;
-            csvConfiguration.TypeConverterCache.AddConverter<bool>(new BinaryBooleanConverter());
-
-            using StreamWriter streamWriter = new StreamWriter("test.csv");
-            using CsvWriter csvWriter = new CsvWriter(streamWriter, csvConfiguration);
-
-            csvWriter.WriteHeader<HtmlDataSet>();
-            csvWriter.NextRecord();
-            csvWriter.WriteRecords(dic.Values.ToList());
+            DataSetWriter dataSetWriter = new DataSetWriter("DataSets/test.csv");
+            dataSetWriter.AppendRecords(dic.Values.ToList());
         }
 
         static IServiceCollection RegisterServices()
