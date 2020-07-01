@@ -1,0 +1,29 @@
+﻿{
+  "Beru": {
+    "priceHtmlPath": "div._1vKgTDo6wh",
+    "discountHtmlPath": "div._1u3j_pk1db",
+    "outOfStockHtmlPath": "div._1w2bHIINJu",
+    "name": "._3TfWusA7bt._26mXJDBxtH",
+    "additionalInformation": {
+      "Количество отзывов": ".f2PBZg5jPe",
+      "Название": "._3TfWusA7bt._26mXJDBxtH"
+    }
+  },
+  "YandexMarket": {
+    "priceHtmlPath": "div._2Gq3Ev3qUH",
+    "discountHtmlPath": "div._1PaCzxbbzN",
+    "outOfStockHtmlPath": "div.Ca_h1ZgLxJ",
+    "name": "._3TfWusA7bt._26mXJDBxtH",
+    "additionalInformation": {
+      "Магазин": "div.vuLxS6jSOb",
+      "Количество отзывов": "div._28yWHnAj2C",
+      "Доставка": "div._1RYk12ARqf"
+    }
+  },
+  "AliExpress": {
+    "priceTags": [ "product-price-value", "may-like-price" ]
+  },
+  "Wildberries": {
+    "priceTags": [ "old-price", "final-cost" ]
+  }
+}
