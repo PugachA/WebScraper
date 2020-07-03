@@ -23,7 +23,7 @@
   "AliExpress": {
     "priceHtmlPath": "div.product-price-original",
     "discountHtmlPath": "div.product-price-current",
-    "outOfStockHtmlPath": "",
+    "outOfStockHtmlPath": "div.next-message-content",
     "name": ".product-title-text",
     "additionalInformation": {
       "Магазин": "div.shop-name",
