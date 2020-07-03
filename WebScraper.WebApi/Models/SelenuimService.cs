@@ -47,7 +47,13 @@ namespace WebScraper.WebApi.Models
             webDriverQueue = new Queue<IWebDriver>();
             for (int i = 0; i < webDriverCounts; i++)
             {
-                var chromeDriver = new ChromeDriver();
+                ChromeOptions chromeOptions = new ChromeOptions();
+                //chromeOptions.AddArgument("--headless");
+                //chromeOptions.AddArgument("--disable-gpu");
+                //chromeOptions.AddArgument("--disable-web-security");
+                //chromeOptions.AddArgument(@"user-data-dir=C:\Users\foton\AppData\Local\Temp\scoped_dir22284_1666492972");
+
+                var chromeDriver = new ChromeDriver(chromeOptions);
                 chromeDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(loadTimeoutSeconds);
                 webDriverQueue.Enqueue(chromeDriver);
 

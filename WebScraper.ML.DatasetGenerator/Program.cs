@@ -26,10 +26,15 @@ namespace WebScraper.ML.DatasetGenerator
             var serviceProvider = RegisterServices().BuildServiceProvider();
 
             var productWatcherManager = serviceProvider.GetService<ProductWatcherManager>();
-            var productDto = await productWatcherManager.GetProductAsync(1007);
+            var productDto = await productWatcherManager.GetProductAsync(1);
 
             var htmlLoaderFactory = serviceProvider.GetService<HtmlLoaderFactory>();
             var htmlLoader = htmlLoaderFactory.Get(productDto.Site);
+
+            //var config = Configuration.Default;
+            //var context = BrowsingContext.New(config);
+            //var parser = context.GetService<IHtmlParser>();
+            //var document = parser.ParseDocument(source);
 
             var cancelationSource = new CancellationTokenSource();
             var document = await htmlLoader.Load(productDto.Url, productDto.Site, cancelationSource.Token);
@@ -60,8 +65,8 @@ namespace WebScraper.ML.DatasetGenerator
                 }
             }
 
-            DataSetWriter dataSetWriter = new DataSetWriter("DataSets/test.csv");
-            dataSetWriter.AppendRecords(dic.Values.ToList());
+            //DataSetWriter dataSetWriter = new DataSetWriter("DataSets/test.csv");
+            //dataSetWriter.AppendRecords(dic.Values.ToList());
         }
 
         static IServiceCollection RegisterServices()

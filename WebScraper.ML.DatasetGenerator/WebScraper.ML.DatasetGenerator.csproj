@@ -35,4 +35,8 @@
     <ProjectReference Include="..\WebScraper.WebApi\WebScraper.WebApi.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="HtmlFiles\Beru\" />
+  </ItemGroup>
+
 </Project>
