@@ -26,7 +26,7 @@ namespace WebScraper.ML.DatasetGenerator
             var serviceProvider = RegisterServices().BuildServiceProvider();
 
             var productWatcherManager = serviceProvider.GetService<ProductWatcherManager>();
-            var productDto = await productWatcherManager.GetProductAsync(1);
+            var productDto = await productWatcherManager.GetProductAsync(2009);
 
             var htmlLoaderFactory = serviceProvider.GetService<HtmlLoaderFactory>();
             var htmlLoader = htmlLoaderFactory.Get(productDto.Site);
@@ -38,8 +38,28 @@ namespace WebScraper.ML.DatasetGenerator
 
             var cancelationSource = new CancellationTokenSource();
             var document = await htmlLoader.Load(productDto.Url, productDto.Site, cancelationSource.Token);
+
+            var datasetGeneratorSettings = serviceProvider.GetService<IConfiguration>().GetSection(productDto.Site.Name).Get<DataSetGeneratorSettings>();
+            var htmlDatasets = ParseDocument(document, datasetGeneratorSettings);
+
+            DataSetWriter dataSetWriter = new DataSetWriter("DataSets/test.csv");
+            dataSetWriter.AppendRecords(htmlDatasets);
+        }
+
+        static void FileStorageDataSetGenerate(DataSetWriter dataSetWriter)
+        {
+
+        }
+
+        static void HttpDataSetGenerate(DataSetWriter dataSetWriter, ServiceProvider serviceProvider)
+        {
+
+        }
+
+        static IEnumerable<HtmlDataSet> ParseDocument(IHtmlDocument document, DataSetGeneratorSettings dataSetGeneratorSettings)
+        {
             var htmlElements = document.QuerySelectorAll("*").Where(el => el.ChildElementCount == 0 && !String.IsNullOrEmpty(el.OuterHtml));
-            htmlElements = htmlElements.OfTypes(new Type[] 
+            htmlElements = htmlElements.OfTypes(new Type[]
             {
                 typeof(IHtmlSpanElement),
                 typeof(IHtmlDivElement),
@@ -47,17 +67,17 @@ namespace WebScraper.ML.DatasetGenerator
                 typeof(IHtmlListItemElement)
             });
 
-            var datasetGeneratorSettings = serviceProvider.GetService<IConfiguration>().GetSection(productDto.Site.Name).Get<DataSetGeneratorSettings>();
+            
             var dic = new Dictionary<string, HtmlDataSet>();
             foreach (var element in htmlElements)
             {
-                bool isContainsPrice = false;                
+                bool isContainsPrice = false;
 
-                string htmlElement = element.OuterHtml.Replace("\n","").Replace("\r\n", "");
+                string htmlElement = element.OuterHtml.Replace("\n", "").Replace("\r\n", "");
 
                 if (!dic.ContainsKey(htmlElement))
                 {
-                    foreach (var priceTag in datasetGeneratorSettings.PriceTags)
+                    foreach (var priceTag in dataSetGeneratorSettings.PriceTags)
                         if (element.OuterHtml.Contains(priceTag))
                             isContainsPrice = true;
 
@@ -65,8 +85,7 @@ namespace WebScraper.ML.DatasetGenerator
                 }
             }
 
-            //DataSetWriter dataSetWriter = new DataSetWriter("DataSets/test.csv");
-            //dataSetWriter.AppendRecords(dic.Values.ToList());
+            return dic.Values;
         }
 
         static IServiceCollection RegisterServices()

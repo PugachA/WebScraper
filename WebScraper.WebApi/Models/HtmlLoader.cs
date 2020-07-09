@@ -3,6 +3,7 @@ using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,6 +22,20 @@ namespace WebScraper.WebApi.Models
                 throw new ArgumentNullException($"Параметр {nameof(logger)} не может быть null");
 
             _logger = logger;
+
+            var proxy = new WebProxy
+            {
+                Address = new Uri($"http://87.236.212.148:8795"),
+                BypassProxyOnLocal = true,
+                UseDefaultCredentials = true
+            };
+
+            // Now create a client handler which uses that proxy
+            var httpClientHandler = new HttpClientHandler
+            {
+                Proxy = proxy,
+            };
+
             _httpClient = new HttpClient();
         }
 
