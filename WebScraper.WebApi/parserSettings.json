@@ -35,5 +35,11 @@
     "discountHtmlPath": ".final-cost",
     "outOfStockHtmlPath": "",
     "name": ".name"
+  },
+  "Ozon": {
+    "priceHtmlPath": "div.a9e9",
+    "discountHtmlPath": "div.a9e9",
+    "outOfStockHtmlPath": "",
+    "name": ".a8y8"
   }
 }
