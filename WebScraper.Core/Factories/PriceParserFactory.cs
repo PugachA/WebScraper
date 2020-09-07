@@ -1,9 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
+using WebScraper.Core.Parsers;
 using WebScraper.Data.Models;
 
-namespace WebScraper.WebApi.Models.Factories
+namespace WebScraper.Core.Factories
 {
     public class PriceParserFactory : IFactory<IPriceParser>
     {

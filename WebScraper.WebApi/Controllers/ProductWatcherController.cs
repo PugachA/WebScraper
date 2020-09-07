@@ -1,15 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
-using WebScraper.WebApi.Cron;
+using WebScraper.Core;
+using WebScraper.Core.DTO;
+using WebScraper.Core.Helpers;
 using WebScraper.Data.Models;
-using WebScraper.WebApi.Helpers;
-using WebScraper.WebApi.Models;
-using WebScraper.WebApi.DTO;
 
 namespace WebScraper.WebApi.Controllers
 {

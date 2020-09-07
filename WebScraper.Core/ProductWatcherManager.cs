@@ -5,14 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using WebScraper.WebApi.Cron;
 using WebScraper.Data.Models;
-using WebScraper.WebApi.Helpers;
-using WebScraper.WebApi.Models.Factories;
 using WebScraper.Data;
-using WebScraper.WebApi.DTO;
+using WebScraper.Core.Factories;
+using WebScraper.Core.Helpers;
+using WebScraper.Core.Loaders;
+using WebScraper.Core.DTO;
+using WebScraper.Core.Cron;
 
-namespace WebScraper.WebApi.Models
+namespace WebScraper.Core
 {
     /// <summary>
     /// Фасад

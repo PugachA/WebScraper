@@ -1,11 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
-using System.Linq;
-using System.Threading.Tasks;
-using WebScraper.Data.Models;
-using WebScraper.WebApi.Models;
-using WebScraper.WebApi.Models.Factories;
 
 namespace WebScraper.Tests
 {

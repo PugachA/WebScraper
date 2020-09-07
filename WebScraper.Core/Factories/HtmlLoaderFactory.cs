@@ -1,10 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System;
+using WebScraper.Core.Loaders;
 using WebScraper.Data.Models;
 
-namespace WebScraper.WebApi.Models.Factories
+namespace WebScraper.Core.Factories
 {
     public class HtmlLoaderFactory : IFactory<IHtmlLoader>
     {

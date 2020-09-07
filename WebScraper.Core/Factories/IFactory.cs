@@ -1,7 +1,7 @@
 ﻿
 using WebScraper.Data.Models;
 
-namespace WebScraper.WebApi.Models.Factories
+namespace WebScraper.Core.Factories
 {
     /// <summary>
     /// Интерфейс для создания фабрик

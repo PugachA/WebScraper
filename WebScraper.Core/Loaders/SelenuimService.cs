@@ -12,9 +12,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using WebScraper.Core.Parsers;
 using WebScraper.Data.Models;
 
-namespace WebScraper.WebApi.Models
+namespace WebScraper.Core.Loaders
 {
     public class SelenuimService : IDisposable, IHtmlLoader
     {

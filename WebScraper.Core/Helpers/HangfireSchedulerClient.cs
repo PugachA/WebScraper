@@ -6,9 +6,9 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using WebScraper.WebApi.DTO;
+using WebScraper.Core.DTO;
 
-namespace WebScraper.WebApi.Helpers
+namespace WebScraper.Core.Helpers
 {
     public class HangfireSchedulerClient
     {

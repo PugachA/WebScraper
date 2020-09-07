@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using WebScraper.Data.Models;
-using WebScraper.WebApi.Models;
 
-namespace WebScraper.WebApi.Cron
+namespace WebScraper.Core.Cron
 {
     public class CronSchedulerGenerator : ICronScheduler<Product>
     {

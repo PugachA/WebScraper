@@ -2,9 +2,8 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
-using WebScraper.WebApi.Cron;
+using WebScraper.Core.Cron;
 using WebScraper.Data.Models;
-using WebScraper.WebApi.Models;
 
 namespace WebScraper.Tests
 {

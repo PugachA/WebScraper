@@ -4,15 +4,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WebScraper.WebApi.Models;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.IO;
 using System;
 using NLog.Extensions.Logging;
-using WebScraper.WebApi.Helpers;
-using WebScraper.WebApi.Models.Factories;
 using WebScraper.Data;
+using WebScraper.Core.Helpers;
+using WebScraper.Core.Factories;
+using WebScraper.Core.Loaders;
+using WebScraper.Core;
 
 namespace WebScraper.WebApi
 {

@@ -8,7 +8,7 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
-namespace WebScraper.WebApi.Models
+namespace WebScraper.Core.Parsers
 {
     public class PriceParser : IPriceParser
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebScraper.WebApi.DTO
+namespace WebScraper.Core.DTO
 {
     public class ProductSchedulerDto
     {

@@ -1,7 +1,7 @@
 ﻿using AngleSharp.Html.Dom;
 using WebScraper.Data.Models;
 
-namespace WebScraper.WebApi.Models
+namespace WebScraper.Core.Parsers
 {
     public interface IPriceParser
     {

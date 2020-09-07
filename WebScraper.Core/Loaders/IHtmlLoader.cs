@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using WebScraper.Data.Models;
 
-namespace WebScraper.WebApi.Models
+namespace WebScraper.Core.Loaders
 {
     public interface IHtmlLoader
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WebScraper.WebApi.Models
+namespace WebScraper.Core.Parsers
 {
     public class ParserSettings
     {

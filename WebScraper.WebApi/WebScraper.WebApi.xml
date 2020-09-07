@@ -4,23 +4,5 @@
         <name>WebScraper.WebApi</name>
     </assembly>
     <members>
-        <member name="T:WebScraper.WebApi.Models.Factories.IFactory`1">
-            <summary>
-            Интерфейс для создания фабрик
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="M:WebScraper.WebApi.Models.Factories.IFactory`1.Get(WebScraper.Data.Models.Site)">
-            <summary>
-            Получение значения по ключу
-            </summary>
-            <param name="site"></param>
-            <returns></returns>
-        </member>
-        <member name="T:WebScraper.WebApi.Models.ProductWatcherManager">
-            <summary>
-            Фасад
-            </summary>
-        </member>
     </members>
 </doc>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using WebScraper.Data.Models;
 
-namespace WebScraper.WebApi.Cron
+namespace WebScraper.Core.Cron
 {
     public interface ICronScheduler<IProduct>
     {

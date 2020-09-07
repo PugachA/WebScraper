@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using WebScraper.Data.Models;
 
-namespace WebScraper.WebApi.Models
+namespace WebScraper.Core
 {
     public class PriceInfo
     {
