@@ -21,25 +21,9 @@
     }
   },
   "AliExpress": {
-    "priceHtmlPath": "div.product-price-original",
-    "discountHtmlPath": "div.product-price-current",
-    "outOfStockHtmlPath": "div.next-message-content",
-    "name": ".product-title-text",
-    "additionalInformation": {
-      "Магазин": "div.shop-name",
-      "Рейтинг": "div.overview-rating"
-    }
+    "priceTags": [ "product-price-value", "may-like-price" ]
   },
   "Wildberries": {
-    "priceHtmlPath": ".old-price",
-    "discountHtmlPath": ".final-cost",
-    "outOfStockHtmlPath": "",
-    "name": ".name"
-  },
-  "Ozon": {
-    "priceHtmlPath": "div.a9e9",
-    "discountHtmlPath": "div.a9e9",
-    "outOfStockHtmlPath": "",
-    "name": ".a8y8"
+    "priceTags": [ "old-price", "final-cost" ]
   }
 }
