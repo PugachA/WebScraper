@@ -1,5 +1,5 @@
 ﻿
-using WebScraper.WebApi.DTO;
+using WebScraper.Data.Models;
 
 namespace WebScraper.WebApi.Models.Factories
 {
@@ -14,6 +14,6 @@ namespace WebScraper.WebApi.Models.Factories
         /// </summary>
         /// <param name="site"></param>
         /// <returns></returns>
-        T Get(SiteDto site);
+        T Get(Site site);
     }
 }

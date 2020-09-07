@@ -10,7 +10,7 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="M:WebScraper.WebApi.Models.Factories.IFactory`1.Get(WebScraper.WebApi.DTO.SiteDto)">
+        <member name="M:WebScraper.WebApi.Models.Factories.IFactory`1.Get(WebScraper.Data.Models.Site)">
             <summary>
             Получение значения по ключу
             </summary>

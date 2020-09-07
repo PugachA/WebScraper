@@ -4,14 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebScraper.WebApi.Models;
 
-namespace WebScraper.WebApi.Migrations
+namespace WebScraper.Data.Migrations
 {
     [DbContext(typeof(ProductWatcherContext))]
-    [Migration("20200517205252_ReplaceBaseUrlToSite")]
-    partial class ReplaceBaseUrlToSite
+    [Migration("20200404181836_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,21 +26,17 @@ namespace WebScraper.WebApi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AdditionalInformation")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal?>("DicountPrice")
-                        .HasColumnType("decimal(18, 2)");
+                    b.Property<int?>("DicountPrice")
+                        .HasColumnType("int");
 
                     b.Property<double?>("DiscountPercentage")
                         .HasColumnType("float");
 
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(18, 2)");
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -86,11 +80,6 @@ namespace WebScraper.WebApi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("BaseUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
@@ -115,6 +104,10 @@ namespace WebScraper.WebApi.Migrations
 
                     b.Property<bool>("AutoGenerateSchedule")
                         .HasColumnType("bit");
+
+                    b.Property<string>("BaseUrl")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<string>("CheckInterval")
                         .IsRequired()

@@ -1,5 +1,5 @@
 ﻿using AngleSharp.Html.Dom;
-using WebScraper.WebApi.DTO;
+using WebScraper.Data.Models;
 
 namespace WebScraper.WebApi.Models
 {

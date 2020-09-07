@@ -1,21 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
-namespace WebScraper.WebApi.DTO
+namespace WebScraper.Data.Models
 {
-    public class PriceDto
+    public class Price
     {
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
 
-        [Column(TypeName = "decimal(18, 2)")]
-        public decimal? Price { get; set; }
+        [Column("Price", TypeName = "decimal(18, 2)")]
+        public decimal? PriceValue { get; set; }
 
         [Column(TypeName = "decimal(18, 2)")]
         public decimal? DicountPrice { get; set; }
@@ -27,7 +24,7 @@ namespace WebScraper.WebApi.DTO
         public DateTime Date { get; set; }
 
         [JsonIgnore]
-        public ProductDto Product { get; set; }
+        public Product Product { get; set; }
 
         [ForeignKey(nameof(Product))]
         public int ProductId { get; set; }

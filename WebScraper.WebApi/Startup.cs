@@ -12,6 +12,7 @@ using System;
 using NLog.Extensions.Logging;
 using WebScraper.WebApi.Helpers;
 using WebScraper.WebApi.Models.Factories;
+using WebScraper.Data;
 
 namespace WebScraper.WebApi
 {

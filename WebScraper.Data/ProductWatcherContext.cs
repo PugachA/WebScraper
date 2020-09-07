@@ -1,20 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
-using WebScraper.WebApi.DTO;
+using WebScraper.Data.Models;
 
-namespace WebScraper.WebApi.Models
+namespace WebScraper.Data
 {
     public class ProductWatcherContext : DbContext
     {
-        public DbSet<ProductDto> Products { get; set; }
-        public DbSet<SiteDto> Sites { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Site> Sites { get; set; }
         public DbSet<SiteSettings> SiteSettings { get; set; }
-        public DbSet<PriceDto> Prices { get; set; }
+        public DbSet<Price> Prices { get; set; }
 
         public ProductWatcherContext(DbContextOptions<ProductWatcherContext> options) : base(options)
         {
@@ -31,13 +28,13 @@ namespace WebScraper.WebApi.Models
                 .Property(s => s.CheckInterval)
                 .HasConversion(new TimeSpanToStringConverter()); // or TimeSpanToTicksConverter
 
-            modelBuilder.Entity<ProductDto>()
+            modelBuilder.Entity<Product>()
             .Property(p => p.Scheduler)
             .HasConversion(
                 v => JsonSerializer.Serialize(v, null),
                 v => JsonSerializer.Deserialize<List<string>>(v, null));
 
-            modelBuilder.Entity<ProductDto>()
+            modelBuilder.Entity<Product>()
             .HasIndex(p => new { p.Url, p.IsDeleted })
             .HasFilter("[IsDeleted] = 0")
             .IsUnique();

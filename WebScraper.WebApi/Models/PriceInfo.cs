@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using WebScraper.WebApi.DTO;
+using WebScraper.Data.Models;
 
 namespace WebScraper.WebApi.Models
 {
@@ -25,12 +25,12 @@ namespace WebScraper.WebApi.Models
             this.AdditionalInformation = additionalInformation;
         }
 
-        public PriceDto ConvertToPriceDto(int productId)
+        public Price ConvertToPriceDto(int productId)
         {
-            var priceDto = new PriceDto
+            var priceDto = new Price
             {
                 Name = Name,
-                Price = Price,
+                PriceValue = Price,
                 DicountPrice = DicountPrice,
                 DiscountPercentage = DiscountPercentage,
                 AdditionalInformation = AdditionalInformation,

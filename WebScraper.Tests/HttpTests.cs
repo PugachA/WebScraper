@@ -3,7 +3,7 @@ using Moq;
 using NUnit.Framework;
 using System.Linq;
 using System.Threading.Tasks;
-using WebScraper.WebApi.DTO;
+using WebScraper.Data.Models;
 using WebScraper.WebApi.Models;
 using WebScraper.WebApi.Models.Factories;
 

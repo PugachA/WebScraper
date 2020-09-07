@@ -4,11 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using WebScraper.WebApi.DTO;
 
 namespace WebScraper.WebApi.Models
 {

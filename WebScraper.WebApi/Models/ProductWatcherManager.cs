@@ -1,16 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using WebScraper.WebApi.Cron;
-using WebScraper.WebApi.DTO;
+using WebScraper.Data.Models;
 using WebScraper.WebApi.Helpers;
 using WebScraper.WebApi.Models.Factories;
+using WebScraper.Data;
+using WebScraper.WebApi.DTO;
 
 namespace WebScraper.WebApi.Models
 {
@@ -38,7 +38,7 @@ namespace WebScraper.WebApi.Models
             _logger = logger;
         }
 
-        public async Task<PriceDto> ExtractPriceDto(ProductDto product)
+        public async Task<Price> ExtractPriceDto(Product product)
         {
             if (product == null)
                 throw new ArgumentNullException($"Параметр {nameof(product)} не может быть null");
@@ -56,7 +56,7 @@ namespace WebScraper.WebApi.Models
             return priceDto;
         }
 
-        private async Task<PriceInfo> ExtractPriceInfo(ProductDto product)
+        private async Task<PriceInfo> ExtractPriceInfo(Product product)
         {
             IHtmlLoader htmlLoader = _htmlLoaderFactory.Get(product.Site);
 
@@ -70,17 +70,17 @@ namespace WebScraper.WebApi.Models
             return priceInfo;
         }
 
-        public async Task<ProductDto> GetProductAsync(int productId)
+        public async Task<Product> GetProductAsync(int productId)
         {
-            var productDto = await _productWatcherContext.Products
+            var Product = await _productWatcherContext.Products
                 .Include(p => p.Site)
                 .Include(p => p.Site.Settings)
                 .SingleOrDefaultAsync(p => p.Id == productId);
 
-            return productDto;
+            return Product;
         }
 
-        public async Task<PriceDto> GetLastPriceDto(int productId)
+        public async Task<Price> GetLastPriceDto(int productId)
         {
             var priceDto = await _productWatcherContext.Prices
                 .Where(p => p.ProductId == productId)
@@ -90,14 +90,14 @@ namespace WebScraper.WebApi.Models
             return priceDto;
         }
 
-        public async Task<SiteDto> GetSite(int siteId)
+        public async Task<Site> GetSite(int siteId)
         {
             return await _productWatcherContext.Sites
                 .Include(s => s.Settings)
                 .SingleOrDefaultAsync(s => s.Id == siteId);
         }
 
-        public async Task<SiteDto> GetSiteByProductUrl(Uri productUrl)
+        public async Task<Site> GetSiteByProductUrl(Uri productUrl)
         {
             var sitesDto = await _productWatcherContext.Sites
                 .Include(s => s.Settings)
@@ -106,11 +106,11 @@ namespace WebScraper.WebApi.Models
             return sitesDto.SingleOrDefault(s => (new Uri(s.BaseUrl)).Host == productUrl.Host);
         }
 
-        public async Task<ProductDto> CreateProduct(string productUrl, SiteDto siteDto, List<string> scheduler, bool pushToHangfire)
+        public async Task<Product> CreateProduct(string productUrl, Site siteDto, List<string> scheduler, bool pushToHangfire)
         {
-            var productDto = new ProductDto(productUrl, siteDto, scheduler);
+            var Product = new Product(productUrl, siteDto, scheduler);
 
-            await _productWatcherContext.Products.AddAsync(productDto);
+            await _productWatcherContext.Products.AddAsync(Product);
 
             await _productWatcherContext.SaveChangesAsync();
 
@@ -118,23 +118,23 @@ namespace WebScraper.WebApi.Models
                 await _hangfireSchedulerClient.CreateOrUpdateScheduler(
                     new ProductSchedulerDto
                     {
-                        ProductId = productDto.Id,
-                        Scheduler = productDto.Scheduler
+                        ProductId = Product.Id,
+                        Scheduler = Product.Scheduler
                     });
 
-            return productDto;
+            return Product;
         }
 
-        public async Task<ProductDto> UpdateProductAutogenerateScheduler(string productUrl, SiteDto siteDto)
+        public async Task<Product> UpdateProductAutogenerateScheduler(string productUrl, Site siteDto)
         {
-            var productDto = await this.CreateProduct(productUrl, siteDto, new List<string>(), false);
+            var Product = await this.CreateProduct(productUrl, siteDto, new List<string>(), false);
 
             await UpdateSiteScheduler(siteDto);
 
-            return productDto;
+            return Product;
         }
 
-        public async Task UpdateSiteScheduler(SiteDto siteDto)
+        public async Task UpdateSiteScheduler(Site siteDto)
         {
             var products = _productWatcherContext.Products
                 .Include(p => p.Site)
@@ -149,33 +149,33 @@ namespace WebScraper.WebApi.Models
             _logger.LogInformation($"Обновлено расписание для сайта {nameof(siteDto.Id)}={siteDto.Id}");
         }
 
-        public async Task UpdateProductScheduler(ProductDto productDto, List<string> scheduler)
+        public async Task UpdateProductScheduler(Product Product, List<string> scheduler)
         {
-            await _hangfireSchedulerClient.DeleteProductScheduler(productDto.Id);
+            await _hangfireSchedulerClient.DeleteProductScheduler(Product.Id);
 
             await _hangfireSchedulerClient.CreateOrUpdateScheduler(
                 new ProductSchedulerDto
                 {
-                    ProductId = productDto.Id,
+                    ProductId = Product.Id,
                     Scheduler = scheduler
                 });
 
-            productDto.Scheduler = scheduler;
+            Product.Scheduler = scheduler;
             await _productWatcherContext.SaveChangesAsync();
         }
 
-        public async Task SmartDelete(ProductDto productDto)
+        public async Task SmartDelete(Product Product)
         {
-            if (productDto == null)
-                throw new ArgumentNullException($"{nameof(productDto)} не может быть null");
+            if (Product == null)
+                throw new ArgumentNullException($"{nameof(Product)} не может быть null");
 
-            await _hangfireSchedulerClient.DeleteProductScheduler(productDto.Id);
+            await _hangfireSchedulerClient.DeleteProductScheduler(Product.Id);
 
-            productDto.IsDeleted = true;
+            Product.IsDeleted = true;
             await _productWatcherContext.SaveChangesAsync();
 
-            if (productDto.Site.Settings.AutoGenerateSchedule)
-                await UpdateSiteScheduler(productDto.Site);
+            if (Product.Site.Settings.AutoGenerateSchedule)
+                await UpdateSiteScheduler(Product.Site);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 using System.IO;
 
-namespace WebScraper.WebApi.Migrations
+namespace WebScraper.Data.Migrations
 {
     public partial class InitialDataFill : Migration
     {

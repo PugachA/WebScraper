@@ -4,14 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebScraper.WebApi.Models;
 
-namespace WebScraper.WebApi.Migrations
+namespace WebScraper.Data.Migrations
 {
     [DbContext(typeof(ProductWatcherContext))]
-    [Migration("20200522210431_AddDeleteStampForProduct")]
-    partial class AddDeleteStampForProduct
+    [Migration("20200517205252_ReplaceBaseUrlToSite")]
+    partial class ReplaceBaseUrlToSite
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,8 +27,8 @@ namespace WebScraper.WebApi.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AdditionalInformation")
-                        .HasColumnType("nvarchar(1024)")
-                        .HasMaxLength(1024);
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -61,9 +59,6 @@ namespace WebScraper.WebApi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Scheduler")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -73,15 +68,11 @@ namespace WebScraper.WebApi.Migrations
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SiteId");
-
-                    b.HasIndex("Url", "IsDeleted")
-                        .IsUnique()
-                        .HasFilter("[IsDeleted] == 1");
 
                     b.ToTable("Products");
                 });

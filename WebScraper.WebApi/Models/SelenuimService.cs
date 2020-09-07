@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using WebScraper.WebApi.DTO;
+using WebScraper.Data.Models;
 
 namespace WebScraper.WebApi.Models
 {
@@ -63,7 +63,7 @@ namespace WebScraper.WebApi.Models
             logger.LogInformation($"Создано {webDriverCounts} {nameof(ChromeDriver)}");
         }
 
-        public async Task<IHtmlDocument> Load(string url, SiteDto siteDto, CancellationToken token)
+        public async Task<IHtmlDocument> Load(string url, Site siteDto, CancellationToken token)
         {
             IWebDriver webDriver = null;
             try

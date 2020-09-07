@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
-using WebScraper.WebApi.DTO;
+using WebScraper.Data.Models;
 
 namespace WebScraper.WebApi.Models.Factories
 {
@@ -15,7 +15,7 @@ namespace WebScraper.WebApi.Models.Factories
             _servicesProvider = serviceProvider;
         }
 
-        public IHtmlLoader Get(SiteDto siteDto)
+        public IHtmlLoader Get(Site siteDto)
         {
             if (siteDto.Settings.UseSeleniumService)
                 return _servicesProvider.GetService<SelenuimService>();

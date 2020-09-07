@@ -6,9 +6,10 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using WebScraper.WebApi.Cron;
-using WebScraper.WebApi.DTO;
+using WebScraper.Data.Models;
 using WebScraper.WebApi.Helpers;
 using WebScraper.WebApi.Models;
+using WebScraper.WebApi.DTO;
 
 namespace WebScraper.WebApi.Controllers
 {
@@ -28,7 +29,7 @@ namespace WebScraper.WebApi.Controllers
         }
 
         [HttpGet("price")]
-        public async Task<ActionResult<PriceDto>> GetPrice(int productId)
+        public async Task<ActionResult<Price>> GetPrice(int productId)
         {
             try
             {
@@ -96,7 +97,7 @@ namespace WebScraper.WebApi.Controllers
         }
 
         [HttpGet("product")]
-        public async Task<ActionResult<ProductDto>> GetProduct(int productId)
+        public async Task<ActionResult<Product>> GetProduct(int productId)
         {
             try
             {
@@ -124,7 +125,7 @@ namespace WebScraper.WebApi.Controllers
         }
 
         [HttpPost("product")]
-        public async Task<ActionResult<ProductDto>> CreateProduct(CreateProductDto createProductDto)
+        public async Task<ActionResult<Product>> CreateProduct(CreateProductDto createProductDto)
         {
             try
             {
@@ -149,7 +150,7 @@ namespace WebScraper.WebApi.Controllers
                     return NotFound($"Не удалось детектировать сайт по url={productUri.AbsoluteUri}");
                 }
 
-                ProductDto productDto = null;
+                Product productDto = null;
 
                 if (siteDto.Settings.AutoGenerateSchedule)
                 {
@@ -185,7 +186,7 @@ namespace WebScraper.WebApi.Controllers
         }
 
         [HttpDelete("product")]
-        public async Task<ActionResult<ProductDto>> DeleteProduct(int productId)
+        public async Task<ActionResult<Product>> DeleteProduct(int productId)
         {
             try
             {
@@ -222,7 +223,7 @@ namespace WebScraper.WebApi.Controllers
         }
 
         [HttpPut(nameof(UpdateProductScheduler))]
-        public async Task<ActionResult<ProductDto>> UpdateProductScheduler(ProductSchedulerDto productSchedulerDto)
+        public async Task<ActionResult<Product>> UpdateProductScheduler(ProductSchedulerDto productSchedulerDto)
         {
             try
             {

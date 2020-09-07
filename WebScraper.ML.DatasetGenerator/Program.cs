@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using WebScraper.Data;
 using WebScraper.WebApi.Helpers;
 using WebScraper.WebApi.Models;
 using WebScraper.WebApi.Models.Factories;

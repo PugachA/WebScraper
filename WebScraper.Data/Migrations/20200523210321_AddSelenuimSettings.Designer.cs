@@ -4,14 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebScraper.WebApi.Models;
 
-namespace WebScraper.WebApi.Migrations
+namespace WebScraper.Data.Migrations
 {
     [DbContext(typeof(ProductWatcherContext))]
-    [Migration("20200525214303_AddNameAttribute")]
-    partial class AddNameAttribute
+    [Migration("20200523210321_AddSelenuimSettings")]
+    partial class AddSelenuimSettings
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,9 +38,6 @@ namespace WebScraper.WebApi.Migrations
 
                     b.Property<double?>("DiscountPercentage")
                         .HasColumnType("float");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18, 2)");

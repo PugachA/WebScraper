@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using WebScraper.WebApi.Cron;
-using WebScraper.WebApi.DTO;
+using WebScraper.Data.Models;
 using WebScraper.WebApi.Models;
 
 namespace WebScraper.Tests
@@ -18,10 +18,10 @@ namespace WebScraper.Tests
         [Test]
         public void SampleTest1()
         {
-            List<ProductDto> products = new List<ProductDto>
+            List<Product> products = new List<Product>
             {
-                new ProductDto(),
-                new ProductDto(),
+                new Product(),
+                new Product(),
             };
 
             var siteSettings = new SiteSettings

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
-using WebScraper.WebApi.DTO;
+using WebScraper.Data.Models;
 
 namespace WebScraper.WebApi.Models.Factories
 {
@@ -16,7 +16,7 @@ namespace WebScraper.WebApi.Models.Factories
             _configuration = configuration;
         }
 
-        public IPriceParser Get(SiteDto site)
+        public IPriceParser Get(Site site)
         {
             var parserSettings = _configuration.GetSection(site.Name).Get<ParserSettings>();
 

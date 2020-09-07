@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebScraper.WebApi.DTO;
+using WebScraper.Data.Models;
 using WebScraper.WebApi.Models;
 
 namespace WebScraper.WebApi.Cron
 {
-    public class CronSchedulerGenerator : ICronScheduler<ProductDto>
+    public class CronSchedulerGenerator : ICronScheduler<Product>
     {
         private readonly SiteSettings _siteSettings;
         private readonly int _maxProductCount;
@@ -20,7 +20,7 @@ namespace WebScraper.WebApi.Cron
             _maxProductCount = (int)(TimeSpan.FromDays(1).Ticks / _interval.Ticks);
         }
 
-        public Dictionary<ProductDto, List<string>> GenerateSchedule(IEnumerable<ProductDto> products)
+        public Dictionary<Product, List<string>> GenerateSchedule(IEnumerable<Product> products)
         {
             if (!products.Any())
                 throw new ArgumentException($"{nameof(products)} не может быть пустым");
@@ -28,13 +28,13 @@ namespace WebScraper.WebApi.Cron
             if (products.Count() > _maxProductCount)
                 throw new ArgumentOutOfRangeException($"Количество товаров {products.Count()} превысило максимально допустимое количество {_maxProductCount}");
 
-            Dictionary<ProductDto, List<DateTime>> productTimes = new Dictionary<ProductDto, List<DateTime>>();
+            Dictionary<Product, List<DateTime>> productTimes = new Dictionary<Product, List<DateTime>>();
             DateTime dateTime = DateTime.Today;
 
             int count = 0;
             while (count < _maxProductCount)
             {
-                foreach (ProductDto product in products)
+                foreach (Product product in products)
                 {
                     if (productTimes.ContainsKey(product))
                         productTimes[product].Add(dateTime);
@@ -52,9 +52,9 @@ namespace WebScraper.WebApi.Cron
             return ConvertToCron(productTimes);
         }
 
-        private Dictionary<ProductDto, List<string>> ConvertToCron(Dictionary<ProductDto, List<DateTime>> productTimes)
+        private Dictionary<Product, List<string>> ConvertToCron(Dictionary<Product, List<DateTime>> productTimes)
         {
-            var productCronTime = new Dictionary<ProductDto, List<string>>();
+            var productCronTime = new Dictionary<Product, List<string>>();
 
             foreach (var productTime in productTimes)
                 foreach (var time in productTime.Value)

@@ -3,15 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebScraper.WebApi.Models;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace WebScraper.WebApi.Migrations
+namespace WebScraper.Data.Migrations
 {
     [DbContext(typeof(ProductWatcherContext))]
-    partial class ProductWatcherContextModelSnapshot : ModelSnapshot
+    [Migration("20200405123425_InitialDataFill")]
+    partial class InitialDataFill
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,24 +26,17 @@ namespace WebScraper.WebApi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AdditionalInformation")
-                        .HasColumnType("nvarchar(1024)")
-                        .HasMaxLength(1024);
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal?>("DicountPrice")
-                        .HasColumnType("decimal(18, 2)");
+                    b.Property<int?>("DicountPrice")
+                        .HasColumnType("int");
 
                     b.Property<double?>("DiscountPercentage")
                         .HasColumnType("float");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(18, 2)");
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -62,9 +55,6 @@ namespace WebScraper.WebApi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Scheduler")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -74,15 +64,11 @@ namespace WebScraper.WebApi.Migrations
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SiteId");
-
-                    b.HasIndex("Url", "IsDeleted")
-                        .IsUnique()
-                        .HasFilter("[IsDeleted] = 0");
 
                     b.ToTable("Products");
                 });
@@ -93,11 +79,6 @@ namespace WebScraper.WebApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("BaseUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -124,6 +105,10 @@ namespace WebScraper.WebApi.Migrations
                     b.Property<bool>("AutoGenerateSchedule")
                         .HasColumnType("bit");
 
+                    b.Property<string>("BaseUrl")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
                     b.Property<string>("CheckInterval")
                         .IsRequired()
                         .HasColumnType("nvarchar(48)");
@@ -131,9 +116,6 @@ namespace WebScraper.WebApi.Migrations
                     b.Property<string>("MinCheckInterval")
                         .IsRequired()
                         .HasColumnType("nvarchar(48)");
-
-                    b.Property<bool>("UseSeleniumService")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

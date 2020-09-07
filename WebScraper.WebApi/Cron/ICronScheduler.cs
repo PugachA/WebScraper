@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using WebScraper.WebApi.DTO;
-using WebScraper.WebApi.Models;
+using WebScraper.Data.Models;
 
 namespace WebScraper.WebApi.Cron
 {
     public interface ICronScheduler<IProduct>
     {
-        Dictionary<ProductDto, List<string>> GenerateSchedule(IEnumerable<ProductDto> products);
+        Dictionary<Product, List<string>> GenerateSchedule(IEnumerable<Product> products);
     }
 }

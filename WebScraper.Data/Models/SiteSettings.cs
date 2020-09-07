@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using WebScraper.WebApi.Helpers;
+using WebScraper.Data.Helpers;
 
-namespace WebScraper.WebApi.DTO
+namespace WebScraper.Data.Models
 {
     public class SiteSettings
     {
