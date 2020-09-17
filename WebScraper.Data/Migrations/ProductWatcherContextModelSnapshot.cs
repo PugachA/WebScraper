@@ -3,6 +3,8 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using WebScraper.Data;
 
 namespace WebScraper.Data.Migrations
 {
@@ -13,11 +15,11 @@ namespace WebScraper.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.3")
+                .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("WebScraper.WebApi.DTO.PriceDto", b =>
+            modelBuilder.Entity("WebScraper.Data.Models.Price", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -40,7 +42,8 @@ namespace WebScraper.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("Price")
+                    b.Property<decimal?>("PriceValue")
+                        .HasColumnName("Price")
                         .HasColumnType("decimal(18, 2)");
 
                     b.Property<int>("ProductId")
@@ -53,7 +56,7 @@ namespace WebScraper.Data.Migrations
                     b.ToTable("Prices");
                 });
 
-            modelBuilder.Entity("WebScraper.WebApi.DTO.ProductDto", b =>
+            modelBuilder.Entity("WebScraper.Data.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -85,7 +88,7 @@ namespace WebScraper.Data.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("WebScraper.WebApi.DTO.SiteDto", b =>
+            modelBuilder.Entity("WebScraper.Data.Models.Site", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -112,7 +115,7 @@ namespace WebScraper.Data.Migrations
                     b.ToTable("Sites");
                 });
 
-            modelBuilder.Entity("WebScraper.WebApi.DTO.SiteSettings", b =>
+            modelBuilder.Entity("WebScraper.Data.Models.SiteSettings", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -138,27 +141,27 @@ namespace WebScraper.Data.Migrations
                     b.ToTable("SiteSettings");
                 });
 
-            modelBuilder.Entity("WebScraper.WebApi.DTO.PriceDto", b =>
+            modelBuilder.Entity("WebScraper.Data.Models.Price", b =>
                 {
-                    b.HasOne("WebScraper.WebApi.DTO.ProductDto", "Product")
+                    b.HasOne("WebScraper.Data.Models.Product", "Product")
                         .WithMany("Prices")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WebScraper.WebApi.DTO.ProductDto", b =>
+            modelBuilder.Entity("WebScraper.Data.Models.Product", b =>
                 {
-                    b.HasOne("WebScraper.WebApi.DTO.SiteDto", "Site")
+                    b.HasOne("WebScraper.Data.Models.Site", "Site")
                         .WithMany("Products")
                         .HasForeignKey("SiteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WebScraper.WebApi.DTO.SiteDto", b =>
+            modelBuilder.Entity("WebScraper.Data.Models.Site", b =>
                 {
-                    b.HasOne("WebScraper.WebApi.DTO.SiteSettings", "Settings")
+                    b.HasOne("WebScraper.Data.Models.SiteSettings", "Settings")
                         .WithMany()
                         .HasForeignKey("SettingsId");
                 });

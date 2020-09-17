@@ -15,7 +15,7 @@ namespace WebScraper.Data
 
         public ProductWatcherContext(DbContextOptions<ProductWatcherContext> options) : base(options)
         {
-            Database.Migrate();
+            //Database.Migrate();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
