@@ -15,7 +15,7 @@ namespace WebScraper.Data
 
         public ProductWatcherContext(DbContextOptions<ProductWatcherContext> options) : base(options)
         {
-            //Database.Migrate();
+            Database.Migrate();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -38,6 +38,8 @@ namespace WebScraper.Data
             .HasIndex(p => new { p.Url, p.IsDeleted })
             .HasFilter("[IsDeleted] = 0")
             .IsUnique();
+
+            modelBuilder.Seed();
         }
     }
 }

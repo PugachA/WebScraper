@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace WebScraper.Data.Models
@@ -12,7 +13,10 @@ namespace WebScraper.Data.Models
         [Required]
         public string Url { get; set; }
 
-        [Required]
+        [JsonIgnore]
+        [ForeignKey(nameof(Site))]
+        public int SiteId { get; set; }
+
         public Site Site { get; set; }
 
         [Required]
