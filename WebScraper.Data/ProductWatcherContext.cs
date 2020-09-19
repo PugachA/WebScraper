@@ -38,6 +38,8 @@ namespace WebScraper.Data
             .HasIndex(p => new { p.Url, p.IsDeleted })
             .HasFilter("[IsDeleted] = 0")
             .IsUnique();
+
+            modelBuilder.Seed();
         }
     }
 }

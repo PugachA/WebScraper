@@ -13,8 +13,8 @@ namespace WebScraper.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BaseUrl = table.Column<string>(maxLength: 100, nullable: true),
                     AutoGenerateSchedule = table.Column<bool>(nullable: false),
+                    UseSeleniumService = table.Column<bool>(nullable: false),
                     MinCheckInterval = table.Column<string>(nullable: false),
                     CheckInterval = table.Column<string>(nullable: false)
                 },
@@ -30,6 +30,7 @@ namespace WebScraper.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(maxLength: 50, nullable: false),
+                    BaseUrl = table.Column<string>(maxLength: 100, nullable: false),
                     SettingsId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -51,7 +52,8 @@ namespace WebScraper.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Url = table.Column<string>(nullable: false),
                     SiteId = table.Column<int>(nullable: false),
-                    Scheduler = table.Column<string>(nullable: false)
+                    Scheduler = table.Column<string>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,9 +72,11 @@ namespace WebScraper.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Price = table.Column<int>(nullable: false),
-                    DicountPrice = table.Column<int>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
+                    DicountPrice = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
                     DiscountPercentage = table.Column<double>(nullable: true),
+                    AdditionalInformation = table.Column<string>(maxLength: 1024, nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
                     ProductId = table.Column<int>(nullable: false)
                 },
@@ -96,6 +100,13 @@ namespace WebScraper.Data.Migrations
                 name: "IX_Products_SiteId",
                 table: "Products",
                 column: "SiteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_Url_IsDeleted",
+                table: "Products",
+                columns: new[] { "Url", "IsDeleted" },
+                unique: true,
+                filter: "[IsDeleted] = 0");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sites_SettingsId",
