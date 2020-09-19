@@ -3,6 +3,8 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using WebScraper.Data;
 
 namespace WebScraper.Data.Migrations
 {
@@ -13,11 +15,11 @@ namespace WebScraper.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.3")
+                .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("WebScraper.WebApi.DTO.PriceDto", b =>
+            modelBuilder.Entity("WebScraper.Data.Models.Price", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -40,7 +42,8 @@ namespace WebScraper.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("Price")
+                    b.Property<decimal?>("PriceValue")
+                        .HasColumnName("Price")
                         .HasColumnType("decimal(18, 2)");
 
                     b.Property<int>("ProductId")
@@ -53,7 +56,7 @@ namespace WebScraper.Data.Migrations
                     b.ToTable("Prices");
                 });
 
-            modelBuilder.Entity("WebScraper.WebApi.DTO.ProductDto", b =>
+            modelBuilder.Entity("WebScraper.Data.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -83,9 +86,19 @@ namespace WebScraper.Data.Migrations
                         .HasFilter("[IsDeleted] = 0");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsDeleted = false,
+                            Scheduler = "[\"0 */30 * ? * *\"]",
+                            SiteId = 1,
+                            Url = "https://aliexpress.ru/item/4000561177801.html?spm=a2g0o.productlist.0.0.4c866c27X06Ss3&algo_pvid=e3004186-674b-47b9-9bfe-bde68786bf6c&algo_expid=e3004186-674b-47b9-9bfe-bde68786bf6c-1&btsid=0b8b15ea15903376264785085ed804&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_"
+                        });
                 });
 
-            modelBuilder.Entity("WebScraper.WebApi.DTO.SiteDto", b =>
+            modelBuilder.Entity("WebScraper.Data.Models.Site", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -102,7 +115,7 @@ namespace WebScraper.Data.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<int?>("SettingsId")
+                    b.Property<int>("SettingsId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -110,9 +123,18 @@ namespace WebScraper.Data.Migrations
                     b.HasIndex("SettingsId");
 
                     b.ToTable("Sites");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BaseUrl = "https://aliexpress.ru/",
+                            Name = "AliExpress",
+                            SettingsId = 1
+                        });
                 });
 
-            modelBuilder.Entity("WebScraper.WebApi.DTO.SiteSettings", b =>
+            modelBuilder.Entity("WebScraper.Data.Models.SiteSettings", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -136,31 +158,43 @@ namespace WebScraper.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SiteSettings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AutoGenerateSchedule = false,
+                            CheckInterval = "00:01:00",
+                            MinCheckInterval = "00:01:00",
+                            UseSeleniumService = true
+                        });
                 });
 
-            modelBuilder.Entity("WebScraper.WebApi.DTO.PriceDto", b =>
+            modelBuilder.Entity("WebScraper.Data.Models.Price", b =>
                 {
-                    b.HasOne("WebScraper.WebApi.DTO.ProductDto", "Product")
+                    b.HasOne("WebScraper.Data.Models.Product", "Product")
                         .WithMany("Prices")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WebScraper.WebApi.DTO.ProductDto", b =>
+            modelBuilder.Entity("WebScraper.Data.Models.Product", b =>
                 {
-                    b.HasOne("WebScraper.WebApi.DTO.SiteDto", "Site")
+                    b.HasOne("WebScraper.Data.Models.Site", "Site")
                         .WithMany("Products")
                         .HasForeignKey("SiteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WebScraper.WebApi.DTO.SiteDto", b =>
+            modelBuilder.Entity("WebScraper.Data.Models.Site", b =>
                 {
-                    b.HasOne("WebScraper.WebApi.DTO.SiteSettings", "Settings")
+                    b.HasOne("WebScraper.Data.Models.SiteSettings", "Settings")
                         .WithMany()
-                        .HasForeignKey("SettingsId");
+                        .HasForeignKey("SettingsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
