@@ -11,30 +11,30 @@ using WebScraper.Data.Models;
 
 namespace WebScraper.Core.Loaders
 {
-    public class HtmlLoader : IHtmlLoader
+    public class HttpLoader : IHtmlLoader
     {
         private readonly HttpClient _httpClient;
-        private readonly ILogger<HtmlLoader> _logger;
+        private readonly ILogger<HttpLoader> _logger;
 
-        public HtmlLoader(ILogger<HtmlLoader> logger)
+        public HttpLoader(ILogger<HttpLoader> logger)
         {
             if (logger == null)
                 throw new ArgumentNullException($"Параметр {nameof(logger)} не может быть null");
 
             _logger = logger;
 
-            var proxy = new WebProxy
-            {
-                Address = new Uri($"http://87.236.212.148:8795"),
-                BypassProxyOnLocal = true,
-                UseDefaultCredentials = true
-            };
+            //var proxy = new WebProxy
+            //{
+            //    Address = new Uri($"http://87.236.212.148:8795"),
+            //    BypassProxyOnLocal = true,
+            //    UseDefaultCredentials = true
+            //};
 
-            // Now create a client handler which uses that proxy
-            var httpClientHandler = new HttpClientHandler
-            {
-                Proxy = proxy,
-            };
+            //// Now create a client handler which uses that proxy
+            //var httpClientHandler = new HttpClientHandler
+            //{
+            //    Proxy = proxy,
+            //};
 
             _httpClient = new HttpClient();
         }

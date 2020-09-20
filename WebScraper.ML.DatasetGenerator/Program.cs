@@ -103,8 +103,8 @@ namespace WebScraper.ML.DatasetGenerator
                 .AddTransient<IConfiguration>(provider => configuration)
                 .AddTransient<HangfireSchedulerClient>()
                 .AddTransient<PriceParserFactory>()
-                .AddTransient<HtmlLoader>()
-                .AddSingleton<SelenuimService>()
+                .AddTransient<HttpLoader>()
+                .AddSingleton<SelenuimLoader>()
                 .AddTransient<HtmlLoaderFactory>()
                 .AddTransient<ProductWatcherManager>();
         }

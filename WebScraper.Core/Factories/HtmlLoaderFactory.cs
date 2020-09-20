@@ -16,10 +16,17 @@ namespace WebScraper.Core.Factories
 
         public IHtmlLoader Get(Site siteDto)
         {
-            if (siteDto.Settings.UseSeleniumService)
-                return _servicesProvider.GetService<SelenuimService>();
-            else
-                return _servicesProvider.GetService<HtmlLoader>();
+            switch(siteDto.Settings.HtmlLoader)
+            {
+                case "HttpLoader":
+                    return _servicesProvider.GetService<HttpLoader>();
+                case "SelenuimLoader":
+                    return _servicesProvider.GetService<SelenuimLoader>();
+                case "PuppeteerLoader":
+                    return _servicesProvider.GetService<PuppeteerLoader>();
+                default:
+                    throw new ArgumentException($"{siteDto.Settings.HtmlLoader} тип {typeof(IHtmlLoader).Name} не поддерживается");
+            }
         }
     }
 }

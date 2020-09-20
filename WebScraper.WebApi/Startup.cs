@@ -48,8 +48,8 @@ namespace WebScraper.WebApi
             services.AddTransient<HangfireSchedulerClient>();
             services.AddTransient<PriceParserFactory>();
 
-            services.AddTransient<HtmlLoader>();
-            services.AddSingleton<SelenuimService>();
+            services.AddTransient<HttpLoader>();
+            services.AddSingleton<SelenuimLoader>();
             services.AddTransient<HtmlLoaderFactory>();
 
             services.AddTransient<ProductWatcherManager>();
