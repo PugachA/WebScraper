@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using WebScraper.Data.Models;
@@ -20,6 +21,10 @@ namespace WebScraper.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<SiteSettings>()
+                .Property(s => s.HtmlLoader)
+                .HasDefaultValue("HttpLoader");
+        
             modelBuilder.Entity<SiteSettings>()
                 .Property(s => s.MinCheckInterval)
                 .HasConversion(new TimeSpanToStringConverter()); // or TimeSpanToTicksConverter

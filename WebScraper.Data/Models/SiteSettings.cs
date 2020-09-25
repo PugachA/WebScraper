@@ -10,7 +10,10 @@ namespace WebScraper.Data.Models
         [Key]
         public int Id { get; set; }
         public bool AutoGenerateSchedule { get; set; }
-        public bool UseSeleniumService { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string HtmlLoader { get; set; }
 
         [JsonConverter(typeof(TimeSpanConverter))]
         public TimeSpan MinCheckInterval { get; set; } = TimeSpan.FromMinutes(30);
