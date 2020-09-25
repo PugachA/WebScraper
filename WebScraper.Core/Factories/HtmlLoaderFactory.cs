@@ -20,7 +20,7 @@ namespace WebScraper.Core.Factories
             {
                 case "HttpLoader":
                     return _servicesProvider.GetService<HttpLoader>();
-                case "SelenuimLoader":
+                case "SeleniumLoader":
                     return _servicesProvider.GetService<SelenuimLoader>();
                 case "PuppeteerLoader":
                     return _servicesProvider.GetService<PuppeteerLoader>();

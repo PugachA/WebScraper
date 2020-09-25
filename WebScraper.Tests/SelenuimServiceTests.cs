@@ -43,6 +43,7 @@ namespace WebScraper.Tests
                 .AddTransient<PriceParserFactory>()
                 .AddTransient<HttpLoader>()
                 .AddSingleton<SelenuimLoader>()
+                .AddSingleton<PuppeteerLoader>()
                 .AddTransient<HtmlLoaderFactory>()
                 .AddTransient<ProductWatcherManager>();
         }
@@ -51,8 +52,35 @@ namespace WebScraper.Tests
         public async Task RandomTest()
         {
             var productWatcherManager = serviceProvider.GetService<ProductWatcherManager>();
-            var productDto = await productWatcherManager.GetProductAsync(1);
+            var productDto = await productWatcherManager.GetProductAsync(5);
             var price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
+            price = await productWatcherManager.ExtractPriceDto(productDto);
             price = await productWatcherManager.ExtractPriceDto(productDto);
             price = await productWatcherManager.ExtractPriceDto(productDto);
             price = await productWatcherManager.ExtractPriceDto(productDto);

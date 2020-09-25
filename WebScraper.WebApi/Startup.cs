@@ -50,6 +50,7 @@ namespace WebScraper.WebApi
 
             services.AddTransient<HttpLoader>();
             services.AddSingleton<SelenuimLoader>();
+            services.AddSingleton<PuppeteerLoader>();
             services.AddTransient<HtmlLoaderFactory>();
 
             services.AddTransient<ProductWatcherManager>();
