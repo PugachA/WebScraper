@@ -1,12 +1,18 @@
 ﻿using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using PuppeteerSharp;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace WebScraper.Tests
 {
     public class HttpTests
     {
-        private Mock<ILogger>  mockLogger; 
+        private Mock<ILogger> mockLogger;
 
         [SetUp]
         public void Setup()
@@ -14,51 +20,43 @@ namespace WebScraper.Tests
             mockLogger = new Mock<ILogger>();
         }
 
-        //[Test]
-        //public async Task BeruTest()
-        //{
-        //    var site = new SiteDto("Beru", null);
-        //    var product = new ProductDto(
-        //        @"https://beru.ru/product/frima-zamenitel-sukhogo-molochnogo-produkta-500-g/100714261945?offerid=yuVX7VkKijDxDwzZnPR6yw&track=cart",
-        //        site,
-        //        null);
+        [Test]
+        public async Task PuppeteerTest()
+        {
+            await new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultRevision);
+            var browser = await Puppeteer.LaunchAsync(new LaunchOptions
+            {
+                Headless = false
+            });
+            var page = await browser.NewPageAsync();
+            await page.GoToAsync("https://beru.ru/product/pla-prutok-bestfilament-1-75-mm-belyi-0-5-kg/100346967800?show-uid=16005480854223810791106020&offerid=zBh1lM8pPGit3h1MVHmOkQ");
+            var str = await page.GetContentAsync();
 
-        //    var htmlLoader = new HtmlLoader(mockLogger.Object);
-        //    var document = await htmlLoader.Load(product.Url);
+            await browser.CloseAsync();
+        }
 
-        //    var parserFactory = new PriceParserFactory(mockLogger.Object);
-        //    var priceParser = parserFactory.Get(product.Site);
+        [Test]
+        public void SeleniumTest()
+        {
+            ChromeOptions chromeOptions = new ChromeOptions();
+            //chromeOptions.AddArguments(new List<string>() {
+            //    //    "--silent-launch",
+            //    //    "--no-startup-window",
+            //    //    "no-sandbox",
+            //       "headless"
+            //    //    "disable-gpu"
+            //    });
+            //chromeOptions.AddArgument(@"user-data-dir=C:\Users\foton\AppData\Local\Temp\scoped_dir22284_1666492972");
 
-        //    var priceInfo = priceParser.Parse(document);
-        //}
+            //var chromeDriverService = ChromeDriverService.CreateDefaultService();
+            //chromeDriverService.HideCommandPromptWindow = true;
+            var chromeDriver = new ChromeDriver(chromeOptions);
+            chromeDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
 
-        //[Test]
-        //public async Task RegardTest()
-        //{
-        //    var site = new SiteDto("Ozon", null);
-        //    var product = new ProductDto(
-        //        @"https://www.regard.ru/catalog/tovar299743.htm",
-        //        site,
-        //        null);
-
-        //    var htmlLoader = new HtmlLoader(mockLogger.Object);
-        //    var document = await htmlLoader.Load(product.Url);
-
-        //    var price = document.QuerySelectorAll("span").SingleOrDefault(i => i.ClassName != null && i.ClassName == "price lot");
-        //}
-
-        //[Test]
-        //public async Task OzonTest()
-        //{
-        //    var site = new SiteDto("Ozon", null);
-        //    var product = new ProductDto(
-        //        @"https://www.ozon.ru/context/detail/id/147947696/",
-        //        site,
-        //        null);
-
-        //    var htmlLoader = new HtmlLoader(mockLogger.Object);
-        //    var document = await htmlLoader.Load(product.Url);
-        //}
+            chromeDriver.Url = "https://beru.ru/product/pla-prutok-bestfilament-1-75-mm-belyi-0-5-kg/100346967800?show-uid=16005480854223810791106020&offerid=zBh1lM8pPGit3h1MVHmOkQ";
+            var str = chromeDriver.PageSource;
+            chromeDriver.Close();
+        }
 
     }
 }

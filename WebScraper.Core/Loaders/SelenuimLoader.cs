@@ -17,14 +17,14 @@ using WebScraper.Data.Models;
 
 namespace WebScraper.Core.Loaders
 {
-    public class SelenuimService : IDisposable, IHtmlLoader
+    public class SelenuimLoader : IDisposable, IHtmlLoader
     {
         private readonly Queue<IWebDriver> webDriverQueue;
         private readonly SemaphoreSlim semaphoreSlim;
-        private readonly ILogger<SelenuimService> logger;
+        private readonly ILogger<SelenuimLoader> logger;
         private readonly Microsoft.Extensions.Configuration.IConfiguration _configuration;
 
-        public SelenuimService(Microsoft.Extensions.Configuration.IConfiguration configuration, ILogger<SelenuimService> logger)
+        public SelenuimLoader(Microsoft.Extensions.Configuration.IConfiguration configuration, ILogger<SelenuimLoader> logger)
         {
             this.logger = logger;
             this._configuration = configuration;
@@ -49,11 +49,17 @@ namespace WebScraper.Core.Loaders
             for (int i = 0; i < webDriverCounts; i++)
             {
                 ChromeOptions chromeOptions = new ChromeOptions();
-                //chromeOptions.AddArgument("--headless");
-                //chromeOptions.AddArgument("--disable-gpu");
-                //chromeOptions.AddArgument("--disable-web-security");
+                //chromeOptions.AddArguments(new List<string>() {
+                //    "--silent-launch",
+                //    "--no-startup-window",
+                //    "no-sandbox",
+                //    "headless"
+                //    "disable-gpu"
+                //});
                 //chromeOptions.AddArgument(@"user-data-dir=C:\Users\foton\AppData\Local\Temp\scoped_dir22284_1666492972");
 
+                //var chromeDriverService = ChromeDriverService.CreateDefaultService();
+                //chromeDriverService.HideCommandPromptWindow = true;
                 var chromeDriver = new ChromeDriver(chromeOptions);
                 chromeDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(loadTimeoutSeconds);
                 webDriverQueue.Enqueue(chromeDriver);
