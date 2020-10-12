@@ -12,6 +12,7 @@ using WebScraper.Core;
 using WebScraper.Core.Factories;
 using WebScraper.Core.Helpers;
 using WebScraper.Core.Loaders;
+using WebScraper.Core.Parsers;
 using WebScraper.Data;
 
 namespace WebScraper.ML.DatasetGenerator
@@ -22,25 +23,30 @@ namespace WebScraper.ML.DatasetGenerator
         {
             var serviceProvider = RegisterServices().BuildServiceProvider();
 
+            var htmlDatasets1 = await GenerateDataSet(6, serviceProvider);
+            var htmlDatasets = await GenerateDataSet(1, serviceProvider);
+
+            DataSetWriter dataSetWriter = new DataSetWriter("DataSets/test.csv");
+            dataSetWriter.AppendRecords(htmlDatasets);
+            dataSetWriter.AppendRecords(htmlDatasets1);
+        }
+
+        static async Task<IEnumerable<HtmlDataSet>> GenerateDataSet(int productId, ServiceProvider serviceProvider)
+        {
             var productWatcherManager = serviceProvider.GetService<ProductWatcherManager>();
-            var productDto = await productWatcherManager.GetProductAsync(2009);
+            var productDto = await productWatcherManager.GetProductAsync(productId);
 
             var htmlLoaderFactory = serviceProvider.GetService<HtmlLoaderFactory>();
             var htmlLoader = htmlLoaderFactory.Get(productDto.Site);
 
-            //var config = Configuration.Default;
-            //var context = BrowsingContext.New(config);
-            //var parser = context.GetService<IHtmlParser>();
-            //var document = parser.ParseDocument(source);
-
             var cancelationSource = new CancellationTokenSource();
             var document = await htmlLoader.Load(productDto.Url, productDto.Site, cancelationSource.Token);
 
-            var datasetGeneratorSettings = serviceProvider.GetService<IConfiguration>().GetSection(productDto.Site.Name).Get<DataSetGeneratorSettings>();
-            var htmlDatasets = ParseDocument(document, datasetGeneratorSettings);
+            var parserSettings = serviceProvider.GetService<IConfiguration>().GetSection(productDto.Site.Name).Get<ParserSettings>();
+            var dataSetGeneratorSettings = serviceProvider.GetService<IConfiguration>().GetSection(productDto.Site.Name).Get<DataSetGeneratorSettings>();
+            dataSetGeneratorSettings.AddParserSettings(parserSettings);
 
-            DataSetWriter dataSetWriter = new DataSetWriter("DataSets/test.csv");
-            dataSetWriter.AppendRecords(htmlDatasets);
+            return ParseDocument(document, dataSetGeneratorSettings);
         }
 
         static void FileStorageDataSetGenerate(DataSetWriter dataSetWriter)
@@ -64,7 +70,7 @@ namespace WebScraper.ML.DatasetGenerator
                 typeof(IHtmlListItemElement)
             });
 
-            
+
             var dic = new Dictionary<string, HtmlDataSet>();
             foreach (var element in htmlElements)
             {
@@ -105,6 +111,7 @@ namespace WebScraper.ML.DatasetGenerator
                 .AddTransient<PriceParserFactory>()
                 .AddTransient<HttpLoader>()
                 .AddSingleton<SelenuimLoader>()
+                .AddSingleton<PuppeteerLoader>()
                 .AddTransient<HtmlLoaderFactory>()
                 .AddTransient<ProductWatcherManager>();
         }

@@ -52,7 +52,7 @@ namespace WebScraper.Tests
         public async Task RandomTest()
         {
             var productWatcherManager = serviceProvider.GetService<ProductWatcherManager>();
-            var productDto = await productWatcherManager.GetProductAsync(5);
+            var productDto = await productWatcherManager.GetProductAsync(6);
             var price = await productWatcherManager.ExtractPriceDto(productDto);
             price = await productWatcherManager.ExtractPriceDto(productDto);
             price = await productWatcherManager.ExtractPriceDto(productDto);

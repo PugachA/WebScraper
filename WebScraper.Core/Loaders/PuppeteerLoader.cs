@@ -30,7 +30,7 @@ namespace WebScraper.Core.Loaders
 
             browser = Puppeteer.LaunchAsync(new LaunchOptions
             {
-                Headless = true
+                Headless = false
             }).Result;
 
             logger.LogInformation($"Создан {nameof(Browser)}");

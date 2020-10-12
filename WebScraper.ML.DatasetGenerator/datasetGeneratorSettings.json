@@ -21,9 +21,9 @@
     }
   },
   "AliExpress": {
-    "priceTags": [ "product-price-value", "may-like-price" ]
+    "priceTags": [ "product-price-value", "may-like-price", "simple-card-price", "serve-10-2" ]
   },
   "Wildberries": {
-    "priceTags": [ "old-price", "final-cost" ]
+    "priceTags": [ "old-price", "final-cost", "price-now", "price-last" ]
   }
 }
