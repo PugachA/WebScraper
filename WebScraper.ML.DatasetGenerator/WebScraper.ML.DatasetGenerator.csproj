@@ -38,7 +38,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="HtmlFiles\Beru\" />
+    <None Update="HtmlFiles\Beru\1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="HtmlFiles\Beru\2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="HtmlFiles\Beru\3.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace WebScraper.ML.DatasetGenerator
 {
@@ -38,11 +39,11 @@ namespace WebScraper.ML.DatasetGenerator
             this._csvConfiguration = csvConfiguration;
         }
 
-        public void AppendRecords(IEnumerable<HtmlDataSet> htmlDataSets)
+        public async Task AppendRecordsAsync(IEnumerable<HtmlDataSet> htmlDataSets)
         {
             using StreamWriter streamWriter = new StreamWriter(_dataSetPath, append: true);
             using CsvWriter csvWriter = new CsvWriter(streamWriter, _csvConfiguration);
-            csvWriter.WriteRecords(htmlDataSets);
+            await csvWriter.WriteRecordsAsync(htmlDataSets);
         }
     }
 }

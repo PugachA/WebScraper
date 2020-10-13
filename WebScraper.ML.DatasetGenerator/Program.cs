@@ -1,10 +1,12 @@
 ﻿using AngleSharp.Html.Dom;
+using AngleSharp.Html.Parser;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,6 +16,7 @@ using WebScraper.Core.Helpers;
 using WebScraper.Core.Loaders;
 using WebScraper.Core.Parsers;
 using WebScraper.Data;
+using WebScraper.Data.Models;
 
 namespace WebScraper.ML.DatasetGenerator
 {
@@ -23,40 +26,50 @@ namespace WebScraper.ML.DatasetGenerator
         {
             var serviceProvider = RegisterServices().BuildServiceProvider();
 
-            var htmlDatasets1 = await GenerateDataSet(6, serviceProvider);
-            var htmlDatasets = await GenerateDataSet(1, serviceProvider);
-
             DataSetWriter dataSetWriter = new DataSetWriter("DataSets/test.csv");
-            dataSetWriter.AppendRecords(htmlDatasets);
-            dataSetWriter.AppendRecords(htmlDatasets1);
+
+            await foreach(var product in GetProducts(serviceProvider))
+                await dataSetWriter.AppendRecordsAsync(await HttpDataSetGenerate(product, serviceProvider));
+
+            foreach (var folderPath in Directory.GetDirectories(Path.Combine(Directory.GetCurrentDirectory(), "HtmlFiles")))
+            {
+                var siteName = folderPath.Split(Path.DirectorySeparatorChar).Last();
+                var parserSettings = serviceProvider.GetService<IConfiguration>().GetSection(siteName).Get<ParserSettings>();
+                var dataSetGeneratorSettings = serviceProvider.GetService<IConfiguration>().GetSection(siteName).Get<DataSetGeneratorSettings>();
+                dataSetGeneratorSettings.AddParserSettings(parserSettings);
+
+                await dataSetWriter.AppendRecordsAsync(await FileStorageDataSetGenerate(folderPath, serviceProvider, dataSetGeneratorSettings));
+            }
         }
 
-        static async Task<IEnumerable<HtmlDataSet>> GenerateDataSet(int productId, ServiceProvider serviceProvider)
+        static async Task<IEnumerable<HtmlDataSet>> HttpDataSetGenerate(Product product, ServiceProvider serviceProvider)
         {
-            var productWatcherManager = serviceProvider.GetService<ProductWatcherManager>();
-            var productDto = await productWatcherManager.GetProductAsync(productId);
-
             var htmlLoaderFactory = serviceProvider.GetService<HtmlLoaderFactory>();
-            var htmlLoader = htmlLoaderFactory.Get(productDto.Site);
+            var htmlLoader = htmlLoaderFactory.Get(product.Site);
 
             var cancelationSource = new CancellationTokenSource();
-            var document = await htmlLoader.Load(productDto.Url, productDto.Site, cancelationSource.Token);
+            var document = await htmlLoader.Load(product.Url, product.Site, cancelationSource.Token);
 
-            var parserSettings = serviceProvider.GetService<IConfiguration>().GetSection(productDto.Site.Name).Get<ParserSettings>();
-            var dataSetGeneratorSettings = serviceProvider.GetService<IConfiguration>().GetSection(productDto.Site.Name).Get<DataSetGeneratorSettings>();
+            var parserSettings = serviceProvider.GetService<IConfiguration>().GetSection(product.Site.Name).Get<ParserSettings>();
+            var dataSetGeneratorSettings = serviceProvider.GetService<IConfiguration>().GetSection(product.Site.Name).Get<DataSetGeneratorSettings>();
             dataSetGeneratorSettings.AddParserSettings(parserSettings);
 
             return ParseDocument(document, dataSetGeneratorSettings);
         }
 
-        static void FileStorageDataSetGenerate(DataSetWriter dataSetWriter)
+        static async Task<IEnumerable<HtmlDataSet>> FileStorageDataSetGenerate(string folderPath, ServiceProvider serviceProvider, DataSetGeneratorSettings dataSetSettings)
         {
+            var context = AngleSharp.BrowsingContext.New(AngleSharp.Configuration.Default);
+            var parser = context.GetService<IHtmlParser>();
 
-        }
+            List<HtmlDataSet> list = new List<HtmlDataSet>();
+            foreach (var filePath in Directory.GetFiles(folderPath, "*.txt"))
+            {
+                var document = parser.ParseDocument(await File.ReadAllTextAsync(filePath));
+                list.AddRange(ParseDocument(document, dataSetSettings));
+            }
 
-        static void HttpDataSetGenerate(DataSetWriter dataSetWriter, ServiceProvider serviceProvider)
-        {
-
+            return list;
         }
 
         static IEnumerable<HtmlDataSet> ParseDocument(IHtmlDocument document, DataSetGeneratorSettings dataSetGeneratorSettings)
@@ -114,6 +127,18 @@ namespace WebScraper.ML.DatasetGenerator
                 .AddSingleton<PuppeteerLoader>()
                 .AddTransient<HtmlLoaderFactory>()
                 .AddTransient<ProductWatcherManager>();
+        }
+
+        static async IAsyncEnumerable<Product> GetProducts(ServiceProvider serviceProvider)
+        {
+            var productWatcherContext = serviceProvider.GetService<ProductWatcherContext>();
+
+            await foreach (var product in productWatcherContext.Products
+                .Include(p => p.Site)
+                .Include(p => p.Site.Settings)
+                .AsAsyncEnumerable()
+                .Where(p => p.IsDeleted == false))
+                yield return product;
         }
     }
 }

@@ -13,6 +13,9 @@ namespace WebScraper.ML.DatasetGenerator
 
         public void AddParserSettings(ParserSettings parserSettings)
         {
+            if (PriceTags == null)
+                PriceTags = new List<string>();
+
             PriceTags.Add(parserSettings.PriceHtmlPath.Split('.').Last());
             PriceTags.Add(parserSettings.DiscountHtmlPath.Split('.').Last());
         }
