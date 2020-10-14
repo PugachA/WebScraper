@@ -28,8 +28,8 @@ namespace WebScraper.ML.DatasetGenerator
 
             DataSetWriter dataSetWriter = new DataSetWriter("DataSets/test.csv");
 
-            await foreach(var product in GetProducts(serviceProvider))
-                await dataSetWriter.AppendRecordsAsync(await HttpDataSetGenerate(product, serviceProvider));
+            //await foreach(var product in GetProducts(serviceProvider))
+            //    await dataSetWriter.AppendRecordsAsync(await HttpDataSetGenerate(product, serviceProvider));
 
             foreach (var folderPath in Directory.GetDirectories(Path.Combine(Directory.GetCurrentDirectory(), "HtmlFiles")))
             {
@@ -137,7 +137,7 @@ namespace WebScraper.ML.DatasetGenerator
                 .Include(p => p.Site)
                 .Include(p => p.Site.Settings)
                 .AsAsyncEnumerable()
-                .Where(p => p.IsDeleted == false))
+                .Where(p => p.IsDeleted == false && p.Site.Settings.HtmlLoader == "PuppeteerLoader"))
                 yield return product;
         }
     }

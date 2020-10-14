@@ -1,17 +1,10 @@
 ﻿{
+  //TODO Добавить regex //<span>[0-9 ]{2,}</span>
   "Beru": {
-    "priceTags": [ "c3eaad93", "itemprop=\"price\"" ]
+    "priceTags": [ "c3eaad93", "itemprop=\"price\"", "_5cNkUrAI2M" ]
   },
   "YandexMarket": {
-    "priceHtmlPath": "div._2Gq3Ev3qUH",
-    "discountHtmlPath": "div._1PaCzxbbzN",
-    "outOfStockHtmlPath": "div.Ca_h1ZgLxJ",
-    "name": "._3TfWusA7bt._26mXJDBxtH",
-    "additionalInformation": {
-      "Магазин": "div.vuLxS6jSOb",
-      "Количество отзывов": "div._28yWHnAj2C",
-      "Доставка": "div._1RYk12ARqf"
-    }
+    "priceTags": [ "_3l2fsDNDRI", "_3tndjbTDub", "itemprop=\"price\"", "itemprop=\"lowPrice\"", "itemprop=\"highPrice\"", "_2rt5nzRcEL", "_5cNkUrAI2M", "cdZxlOZuwZ", "_1S8ob0AgBK" ] //<span>от&nbsp;<!-- -->3 950</span>
   },
   "AliExpress": {
     "priceTags": [ "product-price-value", "may-like-price", "simple-card-price", "serve-10-2" ]

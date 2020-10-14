@@ -10,6 +10,7 @@ namespace WebScraper.ML.DatasetGenerator
     public class DataSetGeneratorSettings
     {
         public List<string> PriceTags { get; set; }
+        public List<string> Regex { get; set; }
 
         public void AddParserSettings(ParserSettings parserSettings)
         {

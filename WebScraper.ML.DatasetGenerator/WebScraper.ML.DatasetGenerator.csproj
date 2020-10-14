@@ -47,6 +47,16 @@
     <None Update="HtmlFiles\Beru\3.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="HtmlFiles\YandexMarket\1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="HtmlFiles\YandexMarket\2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="HtmlFiles\YandexMarket\" />
   </ItemGroup>
 
 </Project>
