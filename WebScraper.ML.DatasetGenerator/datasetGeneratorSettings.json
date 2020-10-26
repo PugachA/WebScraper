@@ -1,15 +1,18 @@
 ﻿{
-  //TODO Добавить regex //<span>[0-9 ]{2,}</span>
   "Beru": {
     "priceTags": [ "c3eaad93", "itemprop=\"price\"", "_5cNkUrAI2M" ]
   },
   "YandexMarket": {
-    "priceTags": [ "_3l2fsDNDRI", "_3tndjbTDub", "itemprop=\"price\"", "itemprop=\"lowPrice\"", "itemprop=\"highPrice\"", "_2rt5nzRcEL", "_5cNkUrAI2M", "cdZxlOZuwZ", "_1S8ob0AgBK" ] //<span>от&nbsp;<!-- -->3 950</span>
+    "priceTags": [ "_3l2fsDNDRI", "_3tndjbTDub", "itemprop=\"price\"", "itemprop=\"lowPrice\"", "itemprop=\"highPrice\"", "_2rt5nzRcEL", "_5cNkUrAI2M", "cdZxlOZuwZ", "_1S8ob0AgBK" ], //<span>от&nbsp;<!-- -->3 950</span>
+    "regex": [ "<span>[0-9 ]{2,}[.,]{0,1}\\d{0,2}</span>", "<span>от&nbsp;<!-- -->[0-9 ]{2,}[.,]{0,1}\\d{0,2}</span>" ]
   },
   "AliExpress": {
     "priceTags": [ "product-price-value", "may-like-price", "simple-card-price", "serve-10-2" ]
   },
   "Wildberries": {
     "priceTags": [ "old-price", "final-cost", "price-now", "price-last" ]
+  },
+  "Ozon": {
+    "priceTags": [ "b3d b3n5", "b3d5", "a1s5", "b3n9" ]
   }
 }

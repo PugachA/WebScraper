@@ -1,8 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations.Operations;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using WebScraper.Core.Parsers;
 
 namespace WebScraper.ML.DatasetGenerator
@@ -11,6 +8,12 @@ namespace WebScraper.ML.DatasetGenerator
     {
         public List<string> PriceTags { get; set; }
         public List<string> Regex { get; set; }
+
+        public DataSetGeneratorSettings()
+        {
+            PriceTags = new List<string>();
+            Regex = new List<string>();
+        }
 
         public void AddParserSettings(ParserSettings parserSettings)
         {

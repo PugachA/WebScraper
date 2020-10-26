@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using WebScraper.Core;
@@ -28,8 +29,8 @@ namespace WebScraper.ML.DatasetGenerator
 
             DataSetWriter dataSetWriter = new DataSetWriter("DataSets/test.csv");
 
-            //await foreach(var product in GetProducts(serviceProvider))
-            //    await dataSetWriter.AppendRecordsAsync(await HttpDataSetGenerate(product, serviceProvider));
+            await foreach(var product in GetProducts(serviceProvider))
+                await dataSetWriter.AppendRecordsAsync(await HttpDataSetGenerate(product, serviceProvider));
 
             foreach (var folderPath in Directory.GetDirectories(Path.Combine(Directory.GetCurrentDirectory(), "HtmlFiles")))
             {
@@ -95,6 +96,10 @@ namespace WebScraper.ML.DatasetGenerator
                 {
                     foreach (var priceTag in dataSetGeneratorSettings.PriceTags)
                         if (element.OuterHtml.Contains(priceTag))
+                            isContainsPrice = true;
+
+                    foreach (var regex in dataSetGeneratorSettings.Regex)
+                        if(Regex.IsMatch(element.OuterHtml, regex))
                             isContainsPrice = true;
 
                     dic.Add(htmlElement, new HtmlDataSet { IsContainsPrice = isContainsPrice, HtmlElement = htmlElement });
