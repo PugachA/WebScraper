@@ -40,5 +40,23 @@
     "discountHtmlPath": "div.a9e9",
     "outOfStockHtmlPath": "",
     "name": ".a8y8"
+  },
+  "Mvideo": {
+    "priceHtmlPath": "div.fl-pdp-price__old",
+    "discountHtmlPath": "div.fl-pdp-price__current",
+    "outOfStockHtmlPath": "",
+    "name": "div.o-pdp-topic__title",
+    "additionalInformation": {
+      "Количество отзывов": "div.c-star-rating"
+    }
+  },
+  "Eldorado": {
+    "priceHtmlPath": "div.product-box-price__old",
+    "discountHtmlPath": "div.product-box-price__active",
+    "outOfStockHtmlPath": "div.cpriceContainerInner",
+    "name": "div.topBlockItem.clearHeadDetail",
+    "additionalInformation": {
+      "Количество отзывов": "div.reviews"
+    }
   }
 }

@@ -29,6 +29,11 @@ namespace WebScraper.Core.Parsers
                 throw new ArgumentException($"Попали на капчу { htmlDocument.Source.Text }");
             }
 
+            var nameElement = htmlDocument.QuerySelectorAll(_parserSettings.Name).FirstOrDefault();
+            _logger.LogInformation($"Обработываемая часть документа по имени товара {nameElement?.OuterHtml}");
+
+            var name = nameElement?.TextContent.Trim();
+
             var discountPriceElement = htmlDocument.QuerySelectorAll(_parserSettings.DiscountHtmlPath).FirstOrDefault();
             _logger.LogInformation($"Обработываемая часть документа по скидке {discountPriceElement?.OuterHtml}");
 
@@ -46,7 +51,7 @@ namespace WebScraper.Core.Parsers
                 if (info != null)
                 {
                     _logger.LogInformation($"Возможно нет в продаже или он удален. Info: {info}");
-                    return new PriceInfo { AdditionalInformation = info };
+                    return new PriceInfo { Name= name, AdditionalInformation = info };
                 }
 
                 throw new FormatException($"Неизвестная ошибка {htmlDocument.Source.Text}");
@@ -78,11 +83,6 @@ namespace WebScraper.Core.Parsers
 
             decimal? discountPriceValue = discountPrice == null ? null : (decimal?)discountPriceTemp;
 
-            var nameElement = htmlDocument.QuerySelectorAll(_parserSettings.Name).FirstOrDefault();
-            _logger.LogInformation($"Обработываемая часть документа по скидке {nameElement?.OuterHtml}");
-
-            var name = nameElement?.TextContent;
-
             return new PriceInfo(priceValue, discountPriceValue, name, ExtractAdditionalInformation(htmlDocument));
         }
 
@@ -101,7 +101,7 @@ namespace WebScraper.Core.Parsers
 
                 var textContent = element?.TextContent ?? String.Empty;
 
-                additionaInformation.Add(keyValue.Key, Regex.Replace(textContent, @"\u00A0|\u2009", " "));
+                additionaInformation.Add(keyValue.Key, TransformAdditionalInformation(textContent));
             }
 
             var options = new JsonSerializerOptions() { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
@@ -115,8 +115,15 @@ namespace WebScraper.Core.Parsers
         private string TransformPrice(string price)
         {
             price = Regex.Replace(price, @"\s|\u00A0|\u2009", String.Empty);
-            price = price.Replace(",", ".");
+            price = price.Replace(",", ".").Trim();
             return price;
+        }
+
+        private string TransformAdditionalInformation(string additionaInformation)
+        {
+            additionaInformation = Regex.Replace(additionaInformation, @"\u00A0|\u2009", " ");
+            additionaInformation = additionaInformation.Replace("\n", "").Replace("\t", "").Trim();
+            return additionaInformation;
         }
     }
 }
