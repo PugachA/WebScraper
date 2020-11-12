@@ -24,6 +24,8 @@ namespace WebScraper.Core.Factories
                     return _servicesProvider.GetService<SelenuimLoader>();
                 case "PuppeteerLoader":
                     return _servicesProvider.GetService<PuppeteerLoader>();
+                case "HeadlessPuppeteerLoader":
+                    return _servicesProvider.GetService<HeadlessPuppeteerLoader>();
                 default:
                     throw new ArgumentException($"{siteDto.Settings.HtmlLoader} тип {typeof(IHtmlLoader).Name} не поддерживается");
             }

@@ -21,7 +21,10 @@ namespace WebScraper.Core.Loaders
         private readonly Microsoft.Extensions.Configuration.IConfiguration configuration;
         private readonly Browser browser;
 
-        public PuppeteerLoader(Microsoft.Extensions.Configuration.IConfiguration configuration, ILogger<PuppeteerLoader> logger)
+        public PuppeteerLoader(Microsoft.Extensions.Configuration.IConfiguration configuration, ILogger<PuppeteerLoader> logger) : this(configuration, logger, false)
+        { }
+
+        protected PuppeteerLoader(Microsoft.Extensions.Configuration.IConfiguration configuration, ILogger<PuppeteerLoader> logger, bool headless)
         {
             this.logger = logger;
             this.configuration = configuration;
@@ -30,7 +33,7 @@ namespace WebScraper.Core.Loaders
 
             browser = Puppeteer.LaunchAsync(new LaunchOptions
             {
-                Headless = true
+                Headless = headless
             }).Result;
 
             logger.LogInformation($"Создан {nameof(Browser)}");
