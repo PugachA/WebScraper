@@ -42,7 +42,9 @@ namespace WebScraper.Core.Loaders
 
             using var page = await browser.NewPageAsync();
             await page.GoToAsync(requestUri);
-            await page.WaitForSelectorAsync(parserSettings.Name);
+
+            var waitingSelector = parserSettings.WaitingSelector ?? parserSettings.Name;
+            await page.WaitForSelectorAsync(waitingSelector);
 
             var context = BrowsingContext.New(Configuration.Default);
             var parser = context.GetService<IHtmlParser>();

@@ -1,15 +1,15 @@
 ﻿{
   "Beru": {
-    "priceHtmlPath": "div._1vKgTDo6wh",
-    "discountHtmlPath": "div._1u3j_pk1db",
-    "outOfStockHtmlPath": "div._1w2bHIINJu",
-    "name": "h1._1f53H9iGMq._1s00-3EuYB",
+    "priceHtmlPath": [ "div.b_1vKgTDo6wh" ],
+    "discountHtmlPath": "div.b_1u3j_pk1db",
+    "outOfStockHtmlPath": "div.b_1w2bHIINJu",
+    "name": "h1.b_1f53H9iGMq.b_1s00-3EuYB",
     "additionalInformation": {
-      "Количество отзывов": "div._1AUsbdtOCA"
+      "Количество отзывов": "div.b_1AUsbdtOCA"
     }
   },
   "YandexMarket": {
-    "priceHtmlPath": "div.h2EBR70V3s",
+    "priceHtmlPath": [ "div.h2EBR70V3s" ],
     "discountHtmlPath": "div._3NaXxl-HYN",
     "outOfStockHtmlPath": "div.Ca_h1ZgLxJ",
     "name": "._3TfWusA7bt._26mXJDBxtH",
@@ -20,7 +20,7 @@
     }
   },
   "AliExpress": {
-    "priceHtmlPath": "div.product-price-original",
+    "priceHtmlPath": [ "div.product-price-original" ],
     "discountHtmlPath": "div.product-price-current",
     "outOfStockHtmlPath": "div.next-message-content",
     "name": ".product-title-text",
@@ -30,19 +30,19 @@
     }
   },
   "Wildberries": {
-    "priceHtmlPath": ".old-price",
+    "priceHtmlPath": [ ".old-price" ],
     "discountHtmlPath": ".final-cost",
     "outOfStockHtmlPath": "",
     "name": ".name"
   },
   "Ozon": {
-    "priceHtmlPath": "div.a9e9",
+    "priceHtmlPath": [ "div.a9e9" ],
     "discountHtmlPath": "div.a9e9",
     "outOfStockHtmlPath": "",
     "name": ".a8y8"
   },
   "Mvideo": {
-    "priceHtmlPath": "div.fl-pdp-price__old",
+    "priceHtmlPath": [ "div.fl-pdp-price__old" ],
     "discountHtmlPath": "div.fl-pdp-price__current",
     "outOfStockHtmlPath": "",
     "name": "div.o-pdp-topic__title",
@@ -51,12 +51,43 @@
     }
   },
   "Eldorado": {
-    "priceHtmlPath": "div.product-box-price__old",
+    "priceHtmlPath": [ "div.product-box-price__old" ],
     "discountHtmlPath": "div.product-box-price__active",
     "outOfStockHtmlPath": "div.cpriceContainerInner",
     "name": "div.topBlockItem.clearHeadDetail",
     "additionalInformation": {
       "Количество отзывов": "div.reviews"
     }
+  },
+  "Perekrestok.Vprok": {
+    "priceHtmlPath": [ "span.xf-product-new__price-main-text" ],
+    "discountHtmlPath": "span.xf-product-new__price-main-text",
+    "outOfStockHtmlPath": "",
+    "name": "div.xf-product-new__title-container",
+    "additionalInformation": {
+      "Количество отзывов": "a.xf-card-action__text"
+    }
+  },
+  "Onlinetrade": {
+    "waitingSelector": "div.productPage__card",
+    "priceHtmlPath": [ "s.catalog__displayedItem__oldPrice" ],
+    "discountHtmlPath": "span.js__actualPrice",
+    "outOfStockHtmlPath": "",
+    "name": "h1[itemprop='name']"
+  },
+  "Lamoda": {
+    "priceHtmlPath": [ "span._1xktn17sNuFwy45DZmZ5Oe.CQSDz7BBEVO3V9K8bKMYg", "div._2BKlA922Sx7Uh5jAxguBR7" ],
+    "discountHtmlPath": "span._1xktn17sNuFwy45DZmZ5Oe._3Bl5-eiU5Q3_DrR8_KyMcX.product-prices__price_current",
+    "outOfStockHtmlPath": "",
+    "name": "div.product-title-wrapper",
+    "additionalInformation": {
+      "Количество отзывов": "div.product-rating__count"
+    }
+  },
+  "Letual": {
+    "priceHtmlPath": [ "div.col-xs-4.products-list-price-old__wrapper" ],
+    "discountHtmlPath": "div.col-xs-6.products-list-price__number",
+    "outOfStockHtmlPath": "",
+    "name": ".product-main-info-title"
   }
 }
