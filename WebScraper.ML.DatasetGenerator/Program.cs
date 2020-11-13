@@ -143,7 +143,7 @@ namespace WebScraper.ML.DatasetGenerator
                 .Include(p => p.Site)
                 .Include(p => p.Site.Settings)
                 .AsAsyncEnumerable()
-                .Where(p => p.IsDeleted == false && (p.Site.Name != "Letual")))
+                .Where(p => p.IsDeleted == false && (p.Site.Name != "Letual" && p.Site.Name == "Youla")))
                 yield return product;
         }
     }
