@@ -16,9 +16,23 @@
     "priceTags": [ "b3d b3n5", "b3d5", "a1s5", "b3n9" ]
   },
   "Mvideo": {
-    "priceTags": [ "c-multisku__price u-font-small u-mt-4"]
+    "priceTags": [ "c-multisku__price u-font-small u-mt-4" ]
   },
   "Eldorado": {
     "priceTags": [ "q-goodsItemPrice", "fast_order_popup__product--price" ]
+  },
+  "Perekrestok.Vprok": {
+    "priceTags": [ "span itemprop=\"price\"", "js-old-price-rouble", "js-price-rouble" ],
+    "useParserSettings": "false"
+  },
+  "Onlinetrade": {
+    "priceTags": [ "span itemprop=\"price\"", "class=\"black\"", "class=\"price\"", "class=\"price regular\"" ],
+    "useParserSettings": "false"
+  },
+  "Lamoda": {
+    "priceTags": [ "span style=\"white-space: nowrap;\"", "_1xktn17sNuFwy45DZmZ5Oe" ]
+  },
+  "Letual": {
+    "priceTags": [ ]
   }
 }

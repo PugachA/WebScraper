@@ -8,11 +8,13 @@ namespace WebScraper.ML.DatasetGenerator
     {
         public List<string> PriceTags { get; set; }
         public List<string> Regex { get; set; }
+        public bool UseParserSettings { get; set; }
 
         public DataSetGeneratorSettings()
         {
             PriceTags = new List<string>();
             Regex = new List<string>();
+            UseParserSettings = true;
         }
 
         public void AddParserSettings(ParserSettings parserSettings)
@@ -20,8 +22,13 @@ namespace WebScraper.ML.DatasetGenerator
             if (PriceTags == null)
                 PriceTags = new List<string>();
 
-            PriceTags.Add(parserSettings.PriceHtmlPath.Split('.').Last());
-            PriceTags.Add(parserSettings.DiscountHtmlPath.Split('.').Last());
+            if (UseParserSettings)
+            {
+                foreach (var priceHtmlPath in parserSettings.PriceHtmlPath)
+                    PriceTags.Add(priceHtmlPath.Split('.').Last());
+
+                PriceTags.Add(parserSettings.DiscountHtmlPath.Split('.').Last());
+            }
         }
     }
 }
