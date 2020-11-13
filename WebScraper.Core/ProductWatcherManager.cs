@@ -170,10 +170,10 @@ namespace WebScraper.Core
             if (Product == null)
                 throw new ArgumentNullException($"{nameof(Product)} не может быть null");
 
-            await _hangfireSchedulerClient.DeleteProductScheduler(Product.Id);
-
             Product.IsDeleted = true;
             await _productWatcherContext.SaveChangesAsync();
+
+            await _hangfireSchedulerClient.DeleteProductScheduler(Product.Id);
 
             if (Product.Site.Settings.AutoGenerateSchedule)
                 await UpdateSiteScheduler(Product.Site);

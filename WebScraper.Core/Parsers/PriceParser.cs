@@ -39,10 +39,17 @@ namespace WebScraper.Core.Parsers
 
             var discountPrice = discountPriceElement?.TextContent;
 
-            var priceElement = htmlDocument.QuerySelectorAll(_parserSettings.PriceHtmlPath).FirstOrDefault();
-            _logger.LogInformation($"Обработываемая часть документа по цене {priceElement?.OuterHtml}");
+            string price = default;
+            foreach (var priceHtmlPath in _parserSettings.PriceHtmlPath)
+            {
+                var priceElement = htmlDocument.QuerySelectorAll(priceHtmlPath).FirstOrDefault();
+                _logger.LogInformation($"Обработываемая часть документа по цене {priceElement?.OuterHtml}");
 
-            var price = priceElement?.TextContent;
+                price = priceElement?.TextContent;
+
+                if (!string.IsNullOrEmpty(price))
+                    break;
+            }
 
             if (discountPrice == null && price == null)
             {
@@ -67,8 +74,8 @@ namespace WebScraper.Core.Parsers
                 discountPrice = TransformPrice(discountPrice);
             if (price != null)
                 price = TransformPrice(price);
-
-            Regex regex = new Regex(@"\d+\.?\d{1,2}");
+             
+            Regex regex = new Regex(@"\d*\.?\d{1,2}");
             if (discountPrice != null)
                 discountPrice = regex.Match(discountPrice).Value;
 

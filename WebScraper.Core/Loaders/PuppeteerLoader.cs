@@ -21,7 +21,10 @@ namespace WebScraper.Core.Loaders
         private readonly Microsoft.Extensions.Configuration.IConfiguration configuration;
         private readonly Browser browser;
 
-        public PuppeteerLoader(Microsoft.Extensions.Configuration.IConfiguration configuration, ILogger<PuppeteerLoader> logger)
+        public PuppeteerLoader(Microsoft.Extensions.Configuration.IConfiguration configuration, ILogger<PuppeteerLoader> logger) : this(configuration, logger, false)
+        { }
+
+        protected PuppeteerLoader(Microsoft.Extensions.Configuration.IConfiguration configuration, ILogger<PuppeteerLoader> logger, bool headless)
         {
             this.logger = logger;
             this.configuration = configuration;
@@ -30,7 +33,7 @@ namespace WebScraper.Core.Loaders
 
             browser = Puppeteer.LaunchAsync(new LaunchOptions
             {
-                Headless = false
+                Headless = headless
             }).Result;
 
             logger.LogInformation($"Создан {nameof(Browser)}");
@@ -42,7 +45,9 @@ namespace WebScraper.Core.Loaders
 
             using var page = await browser.NewPageAsync();
             await page.GoToAsync(requestUri);
-            await page.WaitForSelectorAsync(parserSettings.Name);
+
+            var waitingSelector = parserSettings.WaitingSelector ?? parserSettings.Name;
+            await page.WaitForSelectorAsync(waitingSelector);
 
             var context = BrowsingContext.New(Configuration.Default);
             var parser = context.GetService<IHtmlParser>();
