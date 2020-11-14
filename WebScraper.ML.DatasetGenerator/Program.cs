@@ -27,7 +27,8 @@ namespace WebScraper.ML.DatasetGenerator
         {
             var serviceProvider = RegisterServices().BuildServiceProvider();
 
-            DataSetWriter dataSetWriter = new DataSetWriter("DataSets/test.csv");
+            //DataSetWriter dataSetWriter = new DataSetWriter("DataSets/test.csv");
+            DataSetWriter dataSetWriter = new DataSetWriter();
 
             await foreach (var product in GetProducts(serviceProvider))
                 await dataSetWriter.AppendRecordsAsync(await HttpDataSetGenerate(product, serviceProvider));
@@ -143,7 +144,7 @@ namespace WebScraper.ML.DatasetGenerator
                 .Include(p => p.Site)
                 .Include(p => p.Site.Settings)
                 .AsAsyncEnumerable()
-                .Where(p => p.IsDeleted == false && (p.Site.Name != "Letual" && p.Site.Name != "Youla")))
+                .Where(p => p.IsDeleted == false && (p.Site.Name != "Letual" && p.Site.Name != "Youla") && p.Site.Settings.HtmlLoader != "HttpLoader"))
                 yield return product;
         }
     }

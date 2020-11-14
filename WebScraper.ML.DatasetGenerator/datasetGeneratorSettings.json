@@ -3,7 +3,8 @@
     "priceTags": [ "c3eaad93", "itemprop=\"price\"", "_5cNkUrAI2M" ]
   },
   "YandexMarket": {
-    "priceTags": [ "_3l2fsDNDRI", "_3tndjbTDub", "itemprop=\"price\"", "itemprop=\"lowPrice\"", "itemprop=\"highPrice\"", "_2rt5nzRcEL", "_5cNkUrAI2M", "cdZxlOZuwZ", "_1S8ob0AgBK" ],
+    "priceTags": [ "_3l2fsDNDRI", "_3tndjbTDub", "_2rt5nzRcEL", "_5cNkUrAI2M", "cdZxlOZuwZ", "_1S8ob0AgBK" ],
+    //"itemprop=\"price\"", "itemprop=\"lowPrice\"", "itemprop=\"highPrice\""
     "regex": [ "<span>[0-9 ]{2,}[.,]{0,1}\\d{0,2}</span>", "<span>от&nbsp;<!-- -->[0-9 ]{2,}[.,]{0,1}\\d{0,2}</span>" ]
   },
   "AliExpress": {
@@ -32,7 +33,7 @@
   "Lamoda": {
     "priceTags": [ "span style=\"white-space: nowrap;\"", "_1xktn17sNuFwy45DZmZ5Oe" ]
   },
-  "Youla.Auto": {
+  "Youla.Avto": {
     "priceTags": [ "AdvertStats_price__eZTCV", "AdvertsCarousel_price__2PfUJ", "VipAdverts_price__1mREg", "AdvertCardStickyContacts_price__lF-zV", "AdvertCard_price__3dDCr", "span data-target=\"legend\" data-target-id=\"legend" ],
     "useParserSettings": "false"
   },

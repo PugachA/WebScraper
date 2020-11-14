@@ -113,19 +113,19 @@
     <None Update="HtmlFiles\YandexMarket\5.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Youla.Auto\1.txt">
+    <None Update="HtmlFiles\Youla.Avto\1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Youla.Auto\2.txt">
+    <None Update="HtmlFiles\Youla.Avto\2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Youla.Auto\3.txt">
+    <None Update="HtmlFiles\Youla.Avto\3.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Youla.Auto\4.txt">
+    <None Update="HtmlFiles\Youla.Avto\4.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Youla.Auto\5.txt">
+    <None Update="HtmlFiles\Youla.Avto\5.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
