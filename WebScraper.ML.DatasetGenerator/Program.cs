@@ -32,15 +32,15 @@ namespace WebScraper.ML.DatasetGenerator
             await foreach (var product in GetProducts(serviceProvider))
                 await dataSetWriter.AppendRecordsAsync(await HttpDataSetGenerate(product, serviceProvider));
 
-            //foreach (var folderPath in Directory.GetDirectories(Path.Combine(Directory.GetCurrentDirectory(), "HtmlFiles")).Where(f=>f.Contains("Perekrestok.Vprok")))
-            //{
-            //    var siteName = folderPath.Split(Path.DirectorySeparatorChar).Last();
-            //    var parserSettings = serviceProvider.GetService<IConfiguration>().GetSection(siteName).Get<ParserSettings>();
-            //    var dataSetGeneratorSettings = serviceProvider.GetService<IConfiguration>().GetSection(siteName).Get<DataSetGeneratorSettings>();
-            //    dataSetGeneratorSettings.AddParserSettings(parserSettings);
+            foreach (var folderPath in Directory.GetDirectories(Path.Combine(Directory.GetCurrentDirectory(), "HtmlFiles")))
+            {
+                var siteName = folderPath.Split(Path.DirectorySeparatorChar).Last();
+                var parserSettings = serviceProvider.GetService<IConfiguration>().GetSection(siteName).Get<ParserSettings>();
+                var dataSetGeneratorSettings = serviceProvider.GetService<IConfiguration>().GetSection(siteName).Get<DataSetGeneratorSettings>();
+                dataSetGeneratorSettings.AddParserSettings(parserSettings);
 
-            //    await dataSetWriter.AppendRecordsAsync(await FileStorageDataSetGenerate(folderPath, serviceProvider, dataSetGeneratorSettings));
-            //}
+                await dataSetWriter.AppendRecordsAsync(await FileStorageDataSetGenerate(folderPath, serviceProvider, dataSetGeneratorSettings));
+            }
         }
 
         static async Task<IEnumerable<HtmlDataSet>> HttpDataSetGenerate(Product product, ServiceProvider serviceProvider)
@@ -143,7 +143,7 @@ namespace WebScraper.ML.DatasetGenerator
                 .Include(p => p.Site)
                 .Include(p => p.Site.Settings)
                 .AsAsyncEnumerable()
-                .Where(p => p.IsDeleted == false && (p.Site.Name != "Letual" && p.Site.Name == "Youla")))
+                .Where(p => p.IsDeleted == false && (p.Site.Name != "Letual" && p.Site.Name != "Youla")))
                 yield return product;
         }
     }

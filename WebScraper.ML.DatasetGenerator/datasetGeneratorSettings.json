@@ -32,7 +32,14 @@
   "Lamoda": {
     "priceTags": [ "span style=\"white-space: nowrap;\"", "_1xktn17sNuFwy45DZmZ5Oe" ]
   },
-  "Youla": {
-    "priceTags": [ ]
+  "Youla.Auto": {
+    "priceTags": [ "AdvertStats_price__eZTCV", "AdvertsCarousel_price__2PfUJ", "VipAdverts_price__1mREg", "AdvertCardStickyContacts_price__lF-zV", "AdvertCard_price__3dDCr", "span data-target=\"legend\" data-target-id=\"legend" ],
+    "useParserSettings": "false"
+  },
+  "Avito": {
+    "priceTags": []
+  },
+  "Auto.ru": {
+    "priceTags": [ "BankFormCalculator__field-value", "CardDiscountList__itemValue" ]
   }
 }
