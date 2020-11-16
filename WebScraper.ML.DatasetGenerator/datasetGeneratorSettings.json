@@ -1,29 +1,46 @@
 ﻿{
   "Beru": {
-    "priceHtmlPath": "div._1vKgTDo6wh",
-    "discountHtmlPath": "div._1u3j_pk1db",
-    "outOfStockHtmlPath": "div._1w2bHIINJu",
-    "name": "._3TfWusA7bt._26mXJDBxtH",
-    "additionalInformation": {
-      "Количество отзывов": ".f2PBZg5jPe",
-      "Название": "._3TfWusA7bt._26mXJDBxtH"
-    }
+    "priceTags": [ "c3eaad93", "itemprop=\"price\"", "_5cNkUrAI2M" ]
   },
   "YandexMarket": {
-    "priceHtmlPath": "div._2Gq3Ev3qUH",
-    "discountHtmlPath": "div._1PaCzxbbzN",
-    "outOfStockHtmlPath": "div.Ca_h1ZgLxJ",
-    "name": "._3TfWusA7bt._26mXJDBxtH",
-    "additionalInformation": {
-      "Магазин": "div.vuLxS6jSOb",
-      "Количество отзывов": "div._28yWHnAj2C",
-      "Доставка": "div._1RYk12ARqf"
-    }
+    "priceTags": [ "_3l2fsDNDRI", "_3tndjbTDub", "_2rt5nzRcEL", "_5cNkUrAI2M", "cdZxlOZuwZ", "_1S8ob0AgBK" ],
+    //"itemprop=\"price\"", "itemprop=\"lowPrice\"", "itemprop=\"highPrice\""
+    "regex": [ "<span>[0-9 ]{2,}[.,]{0,1}\\d{0,2}</span>", "<span>от&nbsp;<!-- -->[0-9 ]{2,}[.,]{0,1}\\d{0,2}</span>" ]
   },
   "AliExpress": {
-    "priceTags": [ "product-price-value", "may-like-price" ]
+    "priceTags": [ "product-price-value", "may-like-price", "simple-card-price", "serve-10-2" ]
   },
   "Wildberries": {
-    "priceTags": [ "old-price", "final-cost" ]
+    "priceTags": [ "old-price", "final-cost", "price-now", "price-last" ]
+  },
+  "Ozon": {
+    "priceTags": [ "b3d b3n5", "b3d5", "a1s5", "b3n9" ]
+  },
+  "Mvideo": {
+    "priceTags": [ "c-multisku__price u-font-small u-mt-4" ]
+  },
+  "Eldorado": {
+    "priceTags": [ "q-goodsItemPrice", "fast_order_popup__product--price" ]
+  },
+  "Perekrestok.Vprok": {
+    "priceTags": [ "span itemprop=\"price\"", "js-old-price-rouble", "js-price-rouble" ],
+    "useParserSettings": "false"
+  },
+  "Onlinetrade": {
+    "priceTags": [ "span itemprop=\"price\"", "class=\"black\"", "class=\"price\"", "class=\"price regular\"" ],
+    "useParserSettings": "false"
+  },
+  "Lamoda": {
+    "priceTags": [ "span style=\"white-space: nowrap;\"", "_1xktn17sNuFwy45DZmZ5Oe" ]
+  },
+  "Youla.Avto": {
+    "priceTags": [ "AdvertStats_price__eZTCV", "AdvertsCarousel_price__2PfUJ", "VipAdverts_price__1mREg", "AdvertCardStickyContacts_price__lF-zV", "AdvertCard_price__3dDCr", "span data-target=\"legend\" data-target-id=\"legend" ],
+    "useParserSettings": "false"
+  },
+  "Avito": {
+    "priceTags": []
+  },
+  "Auto.ru": {
+    "priceTags": [ "BankFormCalculator__field-value", "CardDiscountList__itemValue" ]
   }
 }

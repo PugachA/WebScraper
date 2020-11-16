@@ -62,7 +62,7 @@
   "Perekrestok.Vprok": {
     "priceHtmlPath": [ "span.xf-product-new__price-main-text" ],
     "discountHtmlPath": "span.xf-product-new__price-main-text",
-    "outOfStockHtmlPath": "",
+    "outOfStockHtmlPath": "div.xf-product-new__temporarily-out-of-stock",
     "name": "div.xf-product-new__title-container",
     "additionalInformation": {
       "Количество отзывов": "a.xf-card-action__text"
@@ -89,5 +89,30 @@
     "discountHtmlPath": "div.col-xs-6.products-list-price__number",
     "outOfStockHtmlPath": "",
     "name": ".product-main-info-title"
+  },
+  "Youla": {
+    "waitingSelector": ".sc-pZMyb.khARDW",
+    "priceHtmlPath": [ "span.sc-pZMyb.khARDW" ],
+    "discountHtmlPath": "span.sc-pZMyb.khARDW",
+    "outOfStockHtmlPath": "",
+    "name": "h1.sc-AxjAm.fpbaaP.sc-jIdzES.ckwfkB"
+  },
+  "Youla.Auto": {
+    "priceHtmlPath": [ "div.AdvertCard_price__3dDCr.AdvertCard_topAdvertHeaderCommon__2zUjb.rouble" ],
+    "discountHtmlPath": "div.AdvertCard_price__3dDCr.AdvertCard_topAdvertHeaderCommon__2zUjb.rouble",
+    "outOfStockHtmlPath": "",
+    "name": "div.AdvertCard_advertTitle__1S1Ak"
+  },
+  "Avito": {
+    "priceHtmlPath": [ "span.js-item-price" ],
+    "discountHtmlPath": "span.js-item-price",
+    "outOfStockHtmlPath": "",
+    "name": ".title-info-title-text"
+  },
+  "Auto.ru": {
+    "priceHtmlPath": [ "span.OfferPriceCaption__price" ],
+    "discountHtmlPath": "span.OfferPriceCaption__price",
+    "outOfStockHtmlPath": "",
+    "name": "div.drnTa7F9i4hD4JJMbS1wU__title"
   }
 }
