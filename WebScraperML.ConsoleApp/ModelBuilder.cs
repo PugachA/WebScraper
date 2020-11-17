@@ -6,14 +6,14 @@ using System.IO;
 using System.Linq;
 using Microsoft.ML;
 using Microsoft.ML.Data;
-using WebScraperML.Model;
+using WebScraper.Core.ML;
 
 namespace WebScraperML.ConsoleApp
 {
     public static class ModelBuilder
     {
         private static string TRAIN_DATA_FILEPATH = @"D:\GitHub\WebScraper\WebScraper.ML.DatasetGenerator\DataSets\2020-11-14T23-37-16_dataset.csv";
-        private static string MODEL_FILE = ConsumeModel.MLNetModelPath;
+        private static string MODEL_FILE = Program.MLNetModelPath;
 
         // Create MLContext to be shared across the model creation workflow objects 
         // Set a random seed for repeatable/deterministic results across multiple trainings.
@@ -22,7 +22,7 @@ namespace WebScraperML.ConsoleApp
         public static void CreateModel()
         {
             // Load Data
-            IDataView trainingDataView = mlContext.Data.LoadFromTextFile<ModelInput>(
+            IDataView trainingDataView = mlContext.Data.LoadFromTextFile<PriceData>(
                                             path: TRAIN_DATA_FILEPATH,
                                             hasHeader: true,
                                             separatorChar: ',',

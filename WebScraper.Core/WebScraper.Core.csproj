@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="0.14.0" />
+    <PackageReference Include="Microsoft.ML.FastTree" Version="1.5.2" />
     <PackageReference Include="PuppeteerSharp" Version="2.0.4" />
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
@@ -14,7 +15,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WebScraper.Data\WebScraper.Data.csproj" />
-    <ProjectReference Include="..\WebScraperML.Model\WebScraperML.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ML\MLModel.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

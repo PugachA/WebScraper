@@ -5,13 +5,14 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.ML" Version="1.5.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WebScraperML.Model\WebScraperML.Model.csproj" />
+    <PackageReference Include="Microsoft.ML" Version="1.5.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectCapability Include="ModelBuilderGenerated" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WebScraper.Core\WebScraper.Core.csproj" />
   </ItemGroup>
 </Project>
