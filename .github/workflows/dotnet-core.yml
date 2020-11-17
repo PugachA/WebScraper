@@ -1,4 +1,4 @@
-name: .NET Core
+name: WebScraper Build
 
 on:
   push:
