@@ -1,4 +1,4 @@
-﻿using AngleSharp.Html.Dom;
+﻿using AngleSharp.Dom;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace WebScraper.Core.Parsers
 {
@@ -21,7 +22,7 @@ namespace WebScraper.Core.Parsers
             _logger = logger;
         }
 
-        public PriceInfo Parse(IHtmlDocument htmlDocument)
+        public async Task<PriceInfo> Parse(IDocument htmlDocument)
         {
             if (htmlDocument.Title == "Ой!")
             {
@@ -93,7 +94,7 @@ namespace WebScraper.Core.Parsers
             return new PriceInfo(priceValue, discountPriceValue, name, ExtractAdditionalInformation(htmlDocument));
         }
 
-        protected string ExtractAdditionalInformation(IHtmlDocument htmlDocument)
+        protected string ExtractAdditionalInformation(IDocument htmlDocument)
         {
             if (_parserSettings.AdditionalInformation == null)
                 return null;

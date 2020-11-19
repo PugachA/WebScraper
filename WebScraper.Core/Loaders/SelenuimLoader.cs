@@ -1,15 +1,11 @@
 ﻿using AngleSharp;
-using AngleSharp.Common;
-using AngleSharp.Html.Dom;
-using AngleSharp.Html.Parser;
+using AngleSharp.Dom;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using WebScraper.Core.Parsers;
@@ -70,7 +66,7 @@ namespace WebScraper.Core.Loaders
             logger.LogInformation($"Создано {webDriverCounts} {nameof(ChromeDriver)}");
         }
 
-        public async Task<IHtmlDocument> Load(string url, Site siteDto, CancellationToken token)
+        public async Task<IDocument> Load(string url, Site siteDto, CancellationToken token)
         {
             IWebDriver webDriver = null;
             try
@@ -85,14 +81,10 @@ namespace WebScraper.Core.Loaders
                 //Чтобы дождаться прогрузки страницы
                 _ = webDriver.FindElement(By.ClassName(parserSettings.Name.Trim('.')));
 
-                var config = Configuration.Default;
-                var context = BrowsingContext.New(config);
-                var parser = context.GetService<IHtmlParser>();
-                var document = parser.ParseDocument(webDriver.PageSource);
-
                 logger.LogInformation($"Успешно отправлен запрос на {url}");
 
-                return document;
+                var context = BrowsingContext.New(Configuration.Default);
+                return await context.OpenAsync(req => req.Content(webDriver.PageSource));
             }
             finally
             {
