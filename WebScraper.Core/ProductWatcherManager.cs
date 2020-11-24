@@ -66,7 +66,7 @@ namespace WebScraper.Core
 
             var priceParser = _priceParserFactory.Get(product.Site);
 
-            var priceInfo = priceParser.Parse(document);
+            var priceInfo = await priceParser.Parse(document);
 
             return priceInfo;
         }

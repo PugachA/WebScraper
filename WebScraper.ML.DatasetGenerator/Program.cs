@@ -18,6 +18,8 @@ using WebScraper.Core.Loaders;
 using WebScraper.Core.Parsers;
 using WebScraper.Data;
 using WebScraper.Data.Models;
+using WebScraper.Core.Extensions;
+using AngleSharp.Dom;
 
 namespace WebScraper.ML.DatasetGenerator
 {
@@ -74,7 +76,7 @@ namespace WebScraper.ML.DatasetGenerator
             return list;
         }
 
-        static IEnumerable<HtmlDataSet> ParseDocument(IHtmlDocument document, DataSetGeneratorSettings dataSetGeneratorSettings)
+        static IEnumerable<HtmlDataSet> ParseDocument(IDocument document, DataSetGeneratorSettings dataSetGeneratorSettings)
         {
             var htmlElements = document.QuerySelectorAll("*").Where(el => el.ChildElementCount == 0 && !String.IsNullOrEmpty(el.OuterHtml));
             htmlElements = htmlElements.OfTypes(new Type[]

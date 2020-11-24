@@ -100,7 +100,7 @@
   "Youla.Auto": {
     "priceHtmlPath": [ "div.AdvertCard_price__3dDCr.AdvertCard_topAdvertHeaderCommon__2zUjb.rouble" ],
     "discountHtmlPath": "div.AdvertCard_price__3dDCr.AdvertCard_topAdvertHeaderCommon__2zUjb.rouble",
-    "outOfStockHtmlPath": "",
+    "outOfStockHtmlPath": "div.AdvertUnavailableInfo_text__3O6ff",
     "name": "div.AdvertCard_advertTitle__1S1Ak"
   },
   "Avito": {

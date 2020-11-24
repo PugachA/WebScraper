@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.ML;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.IO;
@@ -14,6 +15,7 @@ using WebScraper.Core.Helpers;
 using WebScraper.Core.Factories;
 using WebScraper.Core.Loaders;
 using WebScraper.Core;
+using WebScraper.Core.ML;
 
 namespace WebScraper.WebApi
 {
@@ -47,6 +49,9 @@ namespace WebScraper.WebApi
             services.AddTransient<IConfiguration>(provider => Configuration);
             services.AddTransient<HangfireSchedulerClient>();
             services.AddTransient<PriceParserFactory>();
+
+            services.AddPredictionEnginePool<PriceData, PricePrediction>()
+                .FromFile(modelName: "PriceDetectionModel", filePath: "ML/MLModel.zip", watchForChanges: true);
 
             services.AddTransient<HttpLoader>();
             services.AddSingleton<SelenuimLoader>();

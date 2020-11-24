@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text;
-using System.Linq;
 
-namespace WebScraper.ML.DatasetGenerator
+namespace WebScraper.Core.Extensions
 {
     public static class LINQExtension
     {
