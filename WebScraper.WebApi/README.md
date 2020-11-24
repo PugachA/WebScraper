@@ -1,10 +1,10 @@
-###Migrations
-Для создания миграции необходимо выполнить команду:
+п»ї###Migrations
+Р”Р»СЏ СЃРѕР·РґР°РЅРёСЏ РјРёРіСЂР°С†РёРё РЅРµРѕР±С…РѕРґРёРјРѕ РІС‹РїРѕР»РЅРёС‚СЊ РєРѕРјР°РЅРґСѓ:
 ```
 dotnet ef migrations add <Name> --project .\WebScraper.Data --startup-project .\WebScraper.WebApi
 ```
-Для удаления миграции:
+Р”Р»СЏ СѓРґР°Р»РµРЅРёСЏ РјРёРіСЂР°С†РёРё:
 ```
 dotnet ef migrations remove --project .\WebScraper.Data --startup-project .\WebScraper.WebApi
 ```
-[Статья](https://rajbos.github.io/blog/2020/04/23/EntityFramework-Core-NET-Standard-Migrations)
+[РЎС‚Р°С‚СЊСЏ](https://rajbos.github.io/blog/2020/04/23/EntityFramework-Core-NET-Standard-Migrations)
