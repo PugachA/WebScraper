@@ -13,39 +13,37 @@ namespace WebScraper.Core.Parsers
 {
     public class PriceParser : IPriceParser
     {
-        private readonly ILogger<PriceParser> _logger;
-        private readonly ParserSettings _parserSettings;
+        protected readonly ILogger<PriceParser> logger;
 
-        public PriceParser(ParserSettings parserSettings, ILogger<PriceParser> logger)
+        public PriceParser(ILogger<PriceParser> logger)
         {
-            _parserSettings = parserSettings;
-            _logger = logger;
+            this.logger = logger;
         }
 
-        public virtual async Task<PriceInfo> Parse(IDocument htmlDocument)
+        public virtual async Task<PriceInfo> Parse(IDocument htmlDocument, ParserSettings parserSettings)
 
         {
             if (htmlDocument.Title == "Ой!")
             {
-                _logger.LogError($"Попали на капчу {htmlDocument.Source.Text}");
+                logger.LogError($"Попали на капчу {htmlDocument.Source.Text}");
                 throw new ArgumentException($"Попали на капчу { htmlDocument.Source.Text }");
             }
 
-            var nameElement = htmlDocument.QuerySelectorAll(_parserSettings.Name).FirstOrDefault();
-            _logger.LogInformation($"Обработываемая часть документа по имени товара {nameElement?.OuterHtml}");
+            var nameElement = htmlDocument.QuerySelectorAll(parserSettings.Name).FirstOrDefault();
+            logger.LogInformation($"Обработываемая часть документа по имени товара {nameElement?.OuterHtml}");
 
             var name = nameElement?.TextContent.Trim();
 
-            var discountPriceElement = htmlDocument.QuerySelectorAll(_parserSettings.DiscountHtmlPath).FirstOrDefault();
-            _logger.LogInformation($"Обработываемая часть документа по скидке {discountPriceElement?.OuterHtml}");
+            var discountPriceElement = htmlDocument.QuerySelectorAll(parserSettings.DiscountHtmlPath).FirstOrDefault();
+            logger.LogInformation($"Обработываемая часть документа по скидке {discountPriceElement?.OuterHtml}");
 
             var discountPrice = discountPriceElement?.TextContent;
 
             string price = default;
-            foreach (var priceHtmlPath in _parserSettings.PriceHtmlPath)
+            foreach (var priceHtmlPath in parserSettings.PriceHtmlPath)
             {
                 var priceElement = htmlDocument.QuerySelectorAll(priceHtmlPath).FirstOrDefault();
-                _logger.LogInformation($"Обработываемая часть документа по цене {priceElement?.OuterHtml}");
+                logger.LogInformation($"Обработываемая часть документа по цене {priceElement?.OuterHtml}");
 
                 price = priceElement?.TextContent;
 
@@ -55,11 +53,11 @@ namespace WebScraper.Core.Parsers
 
             if (discountPrice == null && price == null)
             {
-                var info = htmlDocument.QuerySelectorAll(_parserSettings.OutOfStockHtmlPath).FirstOrDefault()?.TextContent;
+                var info = htmlDocument.QuerySelectorAll(parserSettings.OutOfStockHtmlPath).FirstOrDefault()?.TextContent;
 
                 if (info != null)
                 {
-                    _logger.LogInformation($"Возможно нет в продаже или он удален. Info: {info}");
+                    logger.LogInformation($"Возможно нет в продаже или он удален. Info: {info}");
                     return new PriceInfo { Name = name, AdditionalInformation = info };
                 }
 
@@ -86,23 +84,23 @@ namespace WebScraper.Core.Parsers
 
             decimal? discountPriceValue = discountPrice == null ? null : (decimal?)discountPriceTemp;
 
-            var additionalInformation = await Task.Run(() => ExtractAdditionalInformation(htmlDocument));
+            var additionalInformation = await Task.Run(() => ExtractAdditionalInformation(htmlDocument, parserSettings));
 
             return new PriceInfo(priceValue, discountPriceValue, name, additionalInformation);
         }
 
-        private string ExtractAdditionalInformation(IDocument htmlDocument)
+        private string ExtractAdditionalInformation(IDocument htmlDocument, ParserSettings parserSettings)
         {
-            if (_parserSettings.AdditionalInformation == null)
+            if (parserSettings.AdditionalInformation == null)
                 return null;
 
             var additionaInformation = new Dictionary<string, string>();
-            foreach (var keyValue in _parserSettings.AdditionalInformation)
+            foreach (var keyValue in parserSettings.AdditionalInformation)
             {
                 var element = htmlDocument.QuerySelectorAll(keyValue.Value).FirstOrDefault();
 
                 if (element == null)
-                    _logger.LogWarning($"Не удалось извлечь информацию о {keyValue.Key} по пути {keyValue.Value}");
+                    logger.LogWarning($"Не удалось извлечь информацию о {keyValue.Key} по пути {keyValue.Value}");
 
                 var textContent = element?.TextContent ?? String.Empty;
 
@@ -112,7 +110,7 @@ namespace WebScraper.Core.Parsers
             var options = new JsonSerializerOptions() { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
             var additionalInformationString = JsonSerializer.Serialize(additionaInformation, options);
 
-            _logger.LogInformation($"Найденная дополнительная информация {additionalInformationString}");
+            logger.LogInformation($"Найденная дополнительная информация {additionalInformationString}");
 
             return additionalInformationString;
         }

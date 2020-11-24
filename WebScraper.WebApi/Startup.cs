@@ -16,6 +16,7 @@ using WebScraper.Core.Factories;
 using WebScraper.Core.Loaders;
 using WebScraper.Core;
 using WebScraper.Core.ML;
+using WebScraper.Core.Parsers;
 
 namespace WebScraper.WebApi
 {
@@ -48,6 +49,9 @@ namespace WebScraper.WebApi
 
             services.AddTransient<IConfiguration>(provider => Configuration);
             services.AddTransient<HangfireSchedulerClient>();
+
+            services.AddSingleton<PriceParser>();
+            services.AddSingleton<MLPriceParser>();
             services.AddTransient<PriceParserFactory>();
 
             services.AddPredictionEnginePool<PriceData, PricePrediction>()

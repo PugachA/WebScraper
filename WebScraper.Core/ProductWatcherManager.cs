@@ -12,6 +12,8 @@ using WebScraper.Core.Helpers;
 using WebScraper.Core.Loaders;
 using WebScraper.Core.DTO;
 using WebScraper.Core.Cron;
+using Microsoft.Extensions.Configuration;
+using WebScraper.Core.Parsers;
 
 namespace WebScraper.Core
 {
@@ -21,22 +23,25 @@ namespace WebScraper.Core
     public class ProductWatcherManager
     {
         private readonly ProductWatcherContext _productWatcherContext;
-        private readonly ILogger _logger;
+        private readonly ILogger<ProductWatcherManager> _logger;
         private readonly HangfireSchedulerClient _hangfireSchedulerClient;
         private readonly PriceParserFactory _priceParserFactory;
         private readonly HtmlLoaderFactory _htmlLoaderFactory;
+        private readonly IConfiguration _configuration;
 
         public ProductWatcherManager(ProductWatcherContext productWatcherContext,
                                      HangfireSchedulerClient hangfireSchedulerClient,
                                      PriceParserFactory priceParserFactory,
                                      HtmlLoaderFactory htmlLoaderFactory,
-                                     ILogger<ProductWatcherManager> logger)
+                                     ILogger<ProductWatcherManager> logger,
+                                     IConfiguration configuration)
         {
             _productWatcherContext = productWatcherContext;
             _hangfireSchedulerClient = hangfireSchedulerClient;
             _priceParserFactory = priceParserFactory;
             _htmlLoaderFactory = htmlLoaderFactory;
             _logger = logger;
+            _configuration = configuration;
         }
 
         public async Task<Price> ExtractPriceDto(Product product)
@@ -65,10 +70,12 @@ namespace WebScraper.Core
             var document = await htmlLoader.Load(product.Url, product.Site, cancelationSource.Token);
 
             var priceParser = _priceParserFactory.Get(product.Site);
+            var parserSettings = _configuration.GetSection(product.Site.Name).Get<ParserSettings>();
 
-            var priceInfo = await priceParser.Parse(document);
+            if (parserSettings == null)
+                throw new ArgumentException($"Не удалось найти настройки {nameof(ParserSettings)} в конфигурации для сайта {product.Site.Name}");
 
-            return priceInfo;
+            return await priceParser.Parse(document, parserSettings);
         }
 
         public async Task<Product> GetProductAsync(int productId)

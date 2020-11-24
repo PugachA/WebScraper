@@ -17,16 +17,15 @@ namespace WebScraper.Core.Parsers
     public class MLPriceParser : PriceParser
     {
         private readonly PredictionEnginePool<PriceData, PricePrediction> predictionEnginePool;
-        private readonly ILogger<MLPriceParser> logger;
         private const float PredictionLimit = 0.65F;
         private const int MaxPriceElementsInterval = 3;
 
-        public MLPriceParser(PredictionEnginePool<PriceData, PricePrediction> predictionEnginePool, ParserSettings parserSettings, ILogger<MLPriceParser> logger) : base(parserSettings, logger)
+        public MLPriceParser(PredictionEnginePool<PriceData, PricePrediction> predictionEnginePool, ILogger<MLPriceParser> logger) : base(logger)
         {
             this.predictionEnginePool = predictionEnginePool;
         }
 
-        public override async Task<PriceInfo> Parse(IDocument htmlDocument)
+        public override async Task<PriceInfo> Parse(IDocument htmlDocument, ParserSettings parserSettings)
         {
             string priceHtmlElement = null;
             string discountPriceHtmlElement = null;

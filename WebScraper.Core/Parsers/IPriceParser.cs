@@ -5,6 +5,6 @@ namespace WebScraper.Core.Parsers
 {
     public interface IPriceParser
     {
-        Task<PriceInfo> Parse(IDocument htmlDocument);
+        Task<PriceInfo> Parse(IDocument htmlDocument, ParserSettings parserSettings);
     }
 }

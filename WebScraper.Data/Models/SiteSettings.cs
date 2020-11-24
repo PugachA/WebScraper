@@ -15,6 +15,10 @@ namespace WebScraper.Data.Models
         [MaxLength(50)]
         public string HtmlLoader { get; set; }
 
+        [Required]
+        [MaxLength(50)]
+        public string PriceParser { get; set; }
+
         [JsonConverter(typeof(TimeSpanConverter))]
         public TimeSpan MinCheckInterval { get; set; } = TimeSpan.FromMinutes(30);
 
