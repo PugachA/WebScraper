@@ -22,6 +22,10 @@ namespace WebScraper.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<SiteSettings>()
+                .Property(s => s.PriceParser)
+                .HasDefaultValue("PriceParser");
+
+            modelBuilder.Entity<SiteSettings>()
                 .Property(s => s.HtmlLoader)
                 .HasDefaultValue("HttpLoader");
         
