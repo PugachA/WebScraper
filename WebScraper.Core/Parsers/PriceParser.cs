@@ -69,13 +69,19 @@ namespace WebScraper.Core.Parsers
                 price = discountPrice;
                 discountPrice = null;
             }
+            
+            if(discountPrice != null)
+            {
+                discountPrice = TransformPrice(discountPrice);
+                discountPrice = ExtractPrice(discountPrice);
+            }
 
-            discountPrice ??= TransformPrice(discountPrice);
-            discountPrice ??= ExtractPrice(discountPrice);
-
-            price ??= TransformPrice(price);
-            price ??= ExtractPrice(price);
-
+            if (price != null)
+            {
+                price = TransformPrice(price);
+                price = ExtractPrice(price);
+            }
+            
             if (!decimal.TryParse(price, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out decimal priceValue))
                 throw new InvalidCastException($"Can not convert {nameof(price)}={price} to {typeof(decimal)}");
 

@@ -23,6 +23,7 @@ namespace WebScraper.WebApi
     public class Startup
     {
         public IConfiguration Configuration { get; }
+        private IWebHostEnvironment environment { get; }
 
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
@@ -35,6 +36,8 @@ namespace WebScraper.WebApi
             Configuration = builder.Build();
 
             NLog.LogManager.Configuration = new NLogLoggingConfiguration(Configuration.GetSection("NLog"));
+
+            environment = env;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -55,7 +58,7 @@ namespace WebScraper.WebApi
             services.AddTransient<PriceParserFactory>();
 
             services.AddPredictionEnginePool<PriceData, PricePrediction>()
-                .FromFile(modelName: "PriceDetectionModel", filePath: "ML/MLModel.zip", watchForChanges: true);
+                .FromFile(modelName: "PriceDetectionModel", filePath: Path.Combine(environment.ContentRootPath, "ML/MLModel.zip"), watchForChanges: true);
 
             services.AddTransient<HttpLoader>();
             services.AddSingleton<SelenuimLoader>();

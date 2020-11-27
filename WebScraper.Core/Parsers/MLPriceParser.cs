@@ -35,8 +35,9 @@ namespace WebScraper.Core.Parsers
             {
                 var pricePrediction = predictionEnginePool.Predict(modelName: "PriceDetectionModel", example: priceData);
 
-                if (!bool.TryParse(pricePrediction.Prediction, out bool isPrice))
-                    throw new InvalidCastException($"Can not convert {nameof(pricePrediction.Prediction)}={pricePrediction.Prediction} to {typeof(bool)}");
+                var s = string.Join('\n', GetPriceData(htmlDocument).Select(e => e.HtmlElement));
+
+                bool isPrice = pricePrediction.Prediction == "1";
 
                 if (isPrice && pricePrediction.Score[0] >= PredictionLimit)
                 {
@@ -58,12 +59,15 @@ namespace WebScraper.Core.Parsers
                 count++;
             }
 
+            if(priceHtmlElement is null && discountPriceHtmlElement is null)
+                return new PriceInfo(null, null, null, null);
+
             var context = BrowsingContext.New(Configuration.Default);
             var priceDocument = await context.OpenAsync(req => req.Content(priceHtmlElement));
             string price = ExtractPrice(priceDocument.TextContent);
 
-            var discountPriceDocument = await context.OpenAsync(req => req.Content(discountPriceHtmlElement));
-            string discountPrice = ExtractPrice(discountPriceDocument.TextContent);
+            var discountPriceDocument = discountPriceHtmlElement is null ? null : await context.OpenAsync(req => req.Content(discountPriceHtmlElement));
+            string discountPrice = ExtractPrice(discountPriceDocument?.TextContent);
 
             if (!decimal.TryParse(price, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out decimal priceValue))
                 throw new InvalidCastException($"Can not convert {nameof(price)}={price} to {typeof(decimal)}");
@@ -85,14 +89,13 @@ namespace WebScraper.Core.Parsers
 
         protected override string ExtractPrice(string priceString)
         {
-            string price = null;
-
             if (!string.IsNullOrEmpty(priceString))
-                price = TransformPrice(priceString);
+            {
+                priceString = TransformPrice(priceString);
+                return base.ExtractPrice(priceString);
+            }
 
-            price ??= base.ExtractPrice(price);
-
-            return price;
+            return null;
         }
 
         private IEnumerable<PriceData> GetPriceData(IDocument document)
