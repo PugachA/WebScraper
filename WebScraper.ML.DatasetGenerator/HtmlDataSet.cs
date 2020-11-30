@@ -9,5 +9,8 @@ namespace WebScraper.ML.DatasetGenerator
     {
         public bool IsContainsPrice { get; set; }
         public string HtmlElement { get; set; }
+        public string ClassName { get; set; }
+        public string HtmlElementName { get; set; }
+        //public int NestingDepth { get; set; }
     }
 }

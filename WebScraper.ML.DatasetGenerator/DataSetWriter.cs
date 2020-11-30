@@ -24,7 +24,7 @@ namespace WebScraper.ML.DatasetGenerator
             var csvConfiguration = new CsvConfiguration(CultureInfo.InvariantCulture);
             csvConfiguration.Delimiter = ",";
             csvConfiguration.ShouldQuote = (a, b) => true;
-            csvConfiguration.TypeConverterCache.AddConverter<bool>(new BinaryBooleanConverter());
+            //csvConfiguration.TypeConverterCache.AddConverter<bool>(new BinaryBooleanConverter());
 
             FileInfo fileInfo = new FileInfo(_dataSetPath);
             if (!fileInfo.Directory.Exists)

@@ -15,7 +15,8 @@
     "priceTags": [ "old-price", "final-cost", "price-now", "price-last" ]
   },
   "Ozon": {
-    "priceTags": [ "b3d b3n5", "b3d5", "a1s5", "b3n9" ]
+    "priceTags": [ "b3d b3n5", "b3d5", "a1s5", "b3n9", "c8q7 c8q8", "c8r", "c8p9 c8q" ],
+    "regex": [ "\\d+ ₽" ]
   },
   "Mvideo": {
     "priceTags": [ "c-multisku__price u-font-small u-mt-4" ]

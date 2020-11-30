@@ -27,7 +27,7 @@ namespace WebScraper.ML.DatasetGenerator
 {
     class Program
     {
-        private const int PriceElementRepeatCount = 10;
+        private const int PriceElementRepeatCount = 1;
         private static Random random = new Random();
         static async Task Main(string[] args)
         {
@@ -68,7 +68,7 @@ namespace WebScraper.ML.DatasetGenerator
 
         static async Task<IEnumerable<HtmlDataSet>> FileStorageDataSetGenerate(string folderPath, ServiceProvider serviceProvider, DataSetGeneratorSettings dataSetSettings)
         {
-            var context = AngleSharp.BrowsingContext.New(AngleSharp.Configuration.Default);
+            var context = BrowsingContext.New(Configuration.Default);
             var parser = context.GetService<IHtmlParser>();
 
             List<HtmlDataSet> list = new List<HtmlDataSet>();
@@ -97,8 +97,6 @@ namespace WebScraper.ML.DatasetGenerator
             {
                 bool isContainsPrice = false;
 
-                string htmlElement = element.OuterHtml.Replace("\n", "").Replace("\r\n", "");
-
                 foreach (var priceTag in dataSetGeneratorSettings.PriceTags)
                     if (element.OuterHtml.Contains(priceTag))
                         isContainsPrice = true;
@@ -107,19 +105,26 @@ namespace WebScraper.ML.DatasetGenerator
                     if (Regex.IsMatch(element.OuterHtml, regex))
                         isContainsPrice = true;
 
+                var htmlElement = Transform(element.OuterHtml);
+
                 if (isContainsPrice)
                 {
                     for (int i = 0; i < priceElementRepeatCount; i++)
                     {
                         var randomGeneratedHtmlElement = GenerateRandomPriceElement(htmlElement);
-                        list.Add(new HtmlDataSet { IsContainsPrice = isContainsPrice, HtmlElement = randomGeneratedHtmlElement });
+                        list.Add(new HtmlDataSet { IsContainsPrice = isContainsPrice, HtmlElement = randomGeneratedHtmlElement, ClassName = element.ClassName, HtmlElementName = element.LocalName });
                     }
                 }
 
-                list.Add(new HtmlDataSet { IsContainsPrice = isContainsPrice, HtmlElement = htmlElement });
+                list.Add(new HtmlDataSet { IsContainsPrice = isContainsPrice, HtmlElement = htmlElement, ClassName = element.ClassName, HtmlElementName=element.LocalName });
             }
 
             return list;
+        }
+
+        static string Transform(string textContent)
+        {
+            return textContent.Replace("\n", "").Replace("\r\n", "").Replace("&nbsp;", " ").Replace("<!-- -->", "");
         }
 
         static string GenerateRandomPriceElement(string element)
@@ -175,7 +180,7 @@ namespace WebScraper.ML.DatasetGenerator
                 .Include(p => p.Site)
                 .Include(p => p.Site.Settings)
                 .AsAsyncEnumerable()
-                .Where(p => p.IsDeleted == false && (p.Site.Name != "Letual" && p.Site.Name != "Youla") && p.Site.Settings.HtmlLoader != "HttpLoader"))
+                .Where(p => p.IsDeleted == false && (p.Site.Name != "Letual" && p.Site.Name != "Youla" && p.Site.Name != "Onlinetrade") && p.Site.Settings.HtmlLoader != "HttpLoader"))
                 yield return product;
         }
     }

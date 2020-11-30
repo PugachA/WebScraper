@@ -7,11 +7,16 @@ namespace WebScraper.Core.ML
 {
     public class PriceData
     {
-        //TODO Заменить 0 1 на true false
         [ColumnName("IsContainsPrice"), LoadColumn(0)]
         public string IsContainsPrice { get; set; }
 
         [ColumnName("HtmlElement"), LoadColumn(1)]
         public string HtmlElement { get; set; }
+
+        [ColumnName("ClassName"), LoadColumn(2)]
+        public string ClassName { get; set; }
+
+        [ColumnName("HtmlElementName"), LoadColumn(3)]
+        public string HtmlElementName { get; set; }
     }
 }

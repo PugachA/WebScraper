@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WebScraper.Core.Extensions;
 using WebScraper.Core.ML;
@@ -35,11 +36,10 @@ namespace WebScraper.Core.Parsers
             {
                 var pricePrediction = predictionEnginePool.Predict(modelName: "PriceDetectionModel", example: priceData);
 
-                var s = string.Join('\n', GetPriceData(htmlDocument).Select(e => e.HtmlElement));
+                if (!bool.TryParse(pricePrediction.Prediction, out bool isPrice))
+                    throw new InvalidCastException($"Can not convert {pricePrediction.Prediction} to {typeof(bool)}");
 
-                bool isPrice = pricePrediction.Prediction == "1";
-
-                if (isPrice && pricePrediction.Score[0] >= PredictionLimit)
+                if (isPrice)
                 {
                     if (priceHtmlElement != null && count < MaxPriceElementsInterval)
                     {
@@ -47,7 +47,7 @@ namespace WebScraper.Core.Parsers
                         logger.LogInformation($"Detect {nameof(discountPriceHtmlElement)}={discountPriceHtmlElement} with {pricePrediction.Score}=[{string.Join(';', pricePrediction.Score)}]");
                     }
 
-                    if (priceHtmlElement != null)
+                    if (priceHtmlElement == null)
                     {
                         priceHtmlElement = priceData.HtmlElement;
                         logger.LogInformation($"Detect {nameof(priceHtmlElement)}={priceHtmlElement} with {pricePrediction.Score}=[{string.Join(';', pricePrediction.Score)}]");
@@ -59,15 +59,11 @@ namespace WebScraper.Core.Parsers
                 count++;
             }
 
-            if(priceHtmlElement is null && discountPriceHtmlElement is null)
+            if (priceHtmlElement is null && discountPriceHtmlElement is null)
                 return new PriceInfo(null, null, null, null);
 
-            var context = BrowsingContext.New(Configuration.Default);
-            var priceDocument = await context.OpenAsync(req => req.Content(priceHtmlElement));
-            string price = ExtractPrice(priceDocument.TextContent);
-
-            var discountPriceDocument = discountPriceHtmlElement is null ? null : await context.OpenAsync(req => req.Content(discountPriceHtmlElement));
-            string discountPrice = ExtractPrice(discountPriceDocument?.TextContent);
+            string price = ExtractPrice(priceHtmlElement);
+            string discountPrice = ExtractPrice(discountPriceHtmlElement);
 
             if (!decimal.TryParse(price, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out decimal priceValue))
                 throw new InvalidCastException($"Can not convert {nameof(price)}={price} to {typeof(decimal)}");
@@ -110,10 +106,18 @@ namespace WebScraper.Core.Parsers
             });
 
             foreach (var element in htmlElements)
-                yield return new PriceData
-                {
-                    HtmlElement = element.OuterHtml.Replace("\n", "").Replace("\r\n", "")
-                };
+                if (!string.IsNullOrEmpty(element.TextContent))
+                    yield return new PriceData
+                    {
+                        HtmlElement = HtmlElementTransform(element.OuterHtml),
+                        ClassName = element.ClassName,
+                        HtmlElementName = element.LocalName
+                    };
+        }
+
+        private string HtmlElementTransform(string textContent)
+        {
+            return textContent.Replace("\n", "").Replace("\r\n", "").Replace("&nbsp;", " ").Replace("<!-- -->", "");
         }
     }
 }
