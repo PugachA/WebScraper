@@ -14,9 +14,9 @@ namespace WebScraper.Core.Factories
             _servicesProvider = serviceProvider;
         }
 
-        public IHtmlLoader Get(Site siteDto)
+        public IHtmlLoader Get(Site site)
         {
-            switch(siteDto.Settings.HtmlLoader)
+            switch(site.Settings.HtmlLoader)
             {
                 case "HttpLoader":
                     return _servicesProvider.GetService<HttpLoader>();
@@ -27,7 +27,7 @@ namespace WebScraper.Core.Factories
                 case "HeadlessPuppeteerLoader":
                     return _servicesProvider.GetService<HeadlessPuppeteerLoader>();
                 default:
-                    throw new ArgumentException($"{siteDto.Settings.HtmlLoader} тип {typeof(IHtmlLoader).Name} не поддерживается");
+                    throw new ArgumentException($"{site.Settings.HtmlLoader} тип {typeof(IHtmlLoader).Name} не поддерживается");
             }
         }
     }

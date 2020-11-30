@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Web;
+using System;
 
 namespace WebScraper.WebApi
 {
@@ -17,6 +18,7 @@ namespace WebScraper.WebApi
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseContentRoot(AppContext.BaseDirectory);
                 })
                 .ConfigureLogging(logging =>
                 {

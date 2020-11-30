@@ -18,17 +18,24 @@ using WebScraper.Core.Loaders;
 using WebScraper.Core.Parsers;
 using WebScraper.Data;
 using WebScraper.Data.Models;
+using WebScraper.Core.Extensions;
+using AngleSharp.Dom;
+using AngleSharp;
+using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace WebScraper.ML.DatasetGenerator
 {
     class Program
     {
+        private const int PriceElementRepeatCount = 1;
+        private static Random random = new Random();
         static async Task Main(string[] args)
         {
             var serviceProvider = RegisterServices().BuildServiceProvider();
 
             //DataSetWriter dataSetWriter = new DataSetWriter("DataSets/test.csv");
             DataSetWriter dataSetWriter = new DataSetWriter();
+
 
             await foreach (var product in GetProducts(serviceProvider))
                 await dataSetWriter.AppendRecordsAsync(await HttpDataSetGenerate(product, serviceProvider));
@@ -56,25 +63,25 @@ namespace WebScraper.ML.DatasetGenerator
             var dataSetGeneratorSettings = serviceProvider.GetService<IConfiguration>().GetSection(product.Site.Name).Get<DataSetGeneratorSettings>();
             dataSetGeneratorSettings.AddParserSettings(parserSettings);
 
-            return ParseDocument(document, dataSetGeneratorSettings);
+            return ParseDocument(document, dataSetGeneratorSettings, PriceElementRepeatCount);
         }
 
         static async Task<IEnumerable<HtmlDataSet>> FileStorageDataSetGenerate(string folderPath, ServiceProvider serviceProvider, DataSetGeneratorSettings dataSetSettings)
         {
-            var context = AngleSharp.BrowsingContext.New(AngleSharp.Configuration.Default);
+            var context = BrowsingContext.New(Configuration.Default);
             var parser = context.GetService<IHtmlParser>();
 
             List<HtmlDataSet> list = new List<HtmlDataSet>();
             foreach (var filePath in Directory.GetFiles(folderPath, "*.txt"))
             {
                 var document = parser.ParseDocument(await File.ReadAllTextAsync(filePath));
-                list.AddRange(ParseDocument(document, dataSetSettings));
+                list.AddRange(ParseDocument(document, dataSetSettings, PriceElementRepeatCount));
             }
 
             return list;
         }
 
-        static IEnumerable<HtmlDataSet> ParseDocument(IHtmlDocument document, DataSetGeneratorSettings dataSetGeneratorSettings)
+        static IEnumerable<HtmlDataSet> ParseDocument(IDocument document, DataSetGeneratorSettings dataSetGeneratorSettings, int priceElementRepeatCount)
         {
             var htmlElements = document.QuerySelectorAll("*").Where(el => el.ChildElementCount == 0 && !String.IsNullOrEmpty(el.OuterHtml));
             htmlElements = htmlElements.OfTypes(new Type[]
@@ -85,29 +92,58 @@ namespace WebScraper.ML.DatasetGenerator
                 typeof(IHtmlListItemElement)
             });
 
-
-            var dic = new Dictionary<string, HtmlDataSet>();
+            var list = new List<HtmlDataSet>();
             foreach (var element in htmlElements)
             {
                 bool isContainsPrice = false;
 
-                string htmlElement = element.OuterHtml.Replace("\n", "").Replace("\r\n", "");
+                foreach (var priceTag in dataSetGeneratorSettings.PriceTags)
+                    if (element.OuterHtml.Contains(priceTag))
+                        isContainsPrice = true;
 
-                if (!dic.ContainsKey(htmlElement))
+                foreach (var regex in dataSetGeneratorSettings.Regex)
+                    if (Regex.IsMatch(element.OuterHtml, regex))
+                        isContainsPrice = true;
+
+                var htmlElement = Transform(element.OuterHtml);
+
+                if (isContainsPrice)
                 {
-                    foreach (var priceTag in dataSetGeneratorSettings.PriceTags)
-                        if (element.OuterHtml.Contains(priceTag))
-                            isContainsPrice = true;
-
-                    foreach (var regex in dataSetGeneratorSettings.Regex)
-                        if (Regex.IsMatch(element.OuterHtml, regex))
-                            isContainsPrice = true;
-
-                    dic.Add(htmlElement, new HtmlDataSet { IsContainsPrice = isContainsPrice, HtmlElement = htmlElement });
+                    for (int i = 0; i < priceElementRepeatCount; i++)
+                    {
+                        var randomGeneratedHtmlElement = GenerateRandomPriceElement(htmlElement);
+                        list.Add(new HtmlDataSet { IsContainsPrice = isContainsPrice, HtmlElement = randomGeneratedHtmlElement, ClassName = element.ClassName, HtmlElementName = element.LocalName });
+                    }
                 }
+
+                list.Add(new HtmlDataSet { IsContainsPrice = isContainsPrice, HtmlElement = htmlElement, ClassName = element.ClassName, HtmlElementName=element.LocalName });
             }
 
-            return dic.Values;
+            return list;
+        }
+
+        static string Transform(string textContent)
+        {
+            return textContent.Replace("\n", "").Replace("\r\n", "").Replace("&nbsp;", " ").Replace("<!-- -->", "");
+        }
+
+        static string GenerateRandomPriceElement(string element)
+        {
+            var context = BrowsingContext.New(Configuration.Default);
+            var priceDocument = context.OpenAsync(req => req.Content(element)).Result;
+
+            var newTextContent = GerenateRandomTextContent(priceDocument.DocumentElement.TextContent);
+            priceDocument.DocumentElement.LastElementChild.LastElementChild.TextContent = newTextContent;
+
+            return priceDocument.DocumentElement.LastElementChild.InnerHtml;
+        }
+
+        static string GerenateRandomTextContent(string textContent)
+        {
+            foreach (Match m in Regex.Matches(textContent, @"\d"))
+                textContent = textContent.Replace(m.Value, random.Next(0, 9).ToString());
+
+            return textContent;
         }
 
         static IServiceCollection RegisterServices()
@@ -144,7 +180,7 @@ namespace WebScraper.ML.DatasetGenerator
                 .Include(p => p.Site)
                 .Include(p => p.Site.Settings)
                 .AsAsyncEnumerable()
-                .Where(p => p.IsDeleted == false && (p.Site.Name != "Letual" && p.Site.Name != "Youla") && p.Site.Settings.HtmlLoader != "HttpLoader"))
+                .Where(p => p.IsDeleted == false && (p.Site.Name != "Letual" && p.Site.Name != "Youla" && p.Site.Name != "Onlinetrade") && p.Site.Settings.HtmlLoader != "HttpLoader"))
                 yield return product;
         }
     }

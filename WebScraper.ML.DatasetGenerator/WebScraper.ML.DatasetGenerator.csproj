@@ -71,6 +71,9 @@
     <None Update="HtmlFiles\Ozon\1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="HtmlFiles\Ozon\10.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="HtmlFiles\Ozon\2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -81,6 +84,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="HtmlFiles\Ozon\5.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="HtmlFiles\Ozon\6.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="HtmlFiles\Ozon\7.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="HtmlFiles\Ozon\8.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="HtmlFiles\Ozon\9.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="HtmlFiles\Perekrestok.Vprok\1.txt">
@@ -131,6 +146,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="DataSets\" />
     <Folder Include="HtmlFiles\Ozon\" />
     <Folder Include="HtmlFiles\YandexMarket\" />
   </ItemGroup>

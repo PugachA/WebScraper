@@ -1,4 +1,5 @@
 ﻿using AngleSharp;
+using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
 using Microsoft.Extensions.Logging;
@@ -39,16 +40,12 @@ namespace WebScraper.Core.Loaders
             _httpClient = new HttpClient();
         }
 
-        public async Task<IHtmlDocument> Load(string requestUri, Site siteDto, CancellationToken token)
+        public async Task<IDocument> Load(string requestUri, Site siteDto, CancellationToken token)
         {
             var source = await GetContent(requestUri);
 
-            var config = Configuration.Default;
-            var context = BrowsingContext.New(config);
-            var parser = context.GetService<IHtmlParser>();
-            var document = parser.ParseDocument(source);
-
-            return document;
+            var context = BrowsingContext.New(Configuration.Default);
+            return await context.OpenAsync(req => req.Content(source));
         }
 
         private async Task<string> GetContent(string requestUri)

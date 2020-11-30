@@ -15,6 +15,7 @@ namespace WebScraper.Data
                 Id = 1,
                 AutoGenerateSchedule = false,
                 HtmlLoader="SeleniumLoader",
+                PriceParser="PriceParser",
                 MinCheckInterval = new TimeSpan(0, 1, 0),
                 CheckInterval = new TimeSpan(0, 1, 0)
             };

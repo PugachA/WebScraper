@@ -159,6 +159,11 @@ namespace WebScraper.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(48)");
 
+                    b.Property<string>("PriceParser")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
                     b.HasKey("Id");
 
                     b.ToTable("SiteSettings");
@@ -170,7 +175,8 @@ namespace WebScraper.Data.Migrations
                             AutoGenerateSchedule = false,
                             CheckInterval = "00:01:00",
                             HtmlLoader = "SeleniumLoader",
-                            MinCheckInterval = "00:01:00"
+                            MinCheckInterval = "00:01:00",
+                            PriceParser = "PriceParser"
                         });
                 });
 

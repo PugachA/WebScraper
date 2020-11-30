@@ -79,7 +79,7 @@
     "priceHtmlPath": [ "span._1xktn17sNuFwy45DZmZ5Oe.CQSDz7BBEVO3V9K8bKMYg", "div._2BKlA922Sx7Uh5jAxguBR7" ],
     "discountHtmlPath": "span._1xktn17sNuFwy45DZmZ5Oe._3Bl5-eiU5Q3_DrR8_KyMcX.product-prices__price_current",
     "outOfStockHtmlPath": "",
-    "name": "div.product-title-wrapper",
+    "name": "h1.product-title-wrapper",
     "additionalInformation": {
       "Количество отзывов": "div.product-rating__count"
     }
@@ -100,7 +100,7 @@
   "Youla.Auto": {
     "priceHtmlPath": [ "div.AdvertCard_price__3dDCr.AdvertCard_topAdvertHeaderCommon__2zUjb.rouble" ],
     "discountHtmlPath": "div.AdvertCard_price__3dDCr.AdvertCard_topAdvertHeaderCommon__2zUjb.rouble",
-    "outOfStockHtmlPath": "",
+    "outOfStockHtmlPath": "div.AdvertUnavailableInfo_text__3O6ff",
     "name": "div.AdvertCard_advertTitle__1S1Ak"
   },
   "Avito": {

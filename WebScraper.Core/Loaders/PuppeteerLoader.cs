@@ -1,13 +1,9 @@
 ﻿using AngleSharp;
-using AngleSharp.Html.Dom;
-using AngleSharp.Html.Parser;
+using AngleSharp.Dom;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using PuppeteerSharp;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WebScraper.Core.Parsers;
@@ -39,7 +35,7 @@ namespace WebScraper.Core.Loaders
             logger.LogInformation($"Создан {nameof(Browser)}");
         }
 
-        public async Task<IHtmlDocument> Load(string requestUri, Site siteDto, CancellationToken token)
+        public async Task<IDocument> Load(string requestUri, Site siteDto, CancellationToken token)
         {
             var parserSettings = configuration.GetSection(siteDto.Name).Get<ParserSettings>();
 
@@ -49,13 +45,11 @@ namespace WebScraper.Core.Loaders
             var waitingSelector = parserSettings.WaitingSelector ?? parserSettings.Name;
             await page.WaitForSelectorAsync(waitingSelector);
 
-            var context = BrowsingContext.New(Configuration.Default);
-            var parser = context.GetService<IHtmlParser>();
-            var document = parser.ParseDocument(await page.GetContentAsync());
-
+            var source = await page.GetContentAsync();
             logger.LogInformation($"Успешно отправлен запрос на {requestUri}");
 
-            return document;
+            var context = BrowsingContext.New(Configuration.Default);
+            return await context.OpenAsync(req => req.Content(source));
         }
 
         public void Dispose()

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.ML;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.IO;
@@ -14,12 +15,15 @@ using WebScraper.Core.Helpers;
 using WebScraper.Core.Factories;
 using WebScraper.Core.Loaders;
 using WebScraper.Core;
+using WebScraper.Core.ML;
+using WebScraper.Core.Parsers;
 
 namespace WebScraper.WebApi
 {
     public class Startup
     {
         public IConfiguration Configuration { get; }
+        private IWebHostEnvironment environment { get; }
 
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
@@ -32,6 +36,8 @@ namespace WebScraper.WebApi
             Configuration = builder.Build();
 
             NLog.LogManager.Configuration = new NLogLoggingConfiguration(Configuration.GetSection("NLog"));
+
+            environment = env;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -46,7 +52,13 @@ namespace WebScraper.WebApi
 
             services.AddTransient<IConfiguration>(provider => Configuration);
             services.AddTransient<HangfireSchedulerClient>();
+
+            services.AddSingleton<PriceParser>();
+            services.AddSingleton<MLPriceParser>();
             services.AddTransient<PriceParserFactory>();
+
+            services.AddPredictionEnginePool<PriceData, PricePrediction>()
+                .FromFile(modelName: "PriceDetectionModel", filePath: Path.Combine(environment.ContentRootPath, "ML/MLModel.zip"), watchForChanges: true);
 
             services.AddTransient<HttpLoader>();
             services.AddSingleton<SelenuimLoader>();

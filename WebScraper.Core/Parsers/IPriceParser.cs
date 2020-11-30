@@ -1,10 +1,10 @@
-﻿using AngleSharp.Html.Dom;
-using WebScraper.Data.Models;
+﻿using AngleSharp.Dom;
+using System.Threading.Tasks;
 
 namespace WebScraper.Core.Parsers
 {
     public interface IPriceParser
     {
-        PriceInfo Parse(IHtmlDocument htmlDocument);
+        Task<PriceInfo> Parse(IDocument htmlDocument, ParserSettings parserSettings);
     }
 }
