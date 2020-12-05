@@ -17,6 +17,7 @@ using WebScraper.Core.Loaders;
 using WebScraper.Core;
 using WebScraper.Core.ML;
 using WebScraper.Core.Parsers;
+using Microsoft.Extensions.Logging;
 
 namespace WebScraper.WebApi
 {
@@ -24,6 +25,11 @@ namespace WebScraper.WebApi
     {
         public IConfiguration Configuration { get; }
         private IWebHostEnvironment environment { get; }
+
+        public static readonly ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
+        {
+            builder.AddNLog();
+        });
 
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
@@ -46,7 +52,16 @@ namespace WebScraper.WebApi
             services.AddControllers();
 
             services.AddDbContext<ProductWatcherContext>(
-                    options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")),
+                    options => options.UseSqlServer(
+                        Configuration.GetConnectionString("DefaultConnection"),
+                        sqlServerOptionsAction: sqlOptions =>
+                        {
+                            sqlOptions.EnableRetryOnFailure(
+                                maxRetryCount: 5,
+                                maxRetryDelay: TimeSpan.FromSeconds(10),
+                                errorNumbersToAdd: null);
+                        })
+                        .UseLoggerFactory(loggerFactory),
                     ServiceLifetime.Transient,
                     ServiceLifetime.Transient);
 
