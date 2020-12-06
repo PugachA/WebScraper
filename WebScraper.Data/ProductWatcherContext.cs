@@ -23,7 +23,7 @@ namespace WebScraper.Data
         {
             modelBuilder.Entity<SiteSettings>()
                 .Property(s => s.PriceParser)
-                .HasDefaultValue("PriceParser");
+                .HasDefaultValue("HtmlPriceParser");
 
             modelBuilder.Entity<SiteSettings>()
                 .Property(s => s.HtmlLoader)
