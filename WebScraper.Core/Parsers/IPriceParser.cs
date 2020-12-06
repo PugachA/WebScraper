@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace WebScraper.Core.Parsers
 {
-    public interface IPriceParser
+    public interface IPriceParser<T>
     {
-        Task<PriceInfo> Parse(IDocument htmlDocument, ParserSettings parserSettings);
+        Task<PriceInfo> Parse(T inputData, ParserSettings parserSettings);
     }
 }

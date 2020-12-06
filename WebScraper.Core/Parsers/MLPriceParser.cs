@@ -15,7 +15,7 @@ using WebScraper.Core.ML;
 
 namespace WebScraper.Core.Parsers
 {
-    public class MLPriceParser : PriceParser
+    public class MLPriceParser : PriceParser<IDocument>
     {
         private readonly PredictionEnginePool<PriceData, PricePrediction> predictionEnginePool;
         private const float PredictionLimit = 0.65F;

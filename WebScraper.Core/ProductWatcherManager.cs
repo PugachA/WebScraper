@@ -14,6 +14,7 @@ using WebScraper.Core.DTO;
 using WebScraper.Core.Cron;
 using Microsoft.Extensions.Configuration;
 using WebScraper.Core.Parsers;
+using AngleSharp.Dom;
 
 namespace WebScraper.Core
 {
@@ -67,9 +68,9 @@ namespace WebScraper.Core
             IHtmlLoader htmlLoader = _htmlLoaderFactory.Get(product.Site);
 
             var cancelationSource = new CancellationTokenSource();
-            var document = await htmlLoader.Load(product.Url, product.Site, cancelationSource.Token);
+            var document = await htmlLoader.LoadHtml(product.Url, product.Site, cancelationSource.Token);
 
-            var priceParser = _priceParserFactory.Get(product.Site);
+            var priceParser = _priceParserFactory.Get<IDocument>(product.Site);
             var parserSettings = _configuration.GetSection(product.Site.Name).Get<ParserSettings>();
 
             if (parserSettings == null)

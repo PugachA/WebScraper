@@ -6,14 +6,16 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using WebScraper.Core.Extensions;
 using WebScraper.Core.Parsers;
 using WebScraper.Data.Models;
 
 namespace WebScraper.Core.Loaders
 {
-    public class SelenuimLoader : IDisposable, IHtmlLoader
+    public class SelenuimLoader : IHtmlLoader, IScreenshotLoader, IDisposable
     {
         private readonly Queue<IWebDriver> webDriverQueue;
         private readonly SemaphoreSlim semaphoreSlim;
@@ -29,14 +31,14 @@ namespace WebScraper.Core.Loaders
             if (loadTimeoutSeconds == 0)
             {
                 loadTimeoutSeconds = 30;
-                logger.LogInformation($"Секция SeleniumLoadTimoutSeconds не найдена, задаем значение по умолчанию {loadTimeoutSeconds}");
+                logger.LogInformation($"Section SeleniumLoadTimoutSeconds not found, set default value {loadTimeoutSeconds}");
             }
 
             var webDriverCounts = configuration.GetSection("SeleniumWebDriverCounts").Get<int>();
             if (webDriverCounts == 0)
             {
                 webDriverCounts = Environment.ProcessorCount;
-                logger.LogInformation($"Секция SeleniumWebDriverCounts не найдена, задаем занчение равное количеству логических ядер={webDriverCounts}");
+                logger.LogInformation($"Section SeleniumWebDriverCounts not foundа, set value equal to the counts of logical cores={webDriverCounts}");
             }
 
             semaphoreSlim = new SemaphoreSlim(webDriverCounts, webDriverCounts);
@@ -60,37 +62,88 @@ namespace WebScraper.Core.Loaders
                 chromeDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(loadTimeoutSeconds);
                 webDriverQueue.Enqueue(chromeDriver);
 
-                logger.LogInformation($"Создан {nameof(ChromeDriver)}");
+                logger.LogInformation($"Create {nameof(ChromeDriver)}");
             }
 
-            logger.LogInformation($"Создано {webDriverCounts} {nameof(ChromeDriver)}");
+            logger.LogInformation($"Created {webDriverCounts} instanse of {nameof(ChromeDriver)}");
         }
 
-        public async Task<IDocument> Load(string url, Site siteDto, CancellationToken token)
+        public async Task<IDocument> LoadHtml(string requestUri, Site site, CancellationToken token)
         {
+            requestUri.StringNullOrEmptyValidate(nameof(requestUri));
+            site.NullValidate(nameof(site));
+
             IWebDriver webDriver = null;
             try
             {
                 await semaphoreSlim.WaitAsync(token);
 
-                var parserSettings = _configuration.GetSection(siteDto.Name).Get<ParserSettings>();
+                var parserSettings = _configuration.GetSection(site.Name).Get<ParserSettings>();
 
                 webDriver = webDriverQueue.Dequeue();
-                webDriver.Url = url;
+                webDriver.Url = requestUri;
 
                 //Чтобы дождаться прогрузки страницы
                 _ = webDriver.FindElement(By.ClassName(parserSettings.Name.Trim('.')));
 
-                logger.LogInformation($"Успешно отправлен запрос на {url}");
+                logger.LogInformation($"Successfully sent request {requestUri}");
 
                 var context = BrowsingContext.New(Configuration.Default);
                 return await context.OpenAsync(req => req.Content(webDriver.PageSource));
             }
             finally
             {
-                webDriver.Url = siteDto.BaseUrl;
+                webDriver.Url = site.BaseUrl;
                 webDriverQueue.Enqueue(webDriver);
                 semaphoreSlim.Release();
+            }
+        }
+
+        public async Task LoadScreenshot(string outputPath, string requestUri, Site site, CancellationToken token)
+        {
+            outputPath.StringNullOrEmptyValidate(nameof(outputPath));
+            requestUri.StringNullOrEmptyValidate(nameof(requestUri));
+            site.NullValidate(nameof(site));
+
+            IWebDriver webDriver = null;
+            try
+            {
+                await semaphoreSlim.WaitAsync(token);
+
+                var parserSettings = _configuration.GetSection(site.Name).Get<ParserSettings>();
+
+                webDriver = webDriverQueue.Dequeue();
+                webDriver.Url = requestUri;
+
+                //Чтобы дождаться прогрузки страницы
+                _ = webDriver.FindElement(By.ClassName(parserSettings.Name.Trim('.')));
+
+                logger.LogInformation($"Successfully sent request {requestUri}");
+
+                Screenshot ss = ((ITakesScreenshot)webDriver).GetScreenshot();
+                ss.SaveAsFile(outputPath, ExtractScreenshotFormat(outputPath));
+
+                logger.LogInformation($"Screenshoot successfully saved to {outputPath}");
+            }
+            finally
+            {
+                webDriver.Url = site.BaseUrl;
+                webDriverQueue.Enqueue(webDriver);
+                semaphoreSlim.Release();
+            }
+        }
+
+        private ScreenshotImageFormat ExtractScreenshotFormat(string outputPath)
+        {
+            var extension = Path.GetExtension(outputPath);
+            switch (extension)
+            {
+                case ".png":
+                    return ScreenshotImageFormat.Png;
+                case ".jpeg":
+                    return ScreenshotImageFormat.Jpeg;
+                default:
+                    throw new ArgumentException($"Extension {extension} not supported");
             }
         }
 
@@ -100,7 +153,7 @@ namespace WebScraper.Core.Loaders
             foreach (var webDriver in webDriverQueue)
             {
                 webDriver?.Dispose();
-                logger.LogInformation($"Удален {nameof(ChromeDriver)}");
+                logger.LogInformation($"Delete {nameof(ChromeDriver)}");
             }
         }
     }

@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace WebScraper.Core.Factories
 {
-    public class PriceParserFactory : IFactory<IPriceParser>
+    public class PriceParserFactory
     {
         private readonly IServiceProvider servicesProvider;
 
@@ -16,16 +16,16 @@ namespace WebScraper.Core.Factories
             servicesProvider = serviceProvider;
         }
 
-        public IPriceParser Get(Site site)
+        public IPriceParser<T> Get<T>(Site site)
         {
             switch (site.Settings.PriceParser)
             {
-                case "PriceParser":
-                    return servicesProvider.GetService<PriceParser>();
+                case "HtmlPriceParser":
+                    return servicesProvider.GetService<HtmlPriceParser>() as IPriceParser<T>;
                 case "MLPriceParser":
-                    return servicesProvider.GetService<MLPriceParser>();
+                    return servicesProvider.GetService<MLPriceParser>() as IPriceParser<T>;
                 default:
-                    throw new ArgumentException($"{site.Settings.PriceParser} тип {typeof(IPriceParser)} не поддерживается");
+                    throw new ArgumentException($"{site.Settings.PriceParser} тип {typeof(IPriceParser<T>)} не поддерживается");
             }
         }
     }
