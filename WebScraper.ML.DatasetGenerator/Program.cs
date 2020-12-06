@@ -32,6 +32,33 @@ namespace WebScraper.ML.DatasetGenerator
 
         static async Task Main(string[] args)
         {
+            //await GenerateMLDataSet();
+            
+            await GenerateCVImages();
+        }
+
+        static async Task GenerateCVImages()
+        {
+            var serviceProvider = RegisterServices().BuildServiceProvider();
+
+            Directory.Delete("Data/Images", true);
+
+            await foreach (var product in GetProducts(serviceProvider))
+            {
+                var screenshotLoaderFactory = serviceProvider.GetService<ScreenshotLoaderFactory>();
+                var screenshotLoader = screenshotLoaderFactory.Get(product.Site);
+
+                var imageDirectoryPath = $"Data/Images/{product.Site.Name}";
+                if (!Directory.Exists(imageDirectoryPath))
+                    Directory.CreateDirectory(imageDirectoryPath);
+
+                var cancelationSource = new CancellationTokenSource();
+                await screenshotLoader.LoadScreenshot($"{imageDirectoryPath}/{DateTime.Now:yyyy-MM-ddTHH-mm-ss}.png", product.Url, product.Site, cancelationSource.Token);
+            }
+        }
+
+        static async Task GenerateMLDataSet()
+        {
             var serviceProvider = RegisterServices().BuildServiceProvider();
 
             DataSetWriter dataSetWriter = new DataSetWriter();
@@ -168,6 +195,7 @@ namespace WebScraper.ML.DatasetGenerator
                 .AddSingleton<PuppeteerLoader>()
                 .AddSingleton<HeadlessPuppeteerLoader>()
                 .AddTransient<HtmlLoaderFactory>()
+                .AddTransient<ScreenshotLoaderFactory>()
                 .AddTransient<ProductWatcherManager>();
         }
 
@@ -180,6 +208,18 @@ namespace WebScraper.ML.DatasetGenerator
                 .Include(p => p.Site.Settings)
                 .AsAsyncEnumerable()
                 .Where(p => p.IsDeleted == false && (p.Site.Name != "Letual" && p.Site.Name != "Youla" && p.Site.Name != "Onlinetrade") && p.Site.Settings.HtmlLoader != "HttpLoader"))
+                yield return product;
+        }
+
+        static async IAsyncEnumerable<Product> GetCVProducts(ServiceProvider serviceProvider)
+        {
+            var productWatcherContext = serviceProvider.GetService<ProductWatcherContext>();
+
+            await foreach (var product in productWatcherContext.Products
+                .Include(p => p.Site)
+                .Include(p => p.Site.Settings)
+                .AsAsyncEnumerable()
+                .Where(p => p.IsDeleted == false && p.Site.Settings.HtmlLoader != "HttpLoader"))
                 yield return product;
         }
     }

@@ -68,7 +68,7 @@ namespace WebScraper.WebApi
             services.AddTransient<IConfiguration>(provider => Configuration);
             services.AddTransient<HangfireSchedulerClient>();
 
-            services.AddSingleton<PriceParser>();
+            services.AddSingleton<HtmlPriceParser>();
             services.AddSingleton<MLPriceParser>();
             services.AddTransient<PriceParserFactory>();
 
@@ -80,6 +80,7 @@ namespace WebScraper.WebApi
             services.AddSingleton<PuppeteerLoader>();
             services.AddSingleton<HeadlessPuppeteerLoader>();
             services.AddTransient<HtmlLoaderFactory>();
+            services.AddTransient<ScreenshotLoaderFactory>();
 
             services.AddTransient<ProductWatcherManager>();
 

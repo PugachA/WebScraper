@@ -80,6 +80,8 @@ namespace WebScraper.Core.Loaders
                 Width = 1920,
                 Height = 1080
             });
+
+            //await page.ReloadAsync();
             await page.ScreenshotAsync(outputPath);
 
             logger.LogInformation($"Screenshoot successfully saved to {outputPath}");
