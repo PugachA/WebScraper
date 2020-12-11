@@ -24,6 +24,8 @@ namespace WebScraper.Core.Factories
                     return servicesProvider.GetService<HtmlPriceParser>() as IPriceParser<T>;
                 case "MLPriceParser":
                     return servicesProvider.GetService<MLPriceParser>() as IPriceParser<T>;
+                case "ComputerVisionParser":
+                    return servicesProvider.GetService<ComputerVisionParser>() as IPriceParser<T>;
                 default:
                     throw new ArgumentException($"{site.Settings.PriceParser} тип {typeof(IPriceParser<T>)} не поддерживается");
             }

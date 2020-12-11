@@ -34,7 +34,7 @@ namespace WebScraper.Core.Parsers
 
             foreach (var priceData in GetPriceData(htmlDocument))
             {
-                var pricePrediction = predictionEnginePool.Predict(modelName: "PriceDetectionModel", example: priceData);
+                var pricePrediction = predictionEnginePool.Predict(modelName: "MLPriceDetectionModel", example: priceData);
 
                 if (!bool.TryParse(pricePrediction.Prediction, out bool isPrice))
                     throw new InvalidCastException($"Can not convert {pricePrediction.Prediction} to {typeof(bool)}");

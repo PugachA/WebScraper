@@ -15,6 +15,7 @@ using WebScraper.Core.Cron;
 using Microsoft.Extensions.Configuration;
 using WebScraper.Core.Parsers;
 using AngleSharp.Dom;
+using System.IO;
 
 namespace WebScraper.Core
 {
@@ -27,12 +28,14 @@ namespace WebScraper.Core
         private readonly ILogger<ProductWatcherManager> _logger;
         private readonly HangfireSchedulerClient _hangfireSchedulerClient;
         private readonly PriceParserFactory _priceParserFactory;
+        private readonly ScreenshotLoaderFactory _screenshotLoaderFactory;
         private readonly HtmlLoaderFactory _htmlLoaderFactory;
         private readonly IConfiguration _configuration;
 
         public ProductWatcherManager(ProductWatcherContext productWatcherContext,
                                      HangfireSchedulerClient hangfireSchedulerClient,
                                      PriceParserFactory priceParserFactory,
+                                     ScreenshotLoaderFactory screenshotLoaderFactory,
                                      HtmlLoaderFactory htmlLoaderFactory,
                                      ILogger<ProductWatcherManager> logger,
                                      IConfiguration configuration)
@@ -43,6 +46,7 @@ namespace WebScraper.Core
             _htmlLoaderFactory = htmlLoaderFactory;
             _logger = logger;
             _configuration = configuration;
+            _screenshotLoaderFactory = screenshotLoaderFactory;
         }
 
         public async Task<Price> ExtractPriceDto(Product product)
@@ -185,6 +189,23 @@ namespace WebScraper.Core
 
             if (Product.Site.Settings.AutoGenerateSchedule)
                 await UpdateSiteScheduler(Product.Site);
+        }
+
+        public async Task<PriceInfo> GetCVPriceInfo(string productUri)
+        {
+            var imagePath = Path.Combine(_configuration.GetValue<string>("ImagesFolder"), $"{DateTime.Now.ToString("dd-MM-yyyyTHH-mm-ss.ffffff")}.png");
+            var site = new Site { Settings = new SiteSettings { HtmlLoader = "PuppeteerLoader", PriceParser = "ComputerVisionParser" } };
+
+            var loader = _screenshotLoaderFactory.Get(site);
+            var token = new CancellationToken();
+            await loader.LoadScreenshot(imagePath, productUri, site, token);
+
+            var cvPriceParser = _priceParserFactory.Get<string>(site);
+            var priceInfo = await cvPriceParser.Parse(imagePath, null);
+
+            File.Delete(imagePath);
+
+            return priceInfo;
         }
     }
 }

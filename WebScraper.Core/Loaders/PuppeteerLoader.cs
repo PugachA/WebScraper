@@ -65,13 +65,8 @@ namespace WebScraper.Core.Loaders
             requestUri.StringNullOrEmptyValidate(nameof(requestUri));
             site.NullValidate(nameof(site));
 
-            var parserSettings = configuration.GetSection(site.Name).Get<ParserSettings>();
-
             using var page = await browser.NewPageAsync();
             await page.GoToAsync(requestUri);
-
-            var waitingSelector = parserSettings.WaitingSelector ?? parserSettings.Name;
-            await page.WaitForSelectorAsync(waitingSelector);
 
             logger.LogInformation($"Successfully sent request {requestUri}");
 
