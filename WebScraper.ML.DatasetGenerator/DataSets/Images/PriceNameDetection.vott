@@ -1,0 +1,2233 @@
+{
+    "name": "PriceNameDetection",
+    "securityToken": "PriceNameDetection Token",
+    "sourceConnection": {
+        "name": "PriceSource",
+        "providerType": "localFileSystemProxy",
+        "providerOptions": {
+            "encrypted": "eyJjaXBoZXJ0ZXh0IjoiM2ZjODA2ZjgxMjQzMTJlMjhhOWJjNGMwOGIyMmZjNjk1MTYzNGE2YTAyNGM5Y2Q1Njk1ODJjZDJjNmQ4MmEwNzEzNGJjODlhNmFmNTg5MGQxNjZhNDgyMWE5ZDA3MzlmNTRlZGI0OTk2MDJiMjY5ZWJmOWVmYzVjMTA1NDQxZDlkNGI3NTQ2NmQzNWJmOGVjM2VjODdiOTQ4YWRlNzAxNjkxZGI3NzhlNWE3ODc3YzU0NmUwYTEwODJhNTEzYWQ4IiwiaXYiOiIzNzMzMGU5YWJjYTlmMzlkM2IwNTAxNWE2ZjM2NDgwYjY0YjM0NjU3NjRlODZkNzUifQ=="
+        },
+        "id": "iCqW2t107"
+    },
+    "targetConnection": {
+        "name": "PriceTarget",
+        "providerType": "localFileSystemProxy",
+        "providerOptions": {
+            "encrypted": "eyJjaXBoZXJ0ZXh0IjoiZWIzNDJlZTliMmRjYWM3NDIwYTA5NWE4YjZkOWIyMDhiMmEyZTJkMzM3OGMwYTFkYzJmOTg3NGViZGIzNDJkNmU4ZDNmMzUyZjUwM2EyNzg5MWY0YzI0MDA0MjIzN2Q0ODg1ZjRhNDgyZGU0NDJjYTRhODJlOTgwOWNiNzBjZmY3Zjc3Y2UxZGU4OTU2ZTA4ODNhM2Q5MmFlNTdkMjhjNDgxZTEyZDIxMGIwOTAxMTZlZWY0MTkxYTZmNjkxZmNiIiwiaXYiOiJiMGQ3ZGJkODVjNDRlMTM1OTY5NjA0YTdkMzUwY2ExMmJlMDNkMTc0OWM3MTlhMjIifQ=="
+        },
+        "id": "rVhVt_7Ss"
+    },
+    "videoSettings": {
+        "frameExtractionRate": 15
+    },
+    "tags": [
+        {
+            "name": "price",
+            "color": "#5db300"
+        },
+        {
+            "name": "name",
+            "color": "#e81123"
+        }
+    ],
+    "id": "-2d9Dz2FL",
+    "activeLearningSettings": {
+        "autoDetect": false,
+        "predictTag": true,
+        "modelPathType": "coco"
+    },
+    "exportFormat": {
+        "providerType": "vottJson",
+        "providerOptions": {
+            "encrypted": "eyJjaXBoZXJ0ZXh0IjoiNTIyN2FkMDkzYTE0YTk2MTNmNDM1NTQ5YmNmYjE4Y2JlZmE1ZmQ5ODFiMjc5MGEwNGVjZWM0YThiODM2MTBlZGExOWFhNzE4MjY2Y2M5MjVmZjA0MDI4NjgzMWIzNmJkIiwiaXYiOiJkMWE5YTk1N2MwODY2ZGEyNjhjMjdjMWY0OWIzNmE5NTlkMGVmM2M3Y2NjYWQ1YjEifQ=="
+        }
+    },
+    "version": "2.2.0",
+    "lastVisitedAssetId": "5cfe3ecb80195f57e48b3db709a03832",
+    "assets": {
+        "e4068e4dcf3c746fbeb5fea8c1ccf470": {
+            "format": "png",
+            "id": "e4068e4dcf3c746fbeb5fea8c1ccf470",
+            "name": "2020-12-08T00-03-55.19059.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.19059.png",
+            "size": {
+                "width": 1916,
+                "height": 935
+            },
+            "state": 2,
+            "type": 1
+        },
+        "99ee208ed572586f77398d70dc0e75de": {
+            "format": "png",
+            "id": "99ee208ed572586f77398d70dc0e75de",
+            "name": "2020-12-08T00-03-55.1913.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.1913.png",
+            "size": {
+                "width": 1919,
+                "height": 934
+            },
+            "state": 2,
+            "type": 1
+        },
+        "62abaf4f5b34fedbb5918642e0e672e5": {
+            "format": "png",
+            "id": "62abaf4f5b34fedbb5918642e0e672e5",
+            "name": "2020-12-08T00-03-55.1920.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.1920.png",
+            "size": {
+                "width": 1920,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "7854ba2af3d3bca5b0d1eb8d0c5784e3": {
+            "format": "png",
+            "id": "7854ba2af3d3bca5b0d1eb8d0c5784e3",
+            "name": "2020-12-08T00-03-55.1959.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.1959.png",
+            "size": {
+                "width": 1919,
+                "height": 940
+            },
+            "state": 2,
+            "type": 1
+        },
+        "687b188c59af53c74e9fb1d040a34c7c": {
+            "format": "png",
+            "id": "687b188c59af53c74e9fb1d040a34c7c",
+            "name": "2020-12-08T00-03-55.19899.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.19899.png",
+            "size": {
+                "width": 1920,
+                "height": 935
+            },
+            "state": 2,
+            "type": 1
+        },
+        "4d5790e1db116ac6ecafcff6db7aa8ca": {
+            "format": "png",
+            "id": "4d5790e1db116ac6ecafcff6db7aa8ca",
+            "name": "2020-12-08T00-03-55.212340.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.212340.png",
+            "size": {
+                "width": 1919,
+                "height": 935
+            },
+            "state": 2,
+            "type": 1
+        },
+        "02c11f20db9e15966126f9b9f7c7293e": {
+            "format": "png",
+            "id": "02c11f20db9e15966126f9b9f7c7293e",
+            "name": "2020-12-08T00-03-55.2126.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.2126.png",
+            "size": {
+                "width": 1920,
+                "height": 935
+            },
+            "state": 2,
+            "type": 1
+        },
+        "2366005c5fd2303c298598550d9d9ca7": {
+            "format": "png",
+            "id": "2366005c5fd2303c298598550d9d9ca7",
+            "name": "2020-12-08T00-03-55.212676.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.212676.png",
+            "size": {
+                "width": 1920,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "4f8905179f764a401124cb5c4077bccd": {
+            "format": "png",
+            "id": "4f8905179f764a401124cb5c4077bccd",
+            "name": "2020-12-08T00-03-55.21676.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.21676.png",
+            "size": {
+                "width": 1919,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "df35948f7a8225b845305df095bff389": {
+            "format": "png",
+            "id": "df35948f7a8225b845305df095bff389",
+            "name": "2020-12-08T00-03-55.21679.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.21679.png",
+            "size": {
+                "width": 1918,
+                "height": 941
+            },
+            "state": 2,
+            "type": 1
+        },
+        "19a4b2175f361ba03863f1478e28a782": {
+            "format": "png",
+            "id": "19a4b2175f361ba03863f1478e28a782",
+            "name": "2020-12-08T00-03-55.21890.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.21890.png",
+            "size": {
+                "width": 1918,
+                "height": 933
+            },
+            "state": 2,
+            "type": 1
+        },
+        "aa0510bc55792c50a6cd2df919cbc25d": {
+            "format": "png",
+            "id": "aa0510bc55792c50a6cd2df919cbc25d",
+            "name": "2020-12-08T00-03-55.22001.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.22001.png",
+            "size": {
+                "width": 1920,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "047fcbb6cb3372deb64a5ba911b240e7": {
+            "format": "png",
+            "id": "047fcbb6cb3372deb64a5ba911b240e7",
+            "name": "2020-12-08T00-03-55.234576.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.234576.png",
+            "size": {
+                "width": 1919,
+                "height": 935
+            },
+            "state": 2,
+            "type": 1
+        },
+        "65145dcad5313764cb9a4860c6f395e0": {
+            "format": "png",
+            "id": "65145dcad5313764cb9a4860c6f395e0",
+            "name": "2020-12-08T00-03-55.234592.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.234592.png",
+            "size": {
+                "width": 1919,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "4c187c4176bfe3e3dec504201f7cf570": {
+            "format": "png",
+            "id": "4c187c4176bfe3e3dec504201f7cf570",
+            "name": "2020-12-08T00-03-55.23488.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.23488.png",
+            "size": {
+                "width": 1919,
+                "height": 934
+            },
+            "state": 2,
+            "type": 1
+        },
+        "ae8843b2c4ce050c722704bb24c9bb59": {
+            "format": "png",
+            "id": "ae8843b2c4ce050c722704bb24c9bb59",
+            "name": "2020-12-08T00-03-55.23897.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.23897.png",
+            "size": {
+                "width": 1920,
+                "height": 939
+            },
+            "state": 2,
+            "type": 1
+        },
+        "0efb4d1bdc9f1bfba159d511e221e47a": {
+            "format": "png",
+            "id": "0efb4d1bdc9f1bfba159d511e221e47a",
+            "name": "2020-12-08T00-03-55.2415.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.2415.png",
+            "size": {
+                "width": 1918,
+                "height": 934
+            },
+            "state": 2,
+            "type": 1
+        },
+        "6d47087c8bd2eeca3335534ab184af32": {
+            "format": "png",
+            "id": "6d47087c8bd2eeca3335534ab184af32",
+            "name": "2020-12-08T00-03-55.249015.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.249015.png",
+            "size": {
+                "width": 1919,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "f789a4100bd0f16bc25b17aa1aace22e": {
+            "format": "png",
+            "id": "f789a4100bd0f16bc25b17aa1aace22e",
+            "name": "2020-12-08T00-03-55.249099.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.249099.png",
+            "size": {
+                "width": 1919,
+                "height": 935
+            },
+            "state": 2,
+            "type": 1
+        },
+        "b1bdd98dc6201e1b0d0fc1ce9cb073b3": {
+            "format": "png",
+            "id": "b1bdd98dc6201e1b0d0fc1ce9cb073b3",
+            "name": "2020-12-08T00-03-55.2499.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.2499.png",
+            "size": {
+                "width": 1920,
+                "height": 940
+            },
+            "state": 2,
+            "type": 1
+        },
+        "00f5f48b110ad21472b1138ebcb19133": {
+            "format": "png",
+            "id": "00f5f48b110ad21472b1138ebcb19133",
+            "name": "2020-12-08T00-03-55.24991.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.24991.png",
+            "size": {
+                "width": 1920,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "a6f7bdfc72c2bd5355e52a52ae16b76d": {
+            "format": "png",
+            "id": "a6f7bdfc72c2bd5355e52a52ae16b76d",
+            "name": "2020-12-08T00-03-55.26612.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.26612.png",
+            "size": {
+                "width": 1919,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "4951de236ca89e757fde669130e98b0b": {
+            "format": "png",
+            "id": "4951de236ca89e757fde669130e98b0b",
+            "name": "2020-12-08T00-03-55.26716.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.26716.png",
+            "size": {
+                "width": 1919,
+                "height": 940
+            },
+            "state": 2,
+            "type": 1
+        },
+        "7e06275c9da57a1a501f7eb457ed4c33": {
+            "format": "png",
+            "id": "7e06275c9da57a1a501f7eb457ed4c33",
+            "name": "2020-12-08T00-03-55.2696.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.2696.png",
+            "size": {
+                "width": 1917,
+                "height": 934
+            },
+            "state": 2,
+            "type": 1
+        },
+        "3900010cb18dba67545c6575c05cba76": {
+            "format": "png",
+            "id": "3900010cb18dba67545c6575c05cba76",
+            "name": "2020-12-08T00-03-55.27230.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.27230.png",
+            "size": {
+                "width": 1919,
+                "height": 940
+            },
+            "state": 2,
+            "type": 1
+        },
+        "21b3beca87cb7f9c4c4dbf430a6203b2": {
+            "format": "png",
+            "id": "21b3beca87cb7f9c4c4dbf430a6203b2",
+            "name": "2020-12-08T00-03-55.2734.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.2734.png",
+            "size": {
+                "width": 1917,
+                "height": 933
+            },
+            "state": 2,
+            "type": 1
+        },
+        "8212b19657d92921c9310fa2e645e6eb": {
+            "format": "png",
+            "id": "8212b19657d92921c9310fa2e645e6eb",
+            "name": "2020-12-08T00-03-55.27345.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.27345.png",
+            "size": {
+                "width": 1920,
+                "height": 935
+            },
+            "state": 2,
+            "type": 1
+        },
+        "d8605d0e20d118e0c9b715d9bd018d7a": {
+            "format": "png",
+            "id": "d8605d0e20d118e0c9b715d9bd018d7a",
+            "name": "2020-12-08T00-03-55.2743.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.2743.png",
+            "size": {
+                "width": 1918,
+                "height": 935
+            },
+            "state": 2,
+            "type": 1
+        },
+        "673c0a37ad941a02ef9d3d365d7cdf89": {
+            "format": "png",
+            "id": "673c0a37ad941a02ef9d3d365d7cdf89",
+            "name": "2020-12-08T00-03-55.27450.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.27450.png",
+            "size": {
+                "width": 1920,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "2fe7d0f5c32e91b9d33dbd4555ddf05d": {
+            "format": "png",
+            "id": "2fe7d0f5c32e91b9d33dbd4555ddf05d",
+            "name": "2020-12-08T00-03-55.2756.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.2756.png",
+            "size": {
+                "width": 1919,
+                "height": 938
+            },
+            "state": 2,
+            "type": 1
+        },
+        "fee61e08f4a3d87fc5e24521b0b59d1a": {
+            "format": "png",
+            "id": "fee61e08f4a3d87fc5e24521b0b59d1a",
+            "name": "2020-12-08T00-03-55.2763.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.2763.png",
+            "size": {
+                "width": 1921,
+                "height": 931
+            },
+            "state": 2,
+            "type": 1
+        },
+        "530d0d394bff42329f61da96d089caf0": {
+            "format": "png",
+            "id": "530d0d394bff42329f61da96d089caf0",
+            "name": "2020-12-08T00-03-55.27834.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.27834.png",
+            "size": {
+                "width": 1920,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "31e9497b44147b19ab8dcec2ba6ef022": {
+            "format": "png",
+            "id": "31e9497b44147b19ab8dcec2ba6ef022",
+            "name": "2020-12-08T00-03-55.27845.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.27845.png",
+            "size": {
+                "width": 1919,
+                "height": 941
+            },
+            "state": 2,
+            "type": 1
+        },
+        "572940b7578200b6b248400cbed6342c": {
+            "format": "png",
+            "id": "572940b7578200b6b248400cbed6342c",
+            "name": "2020-12-08T00-03-55.280.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.280.png",
+            "size": {
+                "width": 1920,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "449211280916cd51e5646f2b40949449": {
+            "format": "png",
+            "id": "449211280916cd51e5646f2b40949449",
+            "name": "2020-12-08T00-03-55.2800.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.2800.png",
+            "size": {
+                "width": 1919,
+                "height": 939
+            },
+            "state": 2,
+            "type": 1
+        },
+        "9a0f0bf2fdac5ea73f01e1aa0fe8fbc0": {
+            "format": "png",
+            "id": "9a0f0bf2fdac5ea73f01e1aa0fe8fbc0",
+            "name": "2020-12-08T00-03-55.283454.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.283454.png",
+            "size": {
+                "width": 1920,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "7eddd17eada75c1eda62fd70f4e6054d": {
+            "format": "png",
+            "id": "7eddd17eada75c1eda62fd70f4e6054d",
+            "name": "2020-12-08T00-03-55.28674.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.28674.png",
+            "size": {
+                "width": 1912,
+                "height": 933
+            },
+            "state": 2,
+            "type": 1
+        },
+        "e74d7092a93ae85dd540e79c078cd274": {
+            "format": "png",
+            "id": "e74d7092a93ae85dd540e79c078cd274",
+            "name": "2020-12-08T00-03-55.28941.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.28941.png",
+            "size": {
+                "width": 1921,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "681f6a5e1bee17a6d9e47a6db5dd0cf6": {
+            "format": "png",
+            "id": "681f6a5e1bee17a6d9e47a6db5dd0cf6",
+            "name": "2020-12-08T00-03-55.30033.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.30033.png",
+            "size": {
+                "width": 1919,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "73b5333e4de74a2e9085d02be074fee4": {
+            "format": "png",
+            "id": "73b5333e4de74a2e9085d02be074fee4",
+            "name": "2020-12-08T00-03-55.3017.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3017.png",
+            "size": {
+                "width": 1919,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "b9181fc805be94c3f5f8802aa9f7fa77": {
+            "format": "png",
+            "id": "b9181fc805be94c3f5f8802aa9f7fa77",
+            "name": "2020-12-08T00-03-55.3097.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3097.png",
+            "size": {
+                "width": 1919,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "e297ca897ace33f10f93447817925a03": {
+            "format": "png",
+            "id": "e297ca897ace33f10f93447817925a03",
+            "name": "2020-12-08T00-03-55.31008.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.31008.png",
+            "size": {
+                "width": 1916,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "961be96b3c8d5d2dc654e0eb6573b537": {
+            "format": "png",
+            "id": "961be96b3c8d5d2dc654e0eb6573b537",
+            "name": "2020-12-08T00-03-55.3111.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3111.png",
+            "size": {
+                "width": 1920,
+                "height": 934
+            },
+            "state": 2,
+            "type": 1
+        },
+        "50b0086432e46bd0767c6c2a8821a6e3": {
+            "format": "png",
+            "id": "50b0086432e46bd0767c6c2a8821a6e3",
+            "name": "2020-12-08T00-03-55.31118.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.31118.png",
+            "size": {
+                "width": 1919,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "e01c32041616a5917e47d43c7b512c26": {
+            "format": "png",
+            "id": "e01c32041616a5917e47d43c7b512c26",
+            "name": "2020-12-08T00-03-55.3115.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3115.png",
+            "size": {
+                "width": 1920,
+                "height": 939
+            },
+            "state": 2,
+            "type": 1
+        },
+        "f9f95a7f8472e32be338769cc4d242ae": {
+            "format": "png",
+            "id": "f9f95a7f8472e32be338769cc4d242ae",
+            "name": "2020-12-08T00-03-55.3118.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3118.png",
+            "size": {
+                "width": 1919,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "1c98285ec14f1b2150c07db12befda31": {
+            "format": "png",
+            "id": "1c98285ec14f1b2150c07db12befda31",
+            "name": "2020-12-08T00-03-55.31221.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.31221.png",
+            "size": {
+                "width": 1920,
+                "height": 932
+            },
+            "state": 2,
+            "type": 1
+        },
+        "f01503cef57550af8ea22a5693fcf073": {
+            "format": "png",
+            "id": "f01503cef57550af8ea22a5693fcf073",
+            "name": "2020-12-08T00-03-55.31231.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.31231.png",
+            "size": {
+                "width": 1919,
+                "height": 940
+            },
+            "state": 2,
+            "type": 1
+        },
+        "29b9f87d07e262053cdb0486b1db4b83": {
+            "format": "png",
+            "id": "29b9f87d07e262053cdb0486b1db4b83",
+            "name": "2020-12-08T00-03-55.312321.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.312321.png",
+            "size": {
+                "width": 1919,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "18754628743c641bce0abb8f62400279": {
+            "format": "png",
+            "id": "18754628743c641bce0abb8f62400279",
+            "name": "2020-12-08T00-03-55.31335.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.31335.png",
+            "size": {
+                "width": 1918,
+                "height": 933
+            },
+            "state": 2,
+            "type": 1
+        },
+        "fa0cbeffe42802493e72ebe8b7a5bcf4": {
+            "format": "png",
+            "id": "fa0cbeffe42802493e72ebe8b7a5bcf4",
+            "name": "2020-12-08T00-03-55.3135.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3135.png",
+            "size": {
+                "width": 1917,
+                "height": 940
+            },
+            "state": 2,
+            "type": 1
+        },
+        "16bb6bf937df3cf00535ff7341e20d58": {
+            "format": "png",
+            "id": "16bb6bf937df3cf00535ff7341e20d58",
+            "name": "2020-12-08T00-03-55.31451.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.31451.png",
+            "size": {
+                "width": 1920,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "62fb01b64d0b23acf1ff841350c2ee9a": {
+            "format": "png",
+            "id": "62fb01b64d0b23acf1ff841350c2ee9a",
+            "name": "2020-12-08T00-03-55.31455.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.31455.png",
+            "size": {
+                "width": 1919,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "01c9cc78666dfc70691562fa53539233": {
+            "format": "png",
+            "id": "01c9cc78666dfc70691562fa53539233",
+            "name": "2020-12-08T00-03-55.31458.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.31458.png",
+            "size": {
+                "width": 1921,
+                "height": 938
+            },
+            "state": 2,
+            "type": 1
+        },
+        "2fd17fba4ba66ee4f356f8e6c860bb41": {
+            "format": "png",
+            "id": "2fd17fba4ba66ee4f356f8e6c860bb41",
+            "name": "2020-12-08T00-03-55.3148.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3148.png",
+            "size": {
+                "width": 1919,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "08031c54bb6cc597e12778fe4de39084": {
+            "format": "png",
+            "id": "08031c54bb6cc597e12778fe4de39084",
+            "name": "2020-12-08T00-03-55.3154.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3154.png",
+            "size": {
+                "width": 1920,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "3e0e02a00974ab8ad656efb0a4818007": {
+            "format": "png",
+            "id": "3e0e02a00974ab8ad656efb0a4818007",
+            "name": "2020-12-08T00-03-55.3198.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3198.png",
+            "size": {
+                "width": 1920,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "43a07c8a1ed11fd7a392069e8f919b11": {
+            "format": "png",
+            "id": "43a07c8a1ed11fd7a392069e8f919b11",
+            "name": "2020-12-08T00-03-55.31995.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.31995.png",
+            "size": {
+                "width": 1919,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "d54d206a5ff2e6659acd21d6cee3cf71": {
+            "format": "png",
+            "id": "d54d206a5ff2e6659acd21d6cee3cf71",
+            "name": "2020-12-08T00-03-55.32001.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.32001.png",
+            "size": {
+                "width": 1919,
+                "height": 939
+            },
+            "state": 2,
+            "type": 1
+        },
+        "b2584559fa68050915a705f258c99305": {
+            "format": "png",
+            "id": "b2584559fa68050915a705f258c99305",
+            "name": "2020-12-08T00-03-55.3201.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3201.png",
+            "size": {
+                "width": 1920,
+                "height": 942
+            },
+            "state": 2,
+            "type": 1
+        },
+        "38e11ce39285bb783609e01d49065e21": {
+            "format": "png",
+            "id": "38e11ce39285bb783609e01d49065e21",
+            "name": "2020-12-08T00-03-55.3207.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3207.png",
+            "size": {
+                "width": 1919,
+                "height": 935
+            },
+            "state": 2,
+            "type": 1
+        },
+        "eaeaeb6a45c58adb16aecc4dff6d54c8": {
+            "format": "png",
+            "id": "eaeaeb6a45c58adb16aecc4dff6d54c8",
+            "name": "2020-12-08T00-03-55.3211.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3211.png",
+            "size": {
+                "width": 1919,
+                "height": 939
+            },
+            "state": 2,
+            "type": 1
+        },
+        "33fa93a379cb7d2f829f1630ef742b81": {
+            "format": "png",
+            "id": "33fa93a379cb7d2f829f1630ef742b81",
+            "name": "2020-12-08T00-03-55.3222.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3222.png",
+            "size": {
+                "width": 1919,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "cd3e0938706c15b319e629c4f17a4430": {
+            "format": "png",
+            "id": "cd3e0938706c15b319e629c4f17a4430",
+            "name": "2020-12-08T00-03-55.32221.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.32221.png",
+            "size": {
+                "width": 1919,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "b4fc8cf20ae59f5b8cae16e16985ccf1": {
+            "format": "png",
+            "id": "b4fc8cf20ae59f5b8cae16e16985ccf1",
+            "name": "2020-12-08T00-03-55.32231.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.32231.png",
+            "size": {
+                "width": 1918,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "9ae6d5f3b9df4dab3e2865dde8e17d13": {
+            "format": "png",
+            "id": "9ae6d5f3b9df4dab3e2865dde8e17d13",
+            "name": "2020-12-08T00-03-55.32318.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.32318.png",
+            "size": {
+                "width": 1920,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "e3b0c11b7a31563773b08a07fed9cc73": {
+            "format": "png",
+            "id": "e3b0c11b7a31563773b08a07fed9cc73",
+            "name": "2020-12-08T00-03-55.323183.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.323183.png",
+            "size": {
+                "width": 1920,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "4c13f4d41a514b38a18ebc9b6dcd98a7": {
+            "format": "png",
+            "id": "4c13f4d41a514b38a18ebc9b6dcd98a7",
+            "name": "2020-12-08T00-03-55.32327.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.32327.png",
+            "size": {
+                "width": 1918,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "5ae6f3cefaacd208ced310ebaa3d6b45": {
+            "format": "png",
+            "id": "5ae6f3cefaacd208ced310ebaa3d6b45",
+            "name": "2020-12-08T00-03-55.323907.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.323907.png",
+            "size": {
+                "width": 1919,
+                "height": 934
+            },
+            "state": 2,
+            "type": 1
+        },
+        "9bbdb8bdc0329272c649c8140ad7a8b4": {
+            "format": "png",
+            "id": "9bbdb8bdc0329272c649c8140ad7a8b4",
+            "name": "2020-12-08T00-03-55.32444.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.32444.png",
+            "size": {
+                "width": 1920,
+                "height": 935
+            },
+            "state": 2,
+            "type": 1
+        },
+        "8b52d874dfc1f939cd3402b4ab7dcaf8": {
+            "format": "png",
+            "id": "8b52d874dfc1f939cd3402b4ab7dcaf8",
+            "name": "2020-12-08T00-03-55.32771.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.32771.png",
+            "size": {
+                "width": 1919,
+                "height": 933
+            },
+            "state": 2,
+            "type": 1
+        },
+        "95de7f9e7952ad5263c634c6bb1f5230": {
+            "format": "png",
+            "id": "95de7f9e7952ad5263c634c6bb1f5230",
+            "name": "2020-12-08T00-03-55.32874.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.32874.png",
+            "size": {
+                "width": 1921,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "5b714877aa908d1b7f536681edce9509": {
+            "format": "png",
+            "id": "5b714877aa908d1b7f536681edce9509",
+            "name": "2020-12-08T00-03-55.32881.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.32881.png",
+            "size": {
+                "width": 1919,
+                "height": 934
+            },
+            "state": 2,
+            "type": 1
+        },
+        "4dabae14c80fe6bee072dc67ee6238f3": {
+            "format": "png",
+            "id": "4dabae14c80fe6bee072dc67ee6238f3",
+            "name": "2020-12-08T00-03-55.32884.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.32884.png",
+            "size": {
+                "width": 1918,
+                "height": 940
+            },
+            "state": 2,
+            "type": 1
+        },
+        "1f931034cc52180bb839da340a6a4140": {
+            "format": "png",
+            "id": "1f931034cc52180bb839da340a6a4140",
+            "name": "2020-12-08T00-03-55.328891.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.328891.png",
+            "size": {
+                "width": 1921,
+                "height": 932
+            },
+            "state": 2,
+            "type": 1
+        },
+        "858367b934065ed5334509f65624cad6": {
+            "format": "png",
+            "id": "858367b934065ed5334509f65624cad6",
+            "name": "2020-12-08T00-03-55.3288991.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3288991.png",
+            "size": {
+                "width": 1919,
+                "height": 935
+            },
+            "state": 2,
+            "type": 1
+        },
+        "3bfb156638c5c00fc044e5f469f31a00": {
+            "format": "png",
+            "id": "3bfb156638c5c00fc044e5f469f31a00",
+            "name": "2020-12-08T00-03-55.32891.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.32891.png",
+            "size": {
+                "width": 1922,
+                "height": 939
+            },
+            "state": 2,
+            "type": 1
+        },
+        "6054aeead54b395198b46c9a5d38942e": {
+            "format": "png",
+            "id": "6054aeead54b395198b46c9a5d38942e",
+            "name": "2020-12-08T00-03-55.3302.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3302.png",
+            "size": {
+                "width": 1920,
+                "height": 939
+            },
+            "state": 2,
+            "type": 1
+        },
+        "e30d62407c9308d95c35896c6a03ee8d": {
+            "format": "png",
+            "id": "e30d62407c9308d95c35896c6a03ee8d",
+            "name": "2020-12-08T00-03-55.3330.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3330.png",
+            "size": {
+                "width": 1920,
+                "height": 938
+            },
+            "state": 2,
+            "type": 1
+        },
+        "e448f22a002f8427ac5683be15ad1b06": {
+            "format": "png",
+            "id": "e448f22a002f8427ac5683be15ad1b06",
+            "name": "2020-12-08T00-03-55.33340.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.33340.png",
+            "size": {
+                "width": 1918,
+                "height": 941
+            },
+            "state": 2,
+            "type": 1
+        },
+        "ecccbaa9279ecc978e0df7e39501f058": {
+            "format": "png",
+            "id": "ecccbaa9279ecc978e0df7e39501f058",
+            "name": "2020-12-08T00-03-55.334533.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.334533.png",
+            "size": {
+                "width": 1919,
+                "height": 939
+            },
+            "state": 2,
+            "type": 1
+        },
+        "b9ef79583d1b58c924b44d80825310f0": {
+            "format": "png",
+            "id": "b9ef79583d1b58c924b44d80825310f0",
+            "name": "2020-12-08T00-03-55.33482.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.33482.png",
+            "size": {
+                "width": 1919,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "8faf507574735604f609befd5e7b8f9a": {
+            "format": "png",
+            "id": "8faf507574735604f609befd5e7b8f9a",
+            "name": "2020-12-08T00-03-55.33600.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.33600.png",
+            "size": {
+                "width": 1920,
+                "height": 934
+            },
+            "state": 2,
+            "type": 1
+        },
+        "7880ca592a7296888a1f9902c47cafff": {
+            "format": "png",
+            "id": "7880ca592a7296888a1f9902c47cafff",
+            "name": "2020-12-08T00-03-55.3366.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3366.png",
+            "size": {
+                "width": 1919,
+                "height": 934
+            },
+            "state": 2,
+            "type": 1
+        },
+        "68c6309ad51a91f8e82ca20fb4dba701": {
+            "format": "png",
+            "id": "68c6309ad51a91f8e82ca20fb4dba701",
+            "name": "2020-12-08T00-03-55.3367.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3367.png",
+            "size": {
+                "width": 1925,
+                "height": 938
+            },
+            "state": 2,
+            "type": 1
+        },
+        "4466c7bc6db61f66cafafae02fc0163b": {
+            "format": "png",
+            "id": "4466c7bc6db61f66cafafae02fc0163b",
+            "name": "2020-12-08T00-03-55.337776.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.337776.png",
+            "size": {
+                "width": 1920,
+                "height": 940
+            },
+            "state": 2,
+            "type": 1
+        },
+        "663b1550a51a760ca00cde9753c38cdd": {
+            "format": "png",
+            "id": "663b1550a51a760ca00cde9753c38cdd",
+            "name": "2020-12-08T00-03-55.337783.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.337783.png",
+            "size": {
+                "width": 1919,
+                "height": 938
+            },
+            "state": 2,
+            "type": 1
+        },
+        "adfe9aee3223cbe4fb5daedc299c2819": {
+            "format": "png",
+            "id": "adfe9aee3223cbe4fb5daedc299c2819",
+            "name": "2020-12-08T00-03-55.33783.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.33783.png",
+            "size": {
+                "width": 1920,
+                "height": 939
+            },
+            "state": 2,
+            "type": 1
+        },
+        "f39479250cbd39c3d3e35666e5b7ba39": {
+            "format": "png",
+            "id": "f39479250cbd39c3d3e35666e5b7ba39",
+            "name": "2020-12-08T00-03-55.34333.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.34333.png",
+            "size": {
+                "width": 1919,
+                "height": 939
+            },
+            "state": 2,
+            "type": 1
+        },
+        "d919c183e885ef6496cba5d7ae272ee9": {
+            "format": "png",
+            "id": "d919c183e885ef6496cba5d7ae272ee9",
+            "name": "2020-12-08T00-03-55.34340.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.34340.png",
+            "size": {
+                "width": 1920,
+                "height": 934
+            },
+            "state": 2,
+            "type": 1
+        },
+        "f308b9f3c4a59f6389af8cd963c64998": {
+            "format": "png",
+            "id": "f308b9f3c4a59f6389af8cd963c64998",
+            "name": "2020-12-08T00-03-55.343430.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.343430.png",
+            "size": {
+                "width": 1918,
+                "height": 931
+            },
+            "state": 2,
+            "type": 1
+        },
+        "d6bf5b79bb29d9957f893e9facc3937b": {
+            "format": "png",
+            "id": "d6bf5b79bb29d9957f893e9facc3937b",
+            "name": "2020-12-08T00-03-55.34378.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.34378.png",
+            "size": {
+                "width": 1919,
+                "height": 934
+            },
+            "state": 2,
+            "type": 1
+        },
+        "f8fb2b2674cff5a6d16393cc9086d20a": {
+            "format": "png",
+            "id": "f8fb2b2674cff5a6d16393cc9086d20a",
+            "name": "2020-12-08T00-03-55.344340.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.344340.png",
+            "size": {
+                "width": 1920,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "3a767c6eb0df575a6a2b5b4da33e928e": {
+            "format": "png",
+            "id": "3a767c6eb0df575a6a2b5b4da33e928e",
+            "name": "2020-12-08T00-03-55.34443.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.34443.png",
+            "size": {
+                "width": 1920,
+                "height": 938
+            },
+            "state": 2,
+            "type": 1
+        },
+        "7b32d01a749ebfa19b7b3711e72b2838": {
+            "format": "png",
+            "id": "7b32d01a749ebfa19b7b3711e72b2838",
+            "name": "2020-12-08T00-03-55.3530.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3530.png",
+            "size": {
+                "width": 1918,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "81651d2814d04477fa14f51bc590a54a": {
+            "format": "png",
+            "id": "81651d2814d04477fa14f51bc590a54a",
+            "name": "2020-12-08T00-03-55.3651.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3651.png",
+            "size": {
+                "width": 1921,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "27ea5dd2d92e3bd7755b705c3be962e0": {
+            "format": "png",
+            "id": "27ea5dd2d92e3bd7755b705c3be962e0",
+            "name": "2020-12-08T00-03-55.3677.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3677.png",
+            "size": {
+                "width": 1918,
+                "height": 935
+            },
+            "state": 2,
+            "type": 1
+        },
+        "764e88666535c0f79a4b80b1c5fb38c4": {
+            "format": "png",
+            "id": "764e88666535c0f79a4b80b1c5fb38c4",
+            "name": "2020-12-08T00-03-55.3677633.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3677633.png",
+            "size": {
+                "width": 1918,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "8cf4383312aa42c0cdc140c2eaef9ec6": {
+            "format": "png",
+            "id": "8cf4383312aa42c0cdc140c2eaef9ec6",
+            "name": "2020-12-08T00-03-55.3745.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3745.png",
+            "size": {
+                "width": 1920,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "627ec764b092fffd7be12ec00c434065": {
+            "format": "png",
+            "id": "627ec764b092fffd7be12ec00c434065",
+            "name": "2020-12-08T00-03-55.37730.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.37730.png",
+            "size": {
+                "width": 1920,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "b75c4ce63ea3858ebd310599221096e0": {
+            "format": "png",
+            "id": "b75c4ce63ea3858ebd310599221096e0",
+            "name": "2020-12-08T00-03-55.37830.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.37830.png",
+            "size": {
+                "width": 1919,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "d79f54db0df40f8ff37eca9ed8c150c6": {
+            "format": "png",
+            "id": "d79f54db0df40f8ff37eca9ed8c150c6",
+            "name": "2020-12-08T00-03-55.37833.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.37833.png",
+            "size": {
+                "width": 1918,
+                "height": 933
+            },
+            "state": 2,
+            "type": 1
+        },
+        "4f3d79139f8a15ba9e3d83bf1500b0f9": {
+            "format": "png",
+            "id": "4f3d79139f8a15ba9e3d83bf1500b0f9",
+            "name": "2020-12-08T00-03-55.37836.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.37836.png",
+            "size": {
+                "width": 1919,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "6221860464c1e163c7c8e4548c90f373": {
+            "format": "png",
+            "id": "6221860464c1e163c7c8e4548c90f373",
+            "name": "2020-12-08T00-03-55.3822.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3822.png",
+            "size": {
+                "width": 1914,
+                "height": 938
+            },
+            "state": 2,
+            "type": 1
+        },
+        "ecc81f149f044b1f883dcffef6f78773": {
+            "format": "png",
+            "id": "ecc81f149f044b1f883dcffef6f78773",
+            "name": "2020-12-08T00-03-55.38229.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.38229.png",
+            "size": {
+                "width": 1918,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "0fa6d13a6c7c9071cfa70351c84a1d39": {
+            "format": "png",
+            "id": "0fa6d13a6c7c9071cfa70351c84a1d39",
+            "name": "2020-12-08T00-03-55.3829.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3829.png",
+            "size": {
+                "width": 1920,
+                "height": 939
+            },
+            "state": 2,
+            "type": 1
+        },
+        "3962b298ae055b9b2f51c9db17470168": {
+            "format": "png",
+            "id": "3962b298ae055b9b2f51c9db17470168",
+            "name": "2020-12-08T00-03-55.3839.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3839.png",
+            "size": {
+                "width": 1920,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "def7145ad7964c64a55d14715d63d49f": {
+            "format": "png",
+            "id": "def7145ad7964c64a55d14715d63d49f",
+            "name": "2020-12-08T00-03-55.3842.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.3842.png",
+            "size": {
+                "width": 1920,
+                "height": 938
+            },
+            "state": 2,
+            "type": 1
+        },
+        "d233e9b579950c8c4618619df7c45d28": {
+            "format": "png",
+            "id": "d233e9b579950c8c4618619df7c45d28",
+            "name": "2020-12-08T00-03-55.38830.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.38830.png",
+            "size": {
+                "width": 1921,
+                "height": 939
+            },
+            "state": 2,
+            "type": 1
+        },
+        "e2c130a40d51ef45f9a9920142fb3c70": {
+            "format": "png",
+            "id": "e2c130a40d51ef45f9a9920142fb3c70",
+            "name": "2020-12-08T00-03-55.388833.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.388833.png",
+            "size": {
+                "width": 1920,
+                "height": 938
+            },
+            "state": 2,
+            "type": 1
+        },
+        "92f1e5f1e51d990a21f507dd8784fb84": {
+            "format": "png",
+            "id": "92f1e5f1e51d990a21f507dd8784fb84",
+            "name": "2020-12-08T00-03-55.38915.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.38915.png",
+            "size": {
+                "width": 1921,
+                "height": 933
+            },
+            "state": 2,
+            "type": 1
+        },
+        "5ce5d7f83031982dab34d4c6d17cbdd1": {
+            "format": "png",
+            "id": "5ce5d7f83031982dab34d4c6d17cbdd1",
+            "name": "2020-12-08T00-03-55.40002.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.40002.png",
+            "size": {
+                "width": 1920,
+                "height": 938
+            },
+            "state": 2,
+            "type": 1
+        },
+        "b3e1d52b3e8aca3e7ed631fe4672cd5b": {
+            "format": "png",
+            "id": "b3e1d52b3e8aca3e7ed631fe4672cd5b",
+            "name": "2020-12-08T00-03-55.40267.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.40267.png",
+            "size": {
+                "width": 1918,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "65999e9d7cb1a6617e97752f14b0e0cf": {
+            "format": "png",
+            "id": "65999e9d7cb1a6617e97752f14b0e0cf",
+            "name": "2020-12-08T00-03-55.40909.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.40909.png",
+            "size": {
+                "width": 1919,
+                "height": 933
+            },
+            "state": 2,
+            "type": 1
+        },
+        "efba9667623bd740de48775ba7764011": {
+            "format": "png",
+            "id": "efba9667623bd740de48775ba7764011",
+            "name": "2020-12-08T00-03-55.4324.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.4324.png",
+            "size": {
+                "width": 1919,
+                "height": 934
+            },
+            "state": 2,
+            "type": 1
+        },
+        "351b19acb8a4cfe5bc3d64f07fe9e680": {
+            "format": "png",
+            "id": "351b19acb8a4cfe5bc3d64f07fe9e680",
+            "name": "2020-12-08T00-03-55.4326.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.4326.png",
+            "size": {
+                "width": 1919,
+                "height": 938
+            },
+            "state": 2,
+            "type": 1
+        },
+        "caf140517b208b60ab9a24e6b91ffe6f": {
+            "format": "png",
+            "id": "caf140517b208b60ab9a24e6b91ffe6f",
+            "name": "2020-12-08T00-03-55.4444.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.4444.png",
+            "size": {
+                "width": 1919,
+                "height": 941
+            },
+            "state": 2,
+            "type": 1
+        },
+        "f69278e607bf6a225ccc9b3e6fdf5a1b": {
+            "format": "png",
+            "id": "f69278e607bf6a225ccc9b3e6fdf5a1b",
+            "name": "2020-12-08T00-03-55.44884.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.44884.png",
+            "size": {
+                "width": 1920,
+                "height": 940
+            },
+            "state": 2,
+            "type": 1
+        },
+        "38e423f847ec3237f49e52066978ed02": {
+            "format": "png",
+            "id": "38e423f847ec3237f49e52066978ed02",
+            "name": "2020-12-08T00-03-55.45002.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.45002.png",
+            "size": {
+                "width": 1918,
+                "height": 939
+            },
+            "state": 2,
+            "type": 1
+        },
+        "d665ade15cc62908d6d2bc05c9d4d19a": {
+            "format": "png",
+            "id": "d665ade15cc62908d6d2bc05c9d4d19a",
+            "name": "2020-12-08T00-03-55.4506.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.4506.png",
+            "size": {
+                "width": 1919,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "dc3b456f482f6aac699d9810b2ae0a3a": {
+            "format": "png",
+            "id": "dc3b456f482f6aac699d9810b2ae0a3a",
+            "name": "2020-12-08T00-03-55.45886.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.45886.png",
+            "size": {
+                "width": 1920,
+                "height": 938
+            },
+            "state": 2,
+            "type": 1
+        },
+        "725b38b2089e233bb0874f6da085bc7d": {
+            "format": "png",
+            "id": "725b38b2089e233bb0874f6da085bc7d",
+            "name": "2020-12-08T00-03-55.46340.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.46340.png",
+            "size": {
+                "width": 1918,
+                "height": 934
+            },
+            "state": 2,
+            "type": 1
+        },
+        "4ebf82afd5e05a13faa7f5dbfac4a8d8": {
+            "format": "png",
+            "id": "4ebf82afd5e05a13faa7f5dbfac4a8d8",
+            "name": "2020-12-08T00-03-55.463430.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.463430.png",
+            "size": {
+                "width": 1920,
+                "height": 938
+            },
+            "state": 2,
+            "type": 1
+        },
+        "26951d8cc24a9d4530824141ad5ac473": {
+            "format": "png",
+            "id": "26951d8cc24a9d4530824141ad5ac473",
+            "name": "2020-12-08T00-03-55.4640.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.4640.png",
+            "size": {
+                "width": 1920,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "c7c13402ade0558daa24bebf889db4fa": {
+            "format": "png",
+            "id": "c7c13402ade0558daa24bebf889db4fa",
+            "name": "2020-12-08T00-03-55.46709.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.46709.png",
+            "size": {
+                "width": 1920,
+                "height": 932
+            },
+            "state": 2,
+            "type": 1
+        },
+        "f9e573418eb3cdb0e47d575bcf3eb47a": {
+            "format": "png",
+            "id": "f9e573418eb3cdb0e47d575bcf3eb47a",
+            "name": "2020-12-08T00-03-55.47812.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.47812.png",
+            "size": {
+                "width": 1919,
+                "height": 940
+            },
+            "state": 2,
+            "type": 1
+        },
+        "7a9e8fe8984c104c1185a4384f9c6e5e": {
+            "format": "png",
+            "id": "7a9e8fe8984c104c1185a4384f9c6e5e",
+            "name": "2020-12-08T00-03-55.4792.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.4792.png",
+            "size": {
+                "width": 1920,
+                "height": 935
+            },
+            "state": 2,
+            "type": 1
+        },
+        "5f4f2556642c9af6ddf9fe6dff3d9abc": {
+            "format": "png",
+            "id": "5f4f2556642c9af6ddf9fe6dff3d9abc",
+            "name": "2020-12-08T00-03-55.4807.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.4807.png",
+            "size": {
+                "width": 1917,
+                "height": 934
+            },
+            "state": 2,
+            "type": 1
+        },
+        "7d2dc1850007153aea85feb50b41f7c4": {
+            "format": "png",
+            "id": "7d2dc1850007153aea85feb50b41f7c4",
+            "name": "2020-12-08T00-03-55.4848.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.4848.png",
+            "size": {
+                "width": 1919,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "8eb216e3b294857d7f1786abe1193ef4": {
+            "format": "png",
+            "id": "8eb216e3b294857d7f1786abe1193ef4",
+            "name": "2020-12-08T00-03-55.49002.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.49002.png",
+            "size": {
+                "width": 1918,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "971634245f009411a674cd7d14e80b29": {
+            "format": "png",
+            "id": "971634245f009411a674cd7d14e80b29",
+            "name": "2020-12-08T00-03-55.5160.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.5160.png",
+            "size": {
+                "width": 1917,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "abfd565c93c9afa08eafee51c644e220": {
+            "format": "png",
+            "id": "abfd565c93c9afa08eafee51c644e220",
+            "name": "2020-12-08T00-03-55.52347.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.52347.png",
+            "size": {
+                "width": 1921,
+                "height": 939
+            },
+            "state": 2,
+            "type": 1
+        },
+        "285664a1cd3e79ece403c4f19d6659a1": {
+            "format": "png",
+            "id": "285664a1cd3e79ece403c4f19d6659a1",
+            "name": "2020-12-08T00-03-55.5335.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.5335.png",
+            "size": {
+                "width": 1919,
+                "height": 934
+            },
+            "state": 2,
+            "type": 1
+        },
+        "a20221542279db310f99a9d00b0ad604": {
+            "format": "png",
+            "id": "a20221542279db310f99a9d00b0ad604",
+            "name": "2020-12-08T00-03-55.534582.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.534582.png",
+            "size": {
+                "width": 1919,
+                "height": 938
+            },
+            "state": 2,
+            "type": 1
+        },
+        "44dda72b7fb719d9cbeb8583250ba3b9": {
+            "format": "png",
+            "id": "44dda72b7fb719d9cbeb8583250ba3b9",
+            "name": "2020-12-08T00-03-55.54002.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.54002.png",
+            "size": {
+                "width": 1919,
+                "height": 934
+            },
+            "state": 2,
+            "type": 1
+        },
+        "13a1747f853def1ab5c87fb4f85a1063": {
+            "format": "png",
+            "id": "13a1747f853def1ab5c87fb4f85a1063",
+            "name": "2020-12-08T00-03-55.542.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.542.png",
+            "size": {
+                "width": 1921,
+                "height": 940
+            },
+            "state": 2,
+            "type": 1
+        },
+        "635999a95c238efc8ca2d9e634c70936": {
+            "format": "png",
+            "id": "635999a95c238efc8ca2d9e634c70936",
+            "name": "2020-12-08T00-03-55.543452.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.543452.png",
+            "size": {
+                "width": 1919,
+                "height": 938
+            },
+            "state": 2,
+            "type": 1
+        },
+        "527239783dddd1ecc2489093d65ef650": {
+            "format": "png",
+            "id": "527239783dddd1ecc2489093d65ef650",
+            "name": "2020-12-08T00-03-55.5570.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.5570.png",
+            "size": {
+                "width": 1920,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "80310546895bb10909cfe98c7ed93d16": {
+            "format": "png",
+            "id": "80310546895bb10909cfe98c7ed93d16",
+            "name": "2020-12-08T00-03-55.55770.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.55770.png",
+            "size": {
+                "width": 1920,
+                "height": 938
+            },
+            "state": 2,
+            "type": 1
+        },
+        "4a61b9cc1dadc933d38397aebec4edfe": {
+            "format": "png",
+            "id": "4a61b9cc1dadc933d38397aebec4edfe",
+            "name": "2020-12-08T00-03-55.55778.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.55778.png",
+            "size": {
+                "width": 1919,
+                "height": 934
+            },
+            "state": 2,
+            "type": 1
+        },
+        "7c7b0098962c476a33d4af7ad48fecab": {
+            "format": "png",
+            "id": "7c7b0098962c476a33d4af7ad48fecab",
+            "name": "2020-12-08T00-03-55.557780.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.557780.png",
+            "size": {
+                "width": 1917,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "5560242dbc94b658a92c341371b8419c": {
+            "format": "png",
+            "id": "5560242dbc94b658a92c341371b8419c",
+            "name": "2020-12-08T00-03-55.5667.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.5667.png",
+            "size": {
+                "width": 1920,
+                "height": 939
+            },
+            "state": 2,
+            "type": 1
+        },
+        "deb3f238fdd4cbaac37f5e0f8c75612f": {
+            "format": "png",
+            "id": "deb3f238fdd4cbaac37f5e0f8c75612f",
+            "name": "2020-12-08T00-03-55.567.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.567.png",
+            "size": {
+                "width": 1919,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "9b515df5e103ac36181e4724d0d86c4a": {
+            "format": "png",
+            "id": "9b515df5e103ac36181e4724d0d86c4a",
+            "name": "2020-12-08T00-03-55.5677.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.5677.png",
+            "size": {
+                "width": 1916,
+                "height": 935
+            },
+            "state": 2,
+            "type": 1
+        },
+        "dc9a3769564954ed9660e3aa1bda03d3": {
+            "format": "png",
+            "id": "dc9a3769564954ed9660e3aa1bda03d3",
+            "name": "2020-12-08T00-03-55.57345.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.57345.png",
+            "size": {
+                "width": 1920,
+                "height": 938
+            },
+            "state": 2,
+            "type": 1
+        },
+        "826722de29f231711c7edd2904f6845d": {
+            "format": "png",
+            "id": "826722de29f231711c7edd2904f6845d",
+            "name": "2020-12-08T00-03-55.5770.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.5770.png",
+            "size": {
+                "width": 1921,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "c3b8854fa4f51e082c553b5af2f02329": {
+            "format": "png",
+            "id": "c3b8854fa4f51e082c553b5af2f02329",
+            "name": "2020-12-08T00-03-55.57719.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.57719.png",
+            "size": {
+                "width": 1919,
+                "height": 934
+            },
+            "state": 2,
+            "type": 1
+        },
+        "ba2f61575ada0e40de94e8780bed1ece": {
+            "format": "png",
+            "id": "ba2f61575ada0e40de94e8780bed1ece",
+            "name": "2020-12-08T00-03-55.58200.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.58200.png",
+            "size": {
+                "width": 1920,
+                "height": 938
+            },
+            "state": 2,
+            "type": 1
+        },
+        "d013abe7de95612f8eafbefca6937439": {
+            "format": "png",
+            "id": "d013abe7de95612f8eafbefca6937439",
+            "name": "2020-12-08T00-03-55.58342.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.58342.png",
+            "size": {
+                "width": 1921,
+                "height": 939
+            },
+            "state": 2,
+            "type": 1
+        },
+        "5878ac92190cfe3e1a1d3fd78dc4c48c": {
+            "format": "png",
+            "id": "5878ac92190cfe3e1a1d3fd78dc4c48c",
+            "name": "2020-12-08T00-03-55.5834356.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.5834356.png",
+            "size": {
+                "width": 1919,
+                "height": 938
+            },
+            "state": 2,
+            "type": 1
+        },
+        "b6c699ab47f43d910e2115382b43aea6": {
+            "format": "png",
+            "id": "b6c699ab47f43d910e2115382b43aea6",
+            "name": "2020-12-08T00-03-55.583456.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.583456.png",
+            "size": {
+                "width": 1918,
+                "height": 938
+            },
+            "state": 2,
+            "type": 1
+        },
+        "9f7278bc61c8eb6b160197aa708bc084": {
+            "format": "png",
+            "id": "9f7278bc61c8eb6b160197aa708bc084",
+            "name": "2020-12-08T00-03-55.58667.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.58667.png",
+            "size": {
+                "width": 1918,
+                "height": 943
+            },
+            "state": 2,
+            "type": 1
+        },
+        "c830789cf6f0db71375eaf5fbb1a6cf3": {
+            "format": "png",
+            "id": "c830789cf6f0db71375eaf5fbb1a6cf3",
+            "name": "2020-12-08T00-03-55.59086.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.59086.png",
+            "size": {
+                "width": 1920,
+                "height": 941
+            },
+            "state": 2,
+            "type": 1
+        },
+        "23e59b0f60040685608f7142fd2761df": {
+            "format": "png",
+            "id": "23e59b0f60040685608f7142fd2761df",
+            "name": "2020-12-08T00-03-55.59340.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.59340.png",
+            "size": {
+                "width": 1920,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "3309eace5a3c68080e0148efb066a019": {
+            "format": "png",
+            "id": "3309eace5a3c68080e0148efb066a019",
+            "name": "2020-12-08T00-03-55.61674.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.61674.png",
+            "size": {
+                "width": 1919,
+                "height": 931
+            },
+            "state": 2,
+            "type": 1
+        },
+        "e96766c7d5c85c90a01c2068f16e938b": {
+            "format": "png",
+            "id": "e96766c7d5c85c90a01c2068f16e938b",
+            "name": "2020-12-08T00-03-55.6168.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.6168.png",
+            "size": {
+                "width": 1920,
+                "height": 933
+            },
+            "state": 2,
+            "type": 1
+        },
+        "ea843c428c6e674384f9d7f19018fb75": {
+            "format": "png",
+            "id": "ea843c428c6e674384f9d7f19018fb75",
+            "name": "2020-12-08T00-03-55.6178.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.6178.png",
+            "size": {
+                "width": 1920,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "e144af6c331413f57523168115a55db2": {
+            "format": "png",
+            "id": "e144af6c331413f57523168115a55db2",
+            "name": "2020-12-08T00-03-55.61904.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.61904.png",
+            "size": {
+                "width": 1919,
+                "height": 940
+            },
+            "state": 2,
+            "type": 1
+        },
+        "b994de5e89256f494ff0af6ade840dda": {
+            "format": "png",
+            "id": "b994de5e89256f494ff0af6ade840dda",
+            "name": "2020-12-08T00-03-55.6272.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.6272.png",
+            "size": {
+                "width": 1919,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "9a27eaf46831d0030cba266d39e29eca": {
+            "format": "png",
+            "id": "9a27eaf46831d0030cba266d39e29eca",
+            "name": "2020-12-08T00-03-55.64678.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.64678.png",
+            "size": {
+                "width": 1918,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "00330563d332131c6393a1efeb54434a": {
+            "format": "png",
+            "id": "00330563d332131c6393a1efeb54434a",
+            "name": "2020-12-08T00-03-55.6526.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.6526.png",
+            "size": {
+                "width": 1917,
+                "height": 939
+            },
+            "state": 2,
+            "type": 1
+        },
+        "a7582af4594dcb71770decd34c5c5e59": {
+            "format": "png",
+            "id": "a7582af4594dcb71770decd34c5c5e59",
+            "name": "2020-12-08T00-03-55.6562.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.6562.png",
+            "size": {
+                "width": 1919,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "7025e45c57adcb24b3d01dcfb678a5f8": {
+            "format": "png",
+            "id": "7025e45c57adcb24b3d01dcfb678a5f8",
+            "name": "2020-12-08T00-03-55.65672.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.65672.png",
+            "size": {
+                "width": 1920,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "e131285204c2b3ae1fb8dc2928eee64d": {
+            "format": "png",
+            "id": "e131285204c2b3ae1fb8dc2928eee64d",
+            "name": "2020-12-08T00-03-55.66714.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.66714.png",
+            "size": {
+                "width": 1915,
+                "height": 939
+            },
+            "state": 2,
+            "type": 1
+        },
+        "51b9fd31b4811ff022563fbe184ce045": {
+            "format": "png",
+            "id": "51b9fd31b4811ff022563fbe184ce045",
+            "name": "2020-12-08T00-03-55.69018.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.69018.png",
+            "size": {
+                "width": 1919,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "c9a6d631a69a32e28e780e4f7dfb0d0c": {
+            "format": "png",
+            "id": "c9a6d631a69a32e28e780e4f7dfb0d0c",
+            "name": "2020-12-08T00-03-55.777333.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.777333.png",
+            "size": {
+                "width": 1920,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "b2d5035d854164a44ce146bb68f0d376": {
+            "format": "png",
+            "id": "b2d5035d854164a44ce146bb68f0d376",
+            "name": "2020-12-08T00-03-55.78340.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.78340.png",
+            "size": {
+                "width": 1919,
+                "height": 933
+            },
+            "state": 2,
+            "type": 1
+        },
+        "89335e9bd7d36a8d3a87eab4d28c0767": {
+            "format": "png",
+            "id": "89335e9bd7d36a8d3a87eab4d28c0767",
+            "name": "2020-12-09T00-03-55.5575.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-09T00-03-55.5575.png",
+            "size": {
+                "width": 1920,
+                "height": 935
+            },
+            "state": 2,
+            "type": 1
+        },
+        "3716a0c64803f5b6c4e9ce4f338fc37d": {
+            "format": "png",
+            "id": "3716a0c64803f5b6c4e9ce4f338fc37d",
+            "name": "2020-12-09T00-03-55.558.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-09T00-03-55.558.png",
+            "size": {
+                "width": 1919,
+                "height": 934
+            },
+            "state": 2,
+            "type": 1
+        },
+        "894f5fc305f10a95bd44253df264568d": {
+            "format": "png",
+            "id": "894f5fc305f10a95bd44253df264568d",
+            "name": "2020-12-09T00-03-55.5710.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-09T00-03-55.5710.png",
+            "size": {
+                "width": 1919,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "8e51ba9e91b72d025d0638aa8cb89b52": {
+            "format": "png",
+            "id": "8e51ba9e91b72d025d0638aa8cb89b52",
+            "name": "2020-12-09T00-03-55.575.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-09T00-03-55.575.png",
+            "size": {
+                "width": 1919,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "93fae1c9fa280970a631f7c16f5530c8": {
+            "format": "png",
+            "id": "93fae1c9fa280970a631f7c16f5530c8",
+            "name": "2020-12-09T00-03-55.582.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-09T00-03-55.582.png",
+            "size": {
+                "width": 1919,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "cc2351d87acd599313add5b8bb11534f": {
+            "format": "png",
+            "id": "cc2351d87acd599313add5b8bb11534f",
+            "name": "2020-12-09T00-03-55.6330.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-09T00-03-55.6330.png",
+            "size": {
+                "width": 1920,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "97f66ff3a5727a2b84d8949bc39d15fb": {
+            "format": "png",
+            "id": "97f66ff3a5727a2b84d8949bc39d15fb",
+            "name": "2020-12-09T00-03-55.640.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-09T00-03-55.640.png",
+            "size": {
+                "width": 1919,
+                "height": 937
+            },
+            "state": 2,
+            "type": 1
+        },
+        "ef337112baa75ec2a59b4ea917ee754c": {
+            "format": "png",
+            "id": "ef337112baa75ec2a59b4ea917ee754c",
+            "name": "2020-12-09T00-03-55.6401.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-09T00-03-55.6401.png",
+            "size": {
+                "width": 1920,
+                "height": 939
+            },
+            "state": 2,
+            "type": 1
+        },
+        "d212e8af2b8825796b895486ec265b67": {
+            "format": "png",
+            "id": "d212e8af2b8825796b895486ec265b67",
+            "name": "2020-12-09T00-03-55.652.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-09T00-03-55.652.png",
+            "size": {
+                "width": 1920,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "c9bd4a868041d4d98d6660f0f92e5d27": {
+            "format": "png",
+            "id": "c9bd4a868041d4d98d6660f0f92e5d27",
+            "name": "2020-12-10T00-03-55.484.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-10T00-03-55.484.png",
+            "size": {
+                "width": 1918,
+                "height": 934
+            },
+            "state": 2,
+            "type": 1
+        },
+        "fb06ec46b2ae824ae268cc18e94244be": {
+            "format": "png",
+            "id": "fb06ec46b2ae824ae268cc18e94244be",
+            "name": "2020-12-10T00-03-55.575.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-10T00-03-55.575.png",
+            "size": {
+                "width": 1919,
+                "height": 936
+            },
+            "state": 2,
+            "type": 1
+        },
+        "d7d52acc4e2f1401064a75c816c77342": {
+            "format": "png",
+            "id": "d7d52acc4e2f1401064a75c816c77342",
+            "name": "8.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/8.png",
+            "size": {
+                "width": 1920,
+                "height": 931
+            },
+            "state": 2,
+            "type": 1
+        },
+        "bada0de4cd522e28dec304ad71c9532b": {
+            "format": "png",
+            "id": "bada0de4cd522e28dec304ad71c9532b",
+            "name": "2020-12-08T00-03-55.18990.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.18990.png",
+            "size": {
+                "width": 1918,
+                "height": 931
+            },
+            "state": 2,
+            "type": 1
+        },
+        "3e729830fac41d41c67ff8995458eaa2": {
+            "format": "png",
+            "id": "3e729830fac41d41c67ff8995458eaa2",
+            "name": "2020-12-08T00-03-55.15590.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.15590.png",
+            "size": {
+                "width": 1919,
+                "height": 935
+            },
+            "state": 2,
+            "type": 1
+        },
+        "176de3068efc436374e67f43574626e2": {
+            "format": "png",
+            "id": "176de3068efc436374e67f43574626e2",
+            "name": "2020-12-08T00-03-55.123333.png",
+            "path": "file:D:/C%23/WebScraper/WebScraper.ML.DatasetGenerator/Data/Images/2020-12-08T00-03-55.123333.png",
+            "size": {
+                "width": 1917,
+                "height": 938
+            },
+            "state": 2,
+            "type": 1
+        }
+    }
+}

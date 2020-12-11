@@ -40,7 +40,7 @@ namespace WebScraper.Core.Loaders
             _httpClient = new HttpClient();
         }
 
-        public async Task<IDocument> Load(string requestUri, Site siteDto, CancellationToken token)
+        public async Task<IDocument> LoadHtml(string requestUri, Site siteDto, CancellationToken token)
         {
             var source = await GetContent(requestUri);
 
@@ -54,6 +54,7 @@ namespace WebScraper.Core.Loaders
 
             if (!response.IsSuccessStatusCode)
             {
+
                 _logger.LogError($"Не удалось отправить запрос по {requestUri}");
                 response.EnsureSuccessStatusCode();
             }

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -18,6 +20,7 @@ namespace WebScraper.WebApi.Controllers
         private readonly ProductWatcherManager _productWatcherManager;
         private readonly ILogger<ProductWatcherController> _logger;
         private readonly HangfireSchedulerClient hangfireSchedulerClient;
+        private readonly IConfiguration configuration;
 
         public ProductWatcherController(ProductWatcherManager productWatcherManager, ILogger<ProductWatcherController> logger, HangfireSchedulerClient hangfireSchedulerClient)
         {
@@ -46,6 +49,34 @@ namespace WebScraper.WebApi.Controllers
                 }
 
                 return Ok(priceDto);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Внутренняя ошибка сервиса при обработке запроса");
+                return StatusCode(500, "Ошибка при обработке запроса");
+            }
+        }
+
+        [HttpGet("cvprice")]
+        public async Task<ActionResult<PriceInfo>> GetCVPriceInfo(string productUri)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(productUri))
+                {
+                    _logger.LogInformation($"Validation failed. Parametr {nameof(productUri)} can not be null or empty");
+                    return BadRequest($"Validation failed. Parametr {nameof(productUri)} can not be null or empty");
+                }
+
+                var priceInfo = await _productWatcherManager.GetCVPriceInfo(productUri);
+
+                if (priceInfo == null)
+                {
+                    _logger.LogError($"Can not found price info for product {nameof(productUri)}={productUri}");
+                    return NoContent();
+                }
+
+                return Ok(priceInfo);
             }
             catch (Exception ex)
             {

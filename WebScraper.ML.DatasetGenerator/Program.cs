@@ -29,18 +29,44 @@ namespace WebScraper.ML.DatasetGenerator
     {
         private const int PriceElementRepeatCount = 1;
         private static Random random = new Random();
+
         static async Task Main(string[] args)
+        {
+            //await GenerateMLDataSet();
+            
+            await GenerateCVImages();
+        }
+
+        static async Task GenerateCVImages()
         {
             var serviceProvider = RegisterServices().BuildServiceProvider();
 
-            //DataSetWriter dataSetWriter = new DataSetWriter("DataSets/test.csv");
-            DataSetWriter dataSetWriter = new DataSetWriter();
+            Directory.Delete("Data/Images", true);
 
+            await foreach (var product in GetProducts(serviceProvider))
+            {
+                var screenshotLoaderFactory = serviceProvider.GetService<ScreenshotLoaderFactory>();
+                var screenshotLoader = screenshotLoaderFactory.Get(product.Site);
+
+                var imageDirectoryPath = $"Data/Images/{product.Site.Name}";
+                if (!Directory.Exists(imageDirectoryPath))
+                    Directory.CreateDirectory(imageDirectoryPath);
+
+                var cancelationSource = new CancellationTokenSource();
+                await screenshotLoader.LoadScreenshot($"{imageDirectoryPath}/{DateTime.Now:yyyy-MM-ddTHH-mm-ss}.png", product.Url, product.Site, cancelationSource.Token);
+            }
+        }
+
+        static async Task GenerateMLDataSet()
+        {
+            var serviceProvider = RegisterServices().BuildServiceProvider();
+
+            DataSetWriter dataSetWriter = new DataSetWriter();
 
             await foreach (var product in GetProducts(serviceProvider))
                 await dataSetWriter.AppendRecordsAsync(await HttpDataSetGenerate(product, serviceProvider));
 
-            foreach (var folderPath in Directory.GetDirectories(Path.Combine(Directory.GetCurrentDirectory(), "HtmlFiles")))
+            foreach (var folderPath in Directory.GetDirectories(Path.Combine(Directory.GetCurrentDirectory(), "Data/HtmlFiles")))
             {
                 var siteName = folderPath.Split(Path.DirectorySeparatorChar).Last();
                 var parserSettings = serviceProvider.GetService<IConfiguration>().GetSection(siteName).Get<ParserSettings>();
@@ -57,7 +83,7 @@ namespace WebScraper.ML.DatasetGenerator
             var htmlLoader = htmlLoaderFactory.Get(product.Site);
 
             var cancelationSource = new CancellationTokenSource();
-            var document = await htmlLoader.Load(product.Url, product.Site, cancelationSource.Token);
+            var document = await htmlLoader.LoadHtml(product.Url, product.Site, cancelationSource.Token);
 
             var parserSettings = serviceProvider.GetService<IConfiguration>().GetSection(product.Site.Name).Get<ParserSettings>();
             var dataSetGeneratorSettings = serviceProvider.GetService<IConfiguration>().GetSection(product.Site.Name).Get<DataSetGeneratorSettings>();
@@ -169,6 +195,7 @@ namespace WebScraper.ML.DatasetGenerator
                 .AddSingleton<PuppeteerLoader>()
                 .AddSingleton<HeadlessPuppeteerLoader>()
                 .AddTransient<HtmlLoaderFactory>()
+                .AddTransient<ScreenshotLoaderFactory>()
                 .AddTransient<ProductWatcherManager>();
         }
 
@@ -181,6 +208,18 @@ namespace WebScraper.ML.DatasetGenerator
                 .Include(p => p.Site.Settings)
                 .AsAsyncEnumerable()
                 .Where(p => p.IsDeleted == false && (p.Site.Name != "Letual" && p.Site.Name != "Youla" && p.Site.Name != "Onlinetrade") && p.Site.Settings.HtmlLoader != "HttpLoader"))
+                yield return product;
+        }
+
+        static async IAsyncEnumerable<Product> GetCVProducts(ServiceProvider serviceProvider)
+        {
+            var productWatcherContext = serviceProvider.GetService<ProductWatcherContext>();
+
+            await foreach (var product in productWatcherContext.Products
+                .Include(p => p.Site)
+                .Include(p => p.Site.Settings)
+                .AsAsyncEnumerable()
+                .Where(p => p.IsDeleted == false && p.Site.Settings.HtmlLoader != "HttpLoader"))
                 yield return product;
         }
     }

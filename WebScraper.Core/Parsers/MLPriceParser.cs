@@ -15,7 +15,7 @@ using WebScraper.Core.ML;
 
 namespace WebScraper.Core.Parsers
 {
-    public class MLPriceParser : PriceParser
+    public class MLPriceParser : PriceParser<IDocument>
     {
         private readonly PredictionEnginePool<PriceData, PricePrediction> predictionEnginePool;
         private const float PredictionLimit = 0.65F;
@@ -34,7 +34,7 @@ namespace WebScraper.Core.Parsers
 
             foreach (var priceData in GetPriceData(htmlDocument))
             {
-                var pricePrediction = predictionEnginePool.Predict(modelName: "PriceDetectionModel", example: priceData);
+                var pricePrediction = predictionEnginePool.Predict(modelName: "MLPriceDetectionModel", example: priceData);
 
                 if (!bool.TryParse(pricePrediction.Prediction, out bool isPrice))
                     throw new InvalidCastException($"Can not convert {pricePrediction.Prediction} to {typeof(bool)}");

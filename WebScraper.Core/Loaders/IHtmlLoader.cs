@@ -7,6 +7,6 @@ namespace WebScraper.Core.Loaders
 {
     public interface IHtmlLoader
     {
-        Task<IDocument> Load(string requestUri, Site siteDto, CancellationToken token);
+        Task<IDocument> LoadHtml(string requestUri, Site siteDto, CancellationToken token);
     }
 }

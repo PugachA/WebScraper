@@ -38,117 +38,116 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="HtmlFiles\Auto.ru\1.txt">
+    <None Update="Data\HtmlFiles\Auto.ru\1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Auto.ru\2.txt">
+    <None Update="Data\HtmlFiles\Auto.ru\2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Avito\1.txt">
+    <None Update="Data\HtmlFiles\Avito\1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Avito\2.txt">
+    <None Update="Data\HtmlFiles\Avito\2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Avito\3.txt">
+    <None Update="Data\HtmlFiles\Avito\3.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Beru\1.txt">
+    <None Update="Data\HtmlFiles\Beru\1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Beru\2.txt">
+    <None Update="Data\HtmlFiles\Beru\2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Beru\3.txt">
+    <None Update="Data\HtmlFiles\Beru\3.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Beru\4.txt">
+    <None Update="Data\HtmlFiles\Beru\4.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Beru\5.txt">
+    <None Update="Data\HtmlFiles\Beru\5.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Ozon\1.txt">
+    <None Update="Data\HtmlFiles\Ozon\1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Ozon\10.txt">
+    <None Update="Data\HtmlFiles\Ozon\10.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Ozon\2.txt">
+    <None Update="Data\HtmlFiles\Ozon\2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Ozon\3.txt">
+    <None Update="Data\HtmlFiles\Ozon\3.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Ozon\4.txt">
+    <None Update="Data\HtmlFiles\Ozon\4.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Ozon\5.txt">
+    <None Update="Data\HtmlFiles\Ozon\5.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Ozon\6.txt">
+    <None Update="Data\HtmlFiles\Ozon\6.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Ozon\7.txt">
+    <None Update="Data\HtmlFiles\Ozon\7.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Ozon\8.txt">
+    <None Update="Data\HtmlFiles\Ozon\8.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Ozon\9.txt">
+    <None Update="Data\HtmlFiles\Ozon\9.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Perekrestok.Vprok\1.txt">
+    <None Update="Data\HtmlFiles\Perekrestok.Vprok\1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Perekrestok.Vprok\2.txt">
+    <None Update="Data\HtmlFiles\Perekrestok.Vprok\2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Perekrestok.Vprok\3.txt">
+    <None Update="Data\HtmlFiles\Perekrestok.Vprok\3.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Perekrestok.Vprok\4.txt">
+    <None Update="Data\HtmlFiles\Perekrestok.Vprok\4.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Perekrestok.Vprok\5.txt">
+    <None Update="Data\HtmlFiles\Perekrestok.Vprok\5.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\YandexMarket\1.txt">
+    <None Update="Data\HtmlFiles\YandexMarket\1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\YandexMarket\2.txt">
+    <None Update="Data\HtmlFiles\YandexMarket\2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\YandexMarket\3.txt">
+    <None Update="Data\HtmlFiles\YandexMarket\3.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\YandexMarket\4.txt">
+    <None Update="Data\HtmlFiles\YandexMarket\4.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\YandexMarket\5.txt">
+    <None Update="Data\HtmlFiles\YandexMarket\5.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Youla.Avto\1.txt">
+    <None Update="Data\HtmlFiles\Youla.Avto\1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Youla.Avto\2.txt">
+    <None Update="Data\HtmlFiles\Youla.Avto\2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Youla.Avto\3.txt">
+    <None Update="Data\HtmlFiles\Youla.Avto\3.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Youla.Avto\4.txt">
+    <None Update="Data\HtmlFiles\Youla.Avto\4.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HtmlFiles\Youla.Avto\5.txt">
+    <None Update="Data\HtmlFiles\Youla.Avto\5.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DataSets\" />
-    <Folder Include="HtmlFiles\Ozon\" />
-    <Folder Include="HtmlFiles\YandexMarket\" />
+    <Folder Include="DataSets\Images\" />
+    <Folder Include="Data\Images\" />
   </ItemGroup>
 
 </Project>

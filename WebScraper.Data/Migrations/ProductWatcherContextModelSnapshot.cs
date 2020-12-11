@@ -161,8 +161,10 @@ namespace WebScraper.Data.Migrations
 
                     b.Property<string>("PriceParser")
                         .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasDefaultValue("HtmlPriceParser");
 
                     b.HasKey("Id");
 

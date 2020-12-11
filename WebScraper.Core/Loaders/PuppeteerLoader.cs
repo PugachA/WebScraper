@@ -6,12 +6,13 @@ using PuppeteerSharp;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using WebScraper.Core.Extensions;
 using WebScraper.Core.Parsers;
 using WebScraper.Data.Models;
 
 namespace WebScraper.Core.Loaders
 {
-    public class PuppeteerLoader : IHtmlLoader, IDisposable
+    public class PuppeteerLoader : IHtmlLoader, IScreenshotLoader, IDisposable
     {
         private readonly ILogger<PuppeteerLoader> logger;
         private readonly Microsoft.Extensions.Configuration.IConfiguration configuration;
@@ -29,15 +30,18 @@ namespace WebScraper.Core.Loaders
 
             browser = Puppeteer.LaunchAsync(new LaunchOptions
             {
-                Headless = headless
+                Headless = headless,
             }).Result;
 
-            logger.LogInformation($"Создан {nameof(Browser)}");
+            logger.LogInformation($"Create {nameof(Browser)}");
         }
 
-        public async Task<IDocument> Load(string requestUri, Site siteDto, CancellationToken token)
+        public async Task<IDocument> LoadHtml(string requestUri, Site site, CancellationToken token)
         {
-            var parserSettings = configuration.GetSection(siteDto.Name).Get<ParserSettings>();
+            requestUri.StringNullOrEmptyValidate(nameof(requestUri));
+            site.NullValidate(nameof(site));
+
+            var parserSettings = configuration.GetSection(site.Name).Get<ParserSettings>();
 
             using var page = await browser.NewPageAsync();
             await page.GoToAsync(requestUri);
@@ -45,17 +49,43 @@ namespace WebScraper.Core.Loaders
             var waitingSelector = parserSettings.WaitingSelector ?? parserSettings.Name;
             await page.WaitForSelectorAsync(waitingSelector);
 
+            logger.LogInformation($"Successfully sent request {requestUri}");
+
             var source = await page.GetContentAsync();
-            logger.LogInformation($"Успешно отправлен запрос на {requestUri}");
+
+            logger.LogInformation("Successfully received page html content");
 
             var context = BrowsingContext.New(Configuration.Default);
             return await context.OpenAsync(req => req.Content(source));
         }
 
+        public async Task LoadScreenshot(string outputPath, string requestUri, Site site, CancellationToken token)
+        {
+            outputPath.StringNullOrEmptyValidate(nameof(outputPath));
+            requestUri.StringNullOrEmptyValidate(nameof(requestUri));
+            site.NullValidate(nameof(site));
+
+            using var page = await browser.NewPageAsync();
+            await page.GoToAsync(requestUri);
+
+            logger.LogInformation($"Successfully sent request {requestUri}");
+
+            await page.SetViewportAsync(new ViewPortOptions
+            {
+                Width = 1920,
+                Height = 1080
+            });
+
+            //await page.ReloadAsync();
+            await page.ScreenshotAsync(outputPath);
+
+            logger.LogInformation($"Screenshoot successfully saved to {outputPath}");
+        }
+
         public void Dispose()
         {
             browser?.Dispose();
-            logger.LogInformation($"Удален {nameof(Browser)}");
+            logger.LogInformation($"Delete {nameof(Browser)}");
         }
     }
 }
