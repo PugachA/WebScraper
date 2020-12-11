@@ -11,6 +11,7 @@
     <PackageReference Include="Microsoft.Extensions.ML" Version="1.5.2" />
     <PackageReference Include="Microsoft.ML.FastTree" Version="1.5.2" />
     <PackageReference Include="Microsoft.ML.ImageAnalytics" Version="1.5.2" />
+    <PackageReference Include="Microsoft.ML.OnnxTransformer" Version="1.5.2" />
     <PackageReference Include="PuppeteerSharp" Version="2.0.4" />
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
@@ -24,7 +25,7 @@
 
   <ItemGroup>
     <None Update="CV\bestModel.onnx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="CV\MLModel.zip">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
