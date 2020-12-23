@@ -91,11 +91,11 @@
     "name": ".product-main-info-title"
   },
   "Youla": {
-    "waitingSelector": ".sc-pZMyb.khARDW",
-    "priceHtmlPath": [ "span.sc-pZMyb.khARDW" ],
-    "discountHtmlPath": "span.sc-pZMyb.khARDW",
+    "waitingSelector": ".sc-oTPCg.iokgCh",
+    "priceHtmlPath": [ "span.sc-oTPCg.iokgCh" ],
+    "discountHtmlPath": "span.sc-oTPCg.iokgCh",
     "outOfStockHtmlPath": "",
-    "name": "h1.sc-AxjAm.fpbaaP.sc-jIdzES.ckwfkB"
+    "name": "h2.sc-fznZeY.sc-jybEOA.fsvCoQ"
   },
   "Youla.Auto": {
     "priceHtmlPath": [ "div.AdvertCard_price__3dDCr.AdvertCard_topAdvertHeaderCommon__2zUjb.rouble" ],
@@ -112,7 +112,7 @@
   "Auto.ru": {
     "priceHtmlPath": [ "span.OfferPriceCaption__price" ],
     "discountHtmlPath": "span.OfferPriceCaption__price",
-    "outOfStockHtmlPath": "",
+    "outOfStockHtmlPath": "div.CardSold__title",
     "name": "div.drnTa7F9i4hD4JJMbS1wU__title"
   }
 }
