@@ -16,7 +16,8 @@ namespace WebScraper.Core.Loaders
     {
         private readonly ILogger<PuppeteerLoader> logger;
         private readonly Microsoft.Extensions.Configuration.IConfiguration configuration;
-        private readonly Browser browser;
+        private readonly bool headless;
+        private Browser browser;
 
         public PuppeteerLoader(Microsoft.Extensions.Configuration.IConfiguration configuration, ILogger<PuppeteerLoader> logger) : this(configuration, logger, false)
         { }
@@ -25,6 +26,7 @@ namespace WebScraper.Core.Loaders
         {
             this.logger = logger;
             this.configuration = configuration;
+            this.headless = headless;
 
             _ = new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultRevision).Result;
 
@@ -37,6 +39,14 @@ namespace WebScraper.Core.Loaders
         }
 
         public async Task<IDocument> LoadHtml(string requestUri, Site site, CancellationToken token)
+        {
+            return await ReconnectOnExceptionAsync<IDocument, TargetClosedException>(
+                    2,
+                    new TimeSpan(0, 0, 1),
+                    async () => await LoadHtmlContent(requestUri, site, token));
+        }
+
+        private async Task<IDocument> LoadHtmlContent(string requestUri, Site site, CancellationToken token)
         {
             requestUri.StringNullOrEmptyValidate(nameof(requestUri));
             site.NullValidate(nameof(site));
@@ -80,6 +90,40 @@ namespace WebScraper.Core.Loaders
             await page.ScreenshotAsync(outputPath);
 
             logger.LogInformation($"Screenshoot successfully saved to {outputPath}");
+        }
+
+        private async Task<TResult> ReconnectOnExceptionAsync<TResult, TException>(
+            int maxRetryCount,
+            TimeSpan delay,
+            Func<Task<TResult>> onRetryAsync) where TException : Exception
+        {
+            if (maxRetryCount <= 0)
+                throw new ArgumentOutOfRangeException(nameof(maxRetryCount));
+
+            var attempts = 0;
+            while (true)
+            {
+                try
+                {
+                    attempts++;
+                    return await onRetryAsync();
+                }
+                catch (TException ex)
+                {
+                    if (attempts == maxRetryCount)
+                        throw;
+
+                    browser.Dispose();
+
+                    browser = Puppeteer.LaunchAsync(new LaunchOptions
+                    {
+                        Headless = headless,
+                    }).Result;
+
+                    logger.LogInformation($"The exception on attempt {attempts} of {maxRetryCount}. Will retry after sleeping for {delay}. Exception: {ex}");
+                    await Task.Delay(delay);
+                }
+            }
         }
 
         public void Dispose()
