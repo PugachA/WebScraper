@@ -1,11 +1,11 @@
 ﻿{
   "Beru": {
-    "priceHtmlPath": [ "div.b_1vKgTDo6wh" ],
-    "discountHtmlPath": "div.b_1u3j_pk1db",
+    "priceHtmlPath": [ "div.b_3dUv4bQVA3" ],
+    "discountHtmlPath": "div.b_2r89I1B_sZ",
     "outOfStockHtmlPath": "div.b_1w2bHIINJu",
-    "name": "h1.b_1f53H9iGMq.b_1s00-3EuYB",
+    "name": "h1.b_rPzd7GVCYx.b_11yn3sdaMY",
     "additionalInformation": {
-      "Количество отзывов": "div.b_1AUsbdtOCA"
+      "Количество отзывов": "span.b_2MBnkkD0XY"
     }
   },
   "YandexMarket": {
