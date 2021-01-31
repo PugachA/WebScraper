@@ -114,5 +114,11 @@
     "discountHtmlPath": "span.OfferPriceCaption__price",
     "outOfStockHtmlPath": "div.CardSold__title",
     "name": "div.drnTa7F9i4hD4JJMbS1wU__title"
+  },
+  "Autospot": {
+    "priceHtmlPath": [ "div.price-disclosure__price.price-disclosure__price--old", "div.price-disclosure__price" ],
+    "discountHtmlPath": "div.price-disclosure__price.price-disclosure__price--sale",
+    "outOfStockHtmlPath": "",
+    "name": "h1.offer__title.tooltip-box"
   }
 }
