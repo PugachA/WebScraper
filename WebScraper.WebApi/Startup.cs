@@ -52,8 +52,7 @@ namespace WebScraper.WebApi
         {
             services.AddControllers();
 
-            services.AddDbContext<ProductWatcherContext>(
-                    options => options.UseSqlServer(
+            Action<DbContextOptionsBuilder> optionActions = (options) => options.UseSqlServer(
                         Configuration.GetConnectionString("DefaultConnection"),
                         sqlServerOptionsAction: sqlOptions =>
                         {
@@ -61,8 +60,13 @@ namespace WebScraper.WebApi
                                 maxRetryCount: 5,
                                 maxRetryDelay: TimeSpan.FromSeconds(10),
                                 errorNumbersToAdd: null);
-                        })
-                        .UseLoggerFactory(loggerFactory),
+                        });
+
+            if (environment.IsDevelopment())
+                optionActions += (options) => options.UseLoggerFactory(loggerFactory);
+
+            services.AddDbContext<ProductWatcherContext>(
+                    optionActions,
                     ServiceLifetime.Transient,
                     ServiceLifetime.Transient);
 
