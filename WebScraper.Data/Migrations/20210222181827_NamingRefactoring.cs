@@ -21,7 +21,7 @@ namespace WebScraper.Data.Migrations
                     Name = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
                     DiscountPrice = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
-                    DiscountPercentage = table.Column<double>(nullable: true, computedColumnSql: "CONVERT(DECIMAL(18, 2), 100*([Price]-[DiscountPrice])/[Price]"),
+                    DiscountPercentage = table.Column<double>(nullable: true, computedColumnSql: "CONVERT(DECIMAL(18, 2), 100*([Price]-[DiscountPrice])/[Price])"),
                     AdditionalInformation = table.Column<string>(maxLength: 1024, nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
                     ProductId = table.Column<int>(nullable: false)

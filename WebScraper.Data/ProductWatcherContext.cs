@@ -51,7 +51,7 @@ namespace WebScraper.Data
             //TODO: Add stored: true after migration to net5.0 
             modelBuilder.Entity<ProductData>()
                 .Property(p => p.DiscountPercentage)
-                .HasComputedColumnSql($"CONVERT(DECIMAL(18, 2), 100*([{nameof(Models.ProductData.Price)}]-[{nameof(Models.ProductData.DiscountPrice)}])/[{nameof(Models.ProductData.Price)}]");
+                .HasComputedColumnSql($"CONVERT(DECIMAL(18, 2), 100*([{nameof(Models.ProductData.Price)}]-[{nameof(Models.ProductData.DiscountPrice)}])/[{nameof(Models.ProductData.Price)}])");
 
             modelBuilder.Seed();
         }
