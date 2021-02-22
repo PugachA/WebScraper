@@ -15,7 +15,7 @@ using WebScraper.Core;
 using WebScraper.Core.Factories;
 using WebScraper.Core.Helpers;
 using WebScraper.Core.Loaders;
-using WebScraper.Core.Parsers;
+using WebScraper.Core.Extractors;
 using WebScraper.Data;
 using WebScraper.Data.Models;
 using WebScraper.Core.Extensions;
@@ -69,7 +69,7 @@ namespace WebScraper.ML.DatasetGenerator
             foreach (var folderPath in Directory.GetDirectories(Path.Combine(Directory.GetCurrentDirectory(), "Data/HtmlFiles")))
             {
                 var siteName = folderPath.Split(Path.DirectorySeparatorChar).Last();
-                var parserSettings = serviceProvider.GetService<IConfiguration>().GetSection(siteName).Get<ParserSettings>();
+                var parserSettings = serviceProvider.GetService<IConfiguration>().GetSection(siteName).Get<ExtractorSettings>();
                 var dataSetGeneratorSettings = serviceProvider.GetService<IConfiguration>().GetSection(siteName).Get<DataSetGeneratorSettings>();
                 dataSetGeneratorSettings.AddParserSettings(parserSettings);
 
@@ -85,7 +85,7 @@ namespace WebScraper.ML.DatasetGenerator
             var cancelationSource = new CancellationTokenSource();
             var document = await htmlLoader.LoadHtml(product.Url, product.Site, cancelationSource.Token);
 
-            var parserSettings = serviceProvider.GetService<IConfiguration>().GetSection(product.Site.Name).Get<ParserSettings>();
+            var parserSettings = serviceProvider.GetService<IConfiguration>().GetSection(product.Site.Name).Get<ExtractorSettings>();
             var dataSetGeneratorSettings = serviceProvider.GetService<IConfiguration>().GetSection(product.Site.Name).Get<DataSetGeneratorSettings>();
             dataSetGeneratorSettings.AddParserSettings(parserSettings);
 

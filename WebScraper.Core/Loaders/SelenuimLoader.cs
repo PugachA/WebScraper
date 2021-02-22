@@ -10,7 +10,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using WebScraper.Core.Extensions;
-using WebScraper.Core.Parsers;
+using WebScraper.Core.Extractors;
 using WebScraper.Data.Models;
 
 namespace WebScraper.Core.Loaders
@@ -78,7 +78,7 @@ namespace WebScraper.Core.Loaders
             {
                 await semaphoreSlim.WaitAsync(token);
 
-                var parserSettings = _configuration.GetSection(site.Name).Get<ParserSettings>();
+                var parserSettings = _configuration.GetSection(site.Name).Get<ExtractorSettings>();
 
                 webDriver = webDriverQueue.Dequeue();
                 webDriver.Url = requestUri;
@@ -110,7 +110,7 @@ namespace WebScraper.Core.Loaders
             {
                 await semaphoreSlim.WaitAsync(token);
 
-                var parserSettings = _configuration.GetSection(site.Name).Get<ParserSettings>();
+                var parserSettings = _configuration.GetSection(site.Name).Get<ExtractorSettings>();
 
                 webDriver = webDriverQueue.Dequeue();
                 webDriver.Url = requestUri;

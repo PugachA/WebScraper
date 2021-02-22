@@ -8,37 +8,35 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using WebScraper.Data.Models;
 
-namespace WebScraper.Core.Parsers
+namespace WebScraper.Core.Extractors
 {
-    public class HtmlPriceParser : PriceParser<IDocument>
+    public class HtmlExtractor : ProductDataExtractor<IDocument>
     {
-        public HtmlPriceParser(ILogger<HtmlPriceParser> logger) : base(logger)
+        public HtmlExtractor(ILogger<HtmlExtractor> logger) : base(logger)
         { }
 
-        public override async Task<PriceInfo> Parse(IDocument htmlDocument, ParserSettings parserSettings)
+        protected override Task<string> ExtractName(IDocument inputData, ExtractorSettings parserSettings)
         {
-            if (htmlDocument.Title == "Ой!")
-            {
-                logger.LogError($"Попали на капчу {htmlDocument.Source.Text}");
-                throw new ArgumentException($"Попали на капчу { htmlDocument.Source.Text }");
-            }
+            var nameElement = inputData.QuerySelectorAll(parserSettings.Name).FirstOrDefault();
+            logger.LogInformation($"The processed part of the document by product name: {nameElement?.OuterHtml}");
 
-            var nameElement = htmlDocument.QuerySelectorAll(parserSettings.Name).FirstOrDefault();
-            logger.LogInformation($"Обработываемая часть документа по имени товара {nameElement?.OuterHtml}");
+            return Task.FromResult(nameElement?.TextContent.Trim());
+        }
 
-            var name = nameElement?.TextContent.Trim();
-
-            var discountPriceElement = htmlDocument.QuerySelectorAll(parserSettings.DiscountHtmlPath).FirstOrDefault();
-            logger.LogInformation($"Обработываемая часть документа по скидке {discountPriceElement?.OuterHtml}");
+        protected override Task<(decimal? price, decimal? discountPrice)> ExtractPrice(IDocument inputData, ExtractorSettings parserSettings)
+        {
+            var discountPriceElement = inputData.QuerySelectorAll(parserSettings.DiscountHtmlPath).FirstOrDefault();
+            logger.LogInformation($"The processed part of the document by discount: {discountPriceElement?.OuterHtml}");
 
             var discountPrice = discountPriceElement?.TextContent;
 
             string price = default;
             foreach (var priceHtmlPath in parserSettings.PriceHtmlPath)
             {
-                var priceElement = htmlDocument.QuerySelectorAll(priceHtmlPath).FirstOrDefault();
-                logger.LogInformation($"Обработываемая часть документа по цене {priceElement?.OuterHtml}");
+                var priceElement = inputData.QuerySelectorAll(priceHtmlPath).FirstOrDefault();
+                logger.LogInformation($"The processed part of the document by price {priceElement?.OuterHtml}");
 
                 price = priceElement?.TextContent;
 
@@ -47,17 +45,7 @@ namespace WebScraper.Core.Parsers
             }
 
             if (discountPrice == null && price == null)
-            {
-                var info = htmlDocument.QuerySelectorAll(parserSettings.OutOfStockHtmlPath).FirstOrDefault()?.TextContent;
-
-                if (info != null)
-                {
-                    logger.LogInformation($"Возможно нет в продаже или он удален. Info: {info}");
-                    return new PriceInfo { Name = name, AdditionalInformation = info };
-                }
-
-                throw new FormatException($"Неизвестная ошибка {htmlDocument.Source.Text}");
-            }
+                return Task.FromResult<(decimal? price, decimal? discountPrice)>((null, null));
 
             if (discountPrice != null && price == null)
             {
@@ -85,15 +73,13 @@ namespace WebScraper.Core.Parsers
 
             decimal? discountPriceValue = discountPrice == null ? null : (decimal?)discountPriceTemp;
 
-            var additionalInformation = await Task.Run(() => ExtractAdditionalInformation(htmlDocument, parserSettings));
-
-            return new PriceInfo(priceValue, discountPriceValue, name, additionalInformation);
+            return Task.FromResult(((decimal?)priceValue, discountPriceValue));
         }
 
-        private string ExtractAdditionalInformation(IDocument htmlDocument, ParserSettings parserSettings)
+        protected override Task<string> ExtractAdditionalInformation(IDocument htmlDocument, ExtractorSettings parserSettings)
         {
             if (parserSettings.AdditionalInformation == null)
-                return null;
+                return Task.FromResult<string>(null);
 
             var additionaInformation = new Dictionary<string, string>();
             foreach (var keyValue in parserSettings.AdditionalInformation)
@@ -113,7 +99,21 @@ namespace WebScraper.Core.Parsers
 
             logger.LogInformation($"Найденная дополнительная информация {additionalInformationString}");
 
-            return additionalInformationString;
+            return Task.FromResult(additionalInformationString);
+        }
+
+        protected override Task<string> ExtractOutofstockInformation(IDocument inputData, ExtractorSettings parserSettings) 
+            => Task.FromResult(inputData.QuerySelectorAll(parserSettings.OutOfStockHtmlPath).FirstOrDefault()?.TextContent);
+
+        protected override bool IsCaughtByCaptcha(IDocument inputData, ExtractorSettings parserSettings)
+        {
+            if(inputData.Title == "Ой!")
+            {
+                logger.LogError($"Попали на капчу {inputData.Source.Text}");
+                return true;
+            }
+
+            return false;
         }
 
         private string TransformAdditionalInformation(string additionaInformation)

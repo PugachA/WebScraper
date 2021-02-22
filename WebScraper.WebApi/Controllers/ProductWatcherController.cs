@@ -30,7 +30,7 @@ namespace WebScraper.WebApi.Controllers
         }
 
         [HttpGet("price")]
-        public async Task<ActionResult<Price>> GetPrice(int productId)
+        public async Task<ActionResult<ProductData>> GetPrice(int productId)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace WebScraper.WebApi.Controllers
         }
 
         [HttpGet("cvprice")]
-        public async Task<ActionResult<PriceInfo>> GetCVPriceInfo(string productUri)
+        public async Task<ActionResult<ProductData>> GetCVPriceInfo(string productUri)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace WebScraper.WebApi.Controllers
                     return BadRequest($"Validation failed. Parametr {nameof(productUri)} can not be null or empty");
                 }
 
-                var priceInfo = await _productWatcherManager.GetCVPriceInfo(productUri);
+                var priceInfo = await _productWatcherManager.GetCVProductData(productUri);
 
                 if (priceInfo == null)
                 {

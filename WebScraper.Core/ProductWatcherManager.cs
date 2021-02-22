@@ -13,7 +13,7 @@ using WebScraper.Core.Loaders;
 using WebScraper.Core.DTO;
 using WebScraper.Core.Cron;
 using Microsoft.Extensions.Configuration;
-using WebScraper.Core.Parsers;
+using WebScraper.Core.Extractors;
 using AngleSharp.Dom;
 using System.IO;
 
@@ -49,25 +49,25 @@ namespace WebScraper.Core
             _screenshotLoaderFactory = screenshotLoaderFactory;
         }
 
-        public async Task<Price> ExtractPriceDto(Product product)
+        public async Task<ProductData> ExtractPriceDto(Product product)
         {
             if (product == null)
                 throw new ArgumentNullException($"Параметр {nameof(product)} не может быть null");
 
-            var priceInfo = await ExtractPriceInfo(product);
+            var productData = await ExtractProductData(product);
 
-            if (priceInfo == null)
-                throw new NullReferenceException($"Не удалось извлечь {nameof(PriceInfo)} для {nameof(product)}={product}");
+            if (productData == null)
+                throw new NullReferenceException($"Не удалось извлечь {nameof(ProductData)} для {nameof(product)}={product}");
 
-            var priceDto = priceInfo.ConvertToPriceDto(product.Id);
+            productData.ProductId = product.Id;
 
-            _productWatcherContext.Prices.Add(priceDto);
+            _productWatcherContext.ProductData.Add(productData);
             _productWatcherContext.SaveChanges();
 
-            return priceDto;
+            return productData;
         }
 
-        private async Task<PriceInfo> ExtractPriceInfo(Product product)
+        private async Task<ProductData> ExtractProductData(Product product)
         {
             IHtmlLoader htmlLoader = _htmlLoaderFactory.Get(product.Site);
 
@@ -75,12 +75,12 @@ namespace WebScraper.Core
             var document = await htmlLoader.LoadHtml(product.Url, product.Site, cancelationSource.Token);
 
             var priceParser = _priceParserFactory.Get<IDocument>(product.Site);
-            var parserSettings = _configuration.GetSection(product.Site.Name).Get<ParserSettings>();
+            var parserSettings = _configuration.GetSection(product.Site.Name).Get<ExtractorSettings>();
 
             if (parserSettings == null)
-                throw new ArgumentException($"Не удалось найти настройки {nameof(ParserSettings)} в конфигурации для сайта {product.Site.Name}");
+                throw new ArgumentException($"Не удалось найти настройки {nameof(ExtractorSettings)} в конфигурации для сайта {product.Site.Name}");
 
-            return await priceParser.Parse(document, parserSettings);
+            return await priceParser.Extract(document, parserSettings);
         }
 
         public async Task<Product> GetProductAsync(int productId)
@@ -93,9 +93,9 @@ namespace WebScraper.Core
             return Product;
         }
 
-        public async Task<Price> GetLastPriceDto(int productId)
+        public async Task<ProductData> GetLastPriceDto(int productId)
         {
-            var priceDto = await _productWatcherContext.Prices
+            var priceDto = await _productWatcherContext.ProductData
                 .Where(p => p.ProductId == productId)
                 .OrderBy(p => p.Date)
                 .LastOrDefaultAsync();
@@ -191,7 +191,7 @@ namespace WebScraper.Core
                 await UpdateSiteScheduler(Product.Site);
         }
 
-        public async Task<PriceInfo> GetCVPriceInfo(string productUri)
+        public async Task<ProductData> GetCVProductData(string productUri)
         {
             var imagePath = Path.Combine(_configuration.GetValue<string>("ImagesFolder"), $"{DateTime.Now.ToString("dd-MM-yyyyTHH-mm-ss.ffffff")}.png");
             var site = new Site { Settings = new SiteSettings { HtmlLoader = "PuppeteerLoader", PriceParser = "ComputerVisionParser" } };
@@ -201,11 +201,11 @@ namespace WebScraper.Core
             await loader.LoadScreenshot(imagePath, productUri, site, token);
 
             var cvPriceParser = _priceParserFactory.Get<string>(site);
-            var priceInfo = await cvPriceParser.Parse(imagePath, null);
+            var productData = await cvPriceParser.Extract(imagePath, null);
 
             File.Delete(imagePath);
 
-            return priceInfo;
+            return productData;
         }
     }
 }

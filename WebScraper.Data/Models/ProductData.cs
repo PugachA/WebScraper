@@ -5,18 +5,18 @@ using System.Text.Json.Serialization;
 
 namespace WebScraper.Data.Models
 {
-    public class Price
+    public class ProductData
     {
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
 
-        [Column("Price", TypeName = "decimal(18, 2)")]
-        public decimal? PriceValue { get; set; }
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal? Price { get; set; }
 
         [Column(TypeName = "decimal(18, 2)")]
-        public decimal? DicountPrice { get; set; }
-        public double? DiscountPercentage { get; set; }
+        public decimal? DiscountPrice { get; set; }
+        public decimal? DiscountPercentage { get; private set; }
         
         [MaxLength(1024)]
         public string AdditionalInformation { get; set; }

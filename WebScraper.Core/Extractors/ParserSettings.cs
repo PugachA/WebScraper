@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace WebScraper.Core.Parsers
+namespace WebScraper.Core.Extractors
 {
-    public class ParserSettings
+    public class ExtractorSettings
     {
         public string Name { get; set; }
         public string WaitingSelector { get; set; }
