@@ -13,23 +13,29 @@ using System.Threading.Tasks;
 using Tesseract;
 using WebScraper.Core.CV;
 
-namespace WebScraper.Core.Parsers
+namespace WebScraper.Core.Extractors
 {
-    public class ComputerVisionParser : PriceParser<string>
+    public class ComputerVisionExtractor : ProductDataExtractor<string>
     {
         private readonly PredictionEnginePool<ModelInput, ModelOutput> predictionEnginePool;
         private readonly IConfiguration configuration;
 
-        public ComputerVisionParser(PredictionEnginePool<ModelInput, ModelOutput> predictionEnginePool, ILogger<PriceParser<string>> logger, IConfiguration configuration) : base(logger)
+        public ComputerVisionExtractor(PredictionEnginePool<ModelInput, ModelOutput> predictionEnginePool, ILogger<ProductDataExtractor<string>> logger, IConfiguration configuration) : base(logger)
         {
             this.predictionEnginePool = predictionEnginePool;
             this.configuration = configuration;
         }
 
-        public override async Task<PriceInfo> Parse(string inputData, ParserSettings parserSettings)
+        protected override Task<string> ExtractAdditionalInformation(string inputData, ExtractorSettings parserSettings) => Task.FromResult<string>(null);
+
+        protected override Task<string> ExtractName(string inputData, ExtractorSettings parserSettings) => Task.FromResult<string>(null);
+
+        protected override Task<string> ExtractOutofstockInformation(string inputData, ExtractorSettings parserSettings) => Task.FromResult<string>(null);
+
+        protected override Task<(decimal? price, decimal? discountPrice)> ExtractPrice(string inputData, ExtractorSettings parserSettings)
         {
             //TODO Сделать вырез цены из скрипшота
-            ModelInput sampleData = new ModelInput{ ImageSource = inputData };
+            ModelInput sampleData = new ModelInput { ImageSource = inputData };
 
             // Make a single prediction on the sample data and print results
             var prediction = predictionEnginePool.Predict(modelName: "CVPriceDetectionModel", example: sampleData);
@@ -61,7 +67,7 @@ namespace WebScraper.Core.Parsers
             if (!decimal.TryParse(price, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out decimal priceValue))
                 throw new InvalidCastException($"Can not convert {nameof(price)}={price} to {typeof(decimal)}");
 
-            return await Task.Run(() => new PriceInfo(priceValue, null, nameof(ComputerVisionParser), null));
+            return Task.FromResult(((decimal?)priceValue, (decimal?)null));
         }
 
         private Bitmap CropImage(Bitmap source, Rectangle section)

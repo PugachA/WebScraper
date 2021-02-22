@@ -78,7 +78,7 @@
   "Lamoda": {
     "priceHtmlPath": [ "span._1xktn17sNuFwy45DZmZ5Oe", "div._2BKlA922Sx7Uh5jAxguBR7" ],
     "discountHtmlPath": "span._1xktn17sNuFwy45DZmZ5Oe",
-    "outOfStockHtmlPath": "",
+    "outOfStockHtmlPath": "span.button__title",
     "name": "h1.product-title-wrapper",
     "additionalInformation": {
       "Количество отзывов": "div.product-rating__count"

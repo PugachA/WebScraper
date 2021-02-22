@@ -12,27 +12,30 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WebScraper.Core.Extensions;
 using WebScraper.Core.ML;
+using WebScraper.Data.Models;
 
-namespace WebScraper.Core.Parsers
+namespace WebScraper.Core.Extractors
 {
-    public class MLPriceParser : PriceParser<IDocument>
+    public class MLExtractor : ProductDataExtractor<IDocument>
     {
         private readonly PredictionEnginePool<PriceData, PricePrediction> predictionEnginePool;
         private const float PredictionLimit = 0.65F;
         private const int MaxPriceElementsInterval = 3;
 
-        public MLPriceParser(PredictionEnginePool<PriceData, PricePrediction> predictionEnginePool, ILogger<MLPriceParser> logger) : base(logger)
+        public MLExtractor(PredictionEnginePool<PriceData, PricePrediction> predictionEnginePool, ILogger<MLExtractor> logger) : base(logger)
         {
             this.predictionEnginePool = predictionEnginePool;
         }
 
-        public override async Task<PriceInfo> Parse(IDocument htmlDocument, ParserSettings parserSettings)
+        protected override Task<string> ExtractName(IDocument inputData, ExtractorSettings parserSettings) => Task.FromResult<string>(null);
+
+        protected override Task<(decimal? price, decimal? discountPrice)> ExtractPrice(IDocument inputData, ExtractorSettings parserSettings)
         {
             string priceHtmlElement = null;
             string discountPriceHtmlElement = null;
             int count = 0;
 
-            foreach (var priceData in GetPriceData(htmlDocument))
+            foreach (var priceData in GetPriceData(inputData))
             {
                 var pricePrediction = predictionEnginePool.Predict(modelName: "MLPriceDetectionModel", example: priceData);
 
@@ -60,7 +63,7 @@ namespace WebScraper.Core.Parsers
             }
 
             if (priceHtmlElement is null && discountPriceHtmlElement is null)
-                return new PriceInfo(null, null, null, null);
+                return Task.FromResult(((decimal?)null, (decimal?)null));
 
             string price = ExtractPrice(priceHtmlElement);
             string discountPrice = ExtractPrice(discountPriceHtmlElement);
@@ -79,9 +82,12 @@ namespace WebScraper.Core.Parsers
                 discountPriceValue = temp;
             }
 
-            //TODO Сделать отдельные методы extract для каждого поля с возможностью переопределения
-            return new PriceInfo(priceValue, discountPriceValue, null, null);
+            return Task.FromResult(((decimal?)priceValue, discountPriceValue));
         }
+
+        protected override Task<string> ExtractAdditionalInformation(IDocument inputData, ExtractorSettings parserSettings) => Task.FromResult<string>(null);
+
+        protected override Task<string> ExtractOutofstockInformation(IDocument inputData, ExtractorSettings parserSettings) => Task.FromResult<string>(null);
 
         protected override string ExtractPrice(string priceString)
         {

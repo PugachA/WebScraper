@@ -13,6 +13,8 @@ namespace WebScraper.Data.Models
         [Required]
         public string Url { get; set; }
 
+        public string Name { get; set; }
+
         [JsonIgnore]
         [ForeignKey(nameof(Site))]
         public int SiteId { get; set; }
@@ -26,7 +28,7 @@ namespace WebScraper.Data.Models
         public bool IsDeleted { get; set; }
 
         [JsonIgnore]
-        public List<Price> Prices { get; set; }
+        public List<ProductData> ProductData { get; set; }
 
         public Product(string url, Site site, List<string> scheduler)
         {

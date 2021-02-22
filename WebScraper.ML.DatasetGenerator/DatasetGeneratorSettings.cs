@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using WebScraper.Core.Parsers;
+using WebScraper.Core.Extractors;
 
 namespace WebScraper.ML.DatasetGenerator
 {
@@ -17,7 +17,7 @@ namespace WebScraper.ML.DatasetGenerator
             UseParserSettings = true;
         }
 
-        public void AddParserSettings(ParserSettings parserSettings)
+        public void AddParserSettings(ExtractorSettings parserSettings)
         {
             if (PriceTags == null)
                 PriceTags = new List<string>();

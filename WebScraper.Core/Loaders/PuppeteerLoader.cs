@@ -7,7 +7,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using WebScraper.Core.Extensions;
-using WebScraper.Core.Parsers;
+using WebScraper.Core.Extractors;
 using WebScraper.Data.Models;
 
 namespace WebScraper.Core.Loaders
@@ -51,7 +51,7 @@ namespace WebScraper.Core.Loaders
             requestUri.StringNullOrEmptyValidate(nameof(requestUri));
             site.NullValidate(nameof(site));
 
-            var parserSettings = configuration.GetSection(site.Name).Get<ParserSettings>();
+            var parserSettings = configuration.GetSection(site.Name).Get<ExtractorSettings>();
 
             using var page = await browser.NewPageAsync();
             await page.GoToAsync(requestUri);

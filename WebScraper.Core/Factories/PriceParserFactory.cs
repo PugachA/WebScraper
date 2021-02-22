@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
-using WebScraper.Core.Parsers;
+using WebScraper.Core.Extractors;
 using WebScraper.Data.Models;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,18 +16,18 @@ namespace WebScraper.Core.Factories
             servicesProvider = serviceProvider;
         }
 
-        public IPriceParser<T> Get<T>(Site site)
+        public IProductDataExtractor<T> Get<T>(Site site)
         {
             switch (site.Settings.PriceParser)
             {
                 case "HtmlPriceParser":
-                    return servicesProvider.GetService<HtmlPriceParser>() as IPriceParser<T>;
+                    return servicesProvider.GetService<HtmlExtractor>() as IProductDataExtractor<T>;
                 case "MLPriceParser":
-                    return servicesProvider.GetService<MLPriceParser>() as IPriceParser<T>;
+                    return servicesProvider.GetService<MLExtractor>() as IProductDataExtractor<T>;
                 case "ComputerVisionParser":
-                    return servicesProvider.GetService<ComputerVisionParser>() as IPriceParser<T>;
+                    return servicesProvider.GetService<ComputerVisionExtractor>() as IProductDataExtractor<T>;
                 default:
-                    throw new ArgumentException($"{site.Settings.PriceParser} тип {typeof(IPriceParser<T>)} не поддерживается");
+                    throw new ArgumentException($"{site.Settings.PriceParser} тип {typeof(IProductDataExtractor<T>)} не поддерживается");
             }
         }
     }
