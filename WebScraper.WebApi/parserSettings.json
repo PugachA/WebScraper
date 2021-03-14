@@ -91,9 +91,9 @@
     "name": ".product-main-info-title"
   },
   "Youla": {
-    "waitingSelector": ".sc-oTPCg.iokgCh",
-    "priceHtmlPath": [ "span.sc-oTPCg.iokgCh" ],
-    "discountHtmlPath": "span.sc-oTPCg.iokgCh",
+    "waitingSelector": "span.sc-pcmTJ.ctFGlC",
+    "priceHtmlPath": [ "span.ssc-pcmTJ.ctFGlC" ],
+    "discountHtmlPath": "span.sc-pcmTJ.ctFGlC",
     "outOfStockHtmlPath": "",
     "name": "h2.sc-fznZeY.sc-jybEOA.fsvCoQ"
   },
